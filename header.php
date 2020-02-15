@@ -1,5 +1,8 @@
 
-<?php if(session_status() === PHP_SESSION_NONE) session_start(); ?>
+<?php if(session_status() === PHP_SESSION_NONE) session_start(); 
+
+
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +22,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
 
+    <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
         <a class="nav-link" href="homepage.php" class="active-page">Home</a>
       </li>
@@ -32,22 +35,26 @@
       </li>
 
         <li class="nav-item">
-            <?php
-
-                    if(isset($_SESSION["first_name"])){
-
-                    echo '<a class="nav-link" href ="logout.php">Logout</a>';
-                    } else {
-                    echo '<a class="nav-link" href="registration.php">REGISTER</a>';
-                    ?> 
+            <?php if(isset($_SESSION["first_name"])){   ?>
+                    <li class="nav-item" >
+                    <a class="nav-link" href ="logout.php"><?php echo "Logout"; ?> </a>
+                    
                     <li class="nav-item"> 
-                      <?php
-                    echo '<a class="nav-link" href="login.php">Login</a>';
+                    <a class="nav-link" href ="##"> <?php echo "Welcome $last_name";?> </a>
 
-                    echo '<ul>';
-                    }
+                    <li class="nav-item"> 
+            <?php
+                    } else {             
+                    echo '<a class="nav-link" href="registration.php">REGISTER</a>';
             ?> 
 
+
+                    <li class="nav-item"> 
+             <?php echo '<a class="nav-link" href="login.php">Login</a>';
+
+                   echo '</ul>';
+                    }
+             ?> 
       </li>    
       </li>
     </ul>
@@ -60,7 +67,7 @@
 }
 
 body { 
-  background: url("./background/blur-background09.jpg") no-repeat center center fixed; 
+  background: url("./background/blur-background11.jpg") no-repeat center center fixed; 
    background-color: #cccccc;
   -webkit-background-size: cover;
   -moz-background-size: cover;

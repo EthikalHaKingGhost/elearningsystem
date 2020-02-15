@@ -38,7 +38,7 @@ font-size: 12px;
 .card-img span {
 	position: absolute;
     top: 15%;
-    left: 12%;
+    left: 15%;
     background: #1ABC9C;
     padding: 6px;
     color: #fff;
@@ -128,6 +128,11 @@ a.btn-card {
                         if (mysqli_num_rows($result) > 0) {
                             // output data of each row
                             while($row = mysqli_fetch_assoc($result)) {
+                            
+                        $date_created = $row["date_created"];
+                        $time = strtotime($date_created);
+                        $date = date("m/d/y g:i A", $time);
+
 
                         $course_id = $row["course_id"]; 
                         $course_title = $row["course_title"];
@@ -140,17 +145,16 @@ a.btn-card {
     <div class="col-md-4">
                 <div class="card-content">
                     <div class="card-img">
-                        <img src="https://placeimg.com/380/230/nature" alt="">
-                        <span><h4>heading</h4></span>
+                    <span><h4><?php echo $date ?></h4></span>
+                        <img src="https://placeimg.com/380/230/nature" alt="">   
                     </div>
                     <div class="card-desc">
                         <h3><?php echo $course_title?></h3>
                         <p><?php echo $course_description ?></p>
-                            <a href="<?php echo $link ?>" class="btn-card">Read</a>   
+                            <a href="<?php echo $link ?>" class="btn-card">View</a>   
                     </div>
                 </div>
             </div>
-
 
                     <?php       
 
