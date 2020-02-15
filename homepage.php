@@ -12,15 +12,28 @@ if(isset($_SESSION["first_name"])){
 }
 
  include 'header.php';?> 
-<?php include 'slider.php';?>
+ 
+ 
+<?php include 'slider1.php';?>
 
 <br>
 <div class="container">
-  <h3>Collapsible Navbar</h3>
-  <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).</p>
-  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
-  <p>Tip: You can also remove the .navbar-expand-md class to ALWAYS hide navbar links and display the toggler button.</p>
+
+<div class="row">
+<div class="col-md-4">
+ <div class="card bg-secondary text-white" style="height: 100px">
+    <div class="card-body">Primary card</div>
+  </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<div class="col-md-4">
+ <div class="card bg-secondary text-white" style="height: 100px">
+    <div class="card-body">Secondary card</div>
+  </div>
+</div>
+</div>
+</div>
+  <br>
+  <br>
 
+<?php include 'footer.php'; ?>

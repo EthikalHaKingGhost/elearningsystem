@@ -1,10 +1,32 @@
 
+<?php 
+	if(isset($_POST["registration"])){
 
+include "connection.php";
 
+	$first_name = $_POST["first_name"];
+	$last_name = $_POST["last_name"];
+	$email = $_POST["email"];
+	$password = $_POST["password"];
+	
+	$password = password_hash($password, PASSWORD_DEFAULT);
 
+	//////////////////////////////////////////////////////////////
 
-<?php
+	$sql = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `regdate`) 
+	VALUES ('NULL', '$first_name', '$last_name', '$email', '$password', current_timestamp());";
 
+	if (mysqli_query($conn, $sql)) {
+         header("location: login.php");
+    
+        echo "Welcome please login in with your user credentials";
+
+       
+	} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+
+}
 
 
 include 'header.php'; ?>
@@ -32,6 +54,13 @@ include 'header.php'; ?>
     top: 55%;
     left: 0;
     z-index: 1;
+}
+
+.text-center{
+    color: White;
+}
+.card-title{
+    color: White;
 }
 
 .input-group-prepend span{
@@ -73,12 +102,10 @@ margin-bottom: auto;
 width: 100%;
 background-color: rgba(0,0,0,0.5) !important;
 }
+
+
 </style>
 
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
-<br>
 <br>
 <div class="container" >
 <div class="card bg-light">
@@ -92,51 +119,62 @@ background-color: rgba(0,0,0,0.5) !important;
 	<p class="divider-text">
         <span class="bg-light">OR</span>
     </p>
-	<form>
+	<form action="registration.php" method= "post">
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="first_name" class="form-control" placeholder="First Name" type="text">
+        <input name="first_name" class="form-control" placeholder="First Name" type="text" required>
+
+
+
     </div> <!-- form-group// -->
     <div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="last_name" class="form-control" placeholder="Last Name" type="text">
+        <input name="last_name" class="form-control" placeholder="Last Name" type="text" required>
     </div> <!-- form-group// -->
+
+
+
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="email" class="form-control" placeholder="Email address" type="email">
+        <input name="email" class="form-control" placeholder="Email address" type="email" required>
     </div> <!-- form-group// -->
+
+
+
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-		</div>
+			</div>
 		<select class="form-control">
-			<option selected="">Employment status</option>
+			<option selected=""> Select employement status</option>
 			<option>Employed</option>
 			<option>Unemployed</option>
 		</select>
 	</div> <!-- form-group end.// -->
+
+
+
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input  name="password" class="form-control" placeholder="Create password" type="password">
-    </div> <!-- form-group// -->
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input name="password" class="form-control" placeholder="Repeat password" type="password">
-    </div> <!-- form-group// -->                                      
+
+        <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+	title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></p>
+    </div> <!-- form-group// -->    
+
+
     <div class="form-group">
-        <button name="registration" type="submit" class="btn btn-primary btn-block" value="register" > Create Account  </button>
+        <button name="registration" type="submit" class="btn btn-primary btn-block" value="register"> Create Account  </button>
     </div> <!-- form-group// -->      
-    <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>                                                                 
+    <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
+
 </form>
 </article>
 </div> <!-- card.// -->
