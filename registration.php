@@ -4,30 +4,43 @@
 
 include "connection.php";
 
+//google recaptcha 
+    $secret = "6LfAXtkUAAAAALan_VfC9IweBZkDE5SRSJUIP5Lz";
+    $response = $_POST["g-recaptcha-response"];
+    $remoteip = $_SERVER["REMOTE_ADDR"];
+    $recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$remoteip";
+    $google_response =  file_get_contents($recaptcha_url);
+    $google_details = json_decode($google_response);
+
+//login only if reCAPTCHA is clicked on 
+ if($google_details->success){
+
+
 	$first_name = $_POST["first_name"];
 	$last_name = $_POST["last_name"];
 	$email = $_POST["email"];
 	$password = $_POST["password"];
-	
 	$password = password_hash($password, PASSWORD_DEFAULT);
-
-	//////////////////////////////////////////////////////////////
 
 	$sql = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `regdate`) 
 	VALUES ('NULL', '$first_name', '$last_name', '$email', '$password', current_timestamp());";
 
+
 	if (mysqli_query($conn, $sql)) {
          header("location: login.php");
-    
-        echo "Welcome please login in with your user credentials";
-
        
 	} else {
 		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
 
-}
 
+        }else{
+        
+       echo "Please click google reCAPTCHA";
+
+        }
+
+}
 
 include 'header.php'; ?>
 
@@ -103,8 +116,9 @@ width: 100%;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
-
 </style>
+
+
 
 <br>
 <div class="container" >
@@ -119,12 +133,18 @@ background-color: rgba(0,0,0,0.5) !important;
 	<p class="divider-text">
         <span class="bg-light">OR</span>
     </p>
+
+
+
+
+
+
 	<form action="registration.php" method= "post">
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="first_name" class="form-control" placeholder="First Name" type="text" required>
+        <input name="first_name" class="form-control" placeholder="First Name" type="text" >
 
 
 
@@ -137,7 +157,6 @@ background-color: rgba(0,0,0,0.5) !important;
     </div> <!-- form-group// -->
 
 
-
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
@@ -145,33 +164,22 @@ background-color: rgba(0,0,0,0.5) !important;
         <input name="email" class="form-control" placeholder="Email address" type="email" required>
     </div> <!-- form-group// -->
 
-
-
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-			</div>
-		<select class="form-control">
-			<option selected=""> Select employement status</option>
-			<option>Employed</option>
-			<option>Unemployed</option>
-		</select>
-	</div> <!-- form-group end.// -->
-
-
-
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
 
-        <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-	title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></p>
+    <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+	title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
     </div> <!-- form-group// -->    
 
+<!------googlerecaptcha ----->
+
+   <div class="g-recaptcha" data-sitekey="6LfAXtkUAAAAAOw3rmTY3-n___31Jx4JaXugeUG-"></div>
 
     <div class="form-group">
         <button name="registration" type="submit" class="btn btn-primary btn-block" value="register"> Create Account  </button>
+    
     </div> <!-- form-group// -->      
     <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
 

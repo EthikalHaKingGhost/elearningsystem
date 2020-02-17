@@ -57,6 +57,7 @@ if(isset($_GET["cid"])){
                     $enroll_id = mysqli_insert_id($conn);
                     $link = "topics.php?eid=$enroll_id&cid=$course_id";
                     header("location: $link");
+
                     exit();
                         
                 } else {
@@ -79,8 +80,10 @@ include 'header.php'; ?>
 <form action="<?php echo $page;?>" method="post">
 <input class= "btn btn-success btn-lg" type=submit value="enroll" name="enroll">
 <a class="btn btn-danger btn-lg" href="courses.php">Cancel</a>
+</form>
 </div>
 </div>
 <br>
 <br>
+
 <?php include 'footer.php'; ?>

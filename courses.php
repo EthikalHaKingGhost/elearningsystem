@@ -1,5 +1,10 @@
 
-<?php include 'header.php'; ?>
+<?php   
+                                            
+            
+
+
+include 'header.php'; ?>
 
 <style>
 
@@ -112,7 +117,8 @@ a.btn-card {
 /* End card section */
 </style>
 
-<!-- details card section starts from here -->
+
+
 
 <?php  include 'connection.php'; ?>
 
@@ -120,8 +126,12 @@ a.btn-card {
     <div class="container">
         <div class="row">
 
-                    <?php 
-                             
+
+<?php 
+
+/////////////////////////////////////////////////////////////////////                   
+
+
                                 $sql = "SELECT * FROM Courses";
                         $result = mysqli_query($conn, $sql);
 
@@ -133,38 +143,42 @@ a.btn-card {
                         $time = strtotime($date_created);
                         $date = date("m/d/y g:i A", $time);
 
-
+                        
                         $course_id = $row["course_id"]; 
                         $course_title = $row["course_title"];
                         $course_description = $row["course_description"];
                         $course_img = $row["course_img"];
-                        $link = "enrollment.php?cid=$course_id";      
-                    ?>
+                        $link = "enrollment.php?cid=$course_id";    
+
+///////////////////////////////////////////////////////////////////////////   
+              
+?>
 
 
-    <div class="col-md-4">
+
+    <div class="col-md-4 mt-4">
                 <div class="card-content">
                     <div class="card-img">
                     <span><h4><?php echo $date ?></h4></span>
-                        <img src="https://placeimg.com/380/230/nature" alt="">   
+                        <img src="<?php echo $course_img ?>" alt="">   
                     </div>
                     <div class="card-desc">
                         <h3><?php echo $course_title?></h3>
                         <p><?php echo $course_description ?></p>
-                            <a href="<?php echo $link ?>" class="btn-card">View</a>   
+                            <p><a href="<?php echo $link ?>" class="btn-card">View</a>   
+                               
                     </div>
                 </div>
-            </div>
+            </div>           
+     <?php    
+}
+                
+    } else {
+     echo "0 results";
+}
 
-                    <?php       
-
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-
-                    ?>
-
+             
+                ?>
         </div>
     </div>
 </section>

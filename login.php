@@ -5,8 +5,12 @@ session_start();
 if(isset($_POST["login"])){
 
     include "connection.php";
-    $email = $_POST["email"];                                           
+
+//add login as admin functionality
+
+    $email = $_POST["email"];                       
     $password = $_POST["password"];
+
 
     $sql = "SELECT * FROM `users` WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
@@ -63,7 +67,6 @@ font-size: 60px;
 margin-left: 10px;
 color: #FFC312;
 }
-
 .social_icon span:hover{
 color: white;
 cursor: pointer;
@@ -76,7 +79,7 @@ color: white;
 .social_icon{
 position: absolute;
 right: 20px;
-top: -45px;
+top: -15px;
 }
 
 .input-group-prepend span{

@@ -65,20 +65,18 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
 <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
 <p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
 <p><i class="fa fa-phone"></i>  +91-9999878398  </p>
-<p><i class="fa fa fa-envelope"></i> info@example.com  </p>
+<p><i class="fa fa fa-envelope"></i> Elearingproject2020@ecu.com</p>
 </div>
 
 
-<div class=" col-sm-4 col-md  col-6 col">
+<div class=" col-sm-4 col-md  col-12 col">
 <h5 class="headin5_amrc col_white_amrc pt2">I want to</h5>
 <!--headin5_amrc-->
 <ul class="footer_ul_amrc">
-<li><a href="http://webenlance.com">Image Rectoucing</a></li>
-<li><a href="http://webenlance.com">Clipping Path</a></li>
-<li><a href="http://webenlance.com">Hollow Man Montage</a></li>
-<li><a href="http://webenlance.com">Ebay & Amazon</a></li>
-<li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-<li><a href="http://webenlance.com">Image Cropping</a></li>
+<li><a href="login.php">Log into my account</a></li>
+<li><a href="courses.php">Select a course</a></li>
+<li><a href="about.php">Know about the school</a></li>
+<li><a href="registration.php">Register for an account</a></li>
 </ul>
 <!--footer_ul_amrc ends here-->
 </div>
@@ -88,18 +86,16 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
 <h5 class="headin5_amrc col_white_amrc pt2">Go to</h5>
 <!--headin5_amrc-->
 <ul class="footer_ul_amrc">
-<li><a href="http://webenlance.com">Remove Background</a></li>
-<li><a href="http://webenlance.com">Shadows & Mirror Reflection</a></li>
-<li><a href="http://webenlance.com">Logo Design</a></li>
-<li><a href="http://webenlance.com">Vectorization</a></li>
-<li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-<li><a href="http://webenlance.com">Image Cropping</a></li>
+<li><a href="#top">Back to top of page</a></li>
+<li><a href="homepage.php">Home Page</a></li>
+<li><a href="##">Go to my account</a></li>
+
 </ul>
 <!--footer_ul_amrc ends here-->
 </div>
 
 
-<div class=" col-sm-4 col-md  col-12 col">
+<div class=" col-sm-4 col-md  col-6 col">
 <h5 class="headin5_amrc col_white_amrc pt2">Follow us</h5>
 <!--headin5_amrc ends here-->
 
@@ -116,11 +112,11 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
 
 <div class="container">
 <ul class="footer_bottom_ul_amrc">
-<li><a href="http://webenlance.com">Home</a></li>
-<li><a href="http://webenlance.com">About</a></li>
-<li><a href="http://webenlance.com">Courses</a></li>
-<li><a href="http://webenlance.com">Fees and funding</a></li>
-<li><a href="http://webenlance.com">Elearning Community</a></li>
+<li><a href="homepage.php">Home</a></li>
+<li><a href="about.php">About</a></li>
+<li><a href="Courses.php">Courses</a></li>
+<li><a href="##">Fees and funding</a></li>
+<li><a href="#Blog.php#>Student Community</a></li>
 </ul>
 <!--footer_bottom_ul_amrc ends here-->
 <p class="text-center">Copyright @2020 Elearningproject | <a href="#" class="text-center-link">Terms of use</a> | <a href="#" class="text-center-link">Privacy Policy</a></p>

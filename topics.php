@@ -1,21 +1,31 @@
 
-
-
-
 <?php 
-
-
 if(isset($_GET["cid"])){
 $course_id = $_GET["cid"];
 
 }else {
 
-    echo "No info in url";
+    echo "No info in the url";
     exit();
-
 }
 
+
+
+if(isset($_GET["eid"])){
+    $enroll_id = $_GET["eid"];
+}else{
+    echo "No enroll id in the url";
+
+    exit();
+}
+
+ 
+
 include 'header.php'; ?>
+
+
+
+
 
 <style>
 
@@ -132,13 +142,12 @@ a.btn-card {
 <?php include 'connection.php'; ?>
 
 <!-- details card section starts from here -->
-<section class="details-card">
-    <div class="container">
-        <div class="row">
+            <section class="details-card">
+                <div class="container">
+                    <div class="row">
 
-
-                    <?php 
-                    
+                    <?php
+                     
                     $sql = "SELECT * FROM topics_assigned, courses, topics
                                      WHERE topics_assigned.course_id = courses.course_id
                                      AND topics_assigned.topic_id =topics.topic_id
@@ -149,13 +158,11 @@ a.btn-card {
                 if (mysqli_num_rows($result) > 0) {
                     // output data of each row
                     while($row = mysqli_fetch_assoc($result)) {
-
+                            
                             $topic_id = $row["topic_id"];
                             $topic_title = $row["topic_title"];
                             $topic_description = $row["topic_description"];
-                            $link= "details.php";
-
-
+                            $link= "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id";
 
                              ?>
                     

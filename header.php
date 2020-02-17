@@ -14,6 +14,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!----google recaptcha -----> 
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!----google recaptcha end ----->
+
+</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -35,18 +43,23 @@
       </li>
 
         <li class="nav-item">
-            <?php if(isset($_SESSION["first_name"])){   ?>
+            <?php if(isset($_SESSION["first_name"])){  
+
+              $first_name = $_SESSION["first_name"];
+              $last_name = $_SESSION["last_name"];
+
+              ?>
                     <li class="nav-item" >
                     <a class="nav-link" href ="logout.php"><?php echo "Logout"; ?> </a>
                     
                     <li class="nav-item"> 
-                    <a class="nav-link" href ="##"> <?php echo "Welcome $last_name";?> </a>
+                    <a class="nav-link" href ="##"> <?php echo "Welcome $first_name $last_name";?> </a>
 
                     <li class="nav-item"> 
-            <?php
+             <?php
                     } else {             
                     echo '<a class="nav-link" href="registration.php">REGISTER</a>';
-            ?> 
+             ?> 
 
 
                     <li class="nav-item"> 
@@ -55,11 +68,11 @@
                    echo '</ul>';
                     }
              ?> 
-      </li>    
-      </li>
-    </ul>
-  </div>  
-</nav>
+            </li>    
+            </li>
+          </ul>
+        </div>  
+      </nav>
 
 <style>
 .nav .nav-link{
