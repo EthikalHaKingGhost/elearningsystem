@@ -1,5 +1,15 @@
 
 <?php 
+if(session_status() === PHP_SESSION_NONE) session_start();
+
+if(isset($_SESSION["user_id"])){
+    $user_id = $_SESSION["user_id"];
+}else{
+    echo "please login";
+    exit();
+
+}
+
 if(isset($_GET["cid"])){
 $course_id = $_GET["cid"];
 
@@ -22,9 +32,6 @@ if(isset($_GET["eid"])){
  
 
 include 'header.php'; ?>
-
-
-
 
 
 <style>

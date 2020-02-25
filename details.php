@@ -1,6 +1,35 @@
-<?php include 'header.php'; ?>
+<?php 
+if(session_status() === PHP_SESSION_NONE) session_start();
 
-//Recaptcha functionality 
+if(isset($_GET["eid"])){
+    $enroll_id = $_GET["eid"];
+}else{
+    echo "No enroll id in the url";
+
+    exit();
+}
+
+
+if(isset($_GET["cid"])){
+$course_id = $_GET["cid"];
+
+}else {
+
+    echo "No courses Id in the url";
+    exit();
+}
+
+
+
+if(isset($_GET["tid"])){
+    $topic_id = $_GET["tid"];
+}else{
+    echo "No topic id in the url";
+
+    exit();
+}
+
+include 'header.php'; ?>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Bootstrap 4 Accordion</title>
@@ -11,67 +40,71 @@
 </style>
 
 
+
+
+
 </head>
 <body>
 
-
-
 <div class="container">
+<br>
+<br>
+<br>
 <div class="card">
 <div class="card-body">
 <h1>Deatails</h1>
 <p>
-Mathematics (from Greek μάθημα máthēma, "knowledge, study, learning") includes the study of such topics as quantity (number theory),[1] structure (algebra),[2] space (geometry),[1] and change (mathematical analysis).[3][4][5] It has no generally accepted definition.[6][7]
-Mathematicians seek and use patterns[8][9] to formulate new conjectures; they resolve the truth or falsity of conjectures by mathematical proof. When mathematical structures are good models of real phenomena, mathematical reasoning can be used to provide insight or predictions about nature. Through the use of abstraction and logic, mathematics developed from counting, calculation, measurement, and the systematic study of the shapes and motions of physical objects. Practical mathematics has been a human activity from as far back as written records exist. The research required to solve mathematical problems can take years or even centuries of sustained inquiry.
+Addition (usually signified by the plus symbol "+") is one of the four basic operations of arithmetic; the others are subtraction, multiplication and division. The addition of two whole numbers is the total amount of those values combined. For example, in the adjacent picture, there is a combination of three apples and two apples together, making a total of five apples. This observation is equivalent to the mathematical expression "3 + 2 = 5" i.e., "3 add 2 is equal to 5".
 </p>
+
+
+<?php
+
+include 'connection.php';
+
+$sql = "SELECT * FROM quizzes";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+    
+        $quiz_id = $row["quiz_id"];
+        $quiz_title = $row["quiz_title"];
+        $quiz_description = $row["quiz_description"];
+        $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+
+    ?>
+
 
 <div class="bs-example">
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">1. What is HTML?</button>									
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><?php echo $quiz_title ?></button>                                    
                 </h2>
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                    <p>HTML stands for HyperText Markup Language. HTML is the standard markup language for describing the structure of web pages. <a href="#" target="_blank">Learn more.</a></p>
-                </div>
+                    <p><?php echo $quiz_description ?><a href="<?php echo "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";?>" target="_blank">Learn more.</a></p>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">2. What is Bootstrap?</button>
-                </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="card-body">
-                    <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="#" target="_blank">Learn more.</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">3. What is CSS?</button>                     
-                </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
-                    <p>CSS stands for Cascading Style Sheet. CSS allows you to specify various style properties for a given HTML element such as colors, backgrounds, fonts etc. <a href="#" target="_blank">Learn more.</a></p>
-                </div>
-            </div>
-           </div>
-         </div>
-        </div>
-      </div>
-     </div>
-   </div>
+    </div>
+ </div>
 </div>
 </div>
-</div>
-</body>
-</html>                                                        
+                                                      
+    <?php
+
+    }
+} else {
+    echo "Not in database";
+}
+
+?>
+<br>                                   
 
 <?php include 'footer.php'; ?>
