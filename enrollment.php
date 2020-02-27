@@ -4,24 +4,25 @@
 
 session_start();
 
-if(isset($_SESSION["user_id"])){
-    $user_id = $_SESSION["user_id"];
-}else{
-    echo "please login";
-    exit();
+    if(isset($_SESSION["user_id"])){
+        $user_id = $_SESSION["user_id"];
+    }else{
+        echo "please login";
+        exit();
 
-}
+    }
 
 
-if(isset($_GET["cid"])){
-    $course_id = $_GET["cid"];
-    $page= "enrollment.php?cid=$course_id";
-}else{
-    echo "No course id in the url";
 
-    exit();
-}
 
+    if(isset($_GET["cid"])){
+         $course_id = $_GET["cid"];
+         $page= "enrollment.php?cid=$course_id";             
+    }else{
+         echo "No course id in the url";
+         exit();
+    }           
+        
 
                 include 'connection.php'; 
 

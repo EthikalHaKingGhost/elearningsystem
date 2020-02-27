@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!----------bootstrap------------>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +16,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!--------------fontawesome------------------------------->
+
+<script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
+
 
 <!----google recaptcha -----> 
 
@@ -31,16 +38,16 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-    <ul class="nav navbar-nav navbar-right">
-      <li class="nav-item">
-        <a class="nav-link" href="homepage.php" class="active-page">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="about.php" class="active-page">About Us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="courses.php"class="active-page">Courses</a>
-      </li>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                <a class="nav-link" href="homepage.php" class="active-page">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.php" class="active-page">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="courses.php"class="active-page">Courses</a>
+              </li>
 
         <li class="nav-item">
             <?php if(isset($_SESSION["first_name"])){  
@@ -79,7 +86,7 @@
   color: orange;
 }
 
-body { 
+/*body { 
   background: url("./background/blur-background11.jpg") no-repeat center center fixed; 
    background-color: #cccccc;
   -webkit-background-size: cover;

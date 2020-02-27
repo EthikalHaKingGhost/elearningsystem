@@ -144,7 +144,7 @@ background-color: rgba(0,0,0,0.5) !important;
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="first_name" class="form-control" placeholder="First Name" type="text" >
+        <input name="first_name" class="form-control" placeholder="First Name" type="text" required>
 
 
 
@@ -172,6 +172,8 @@ background-color: rgba(0,0,0,0.5) !important;
     <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
 	title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
     </div> <!-- form-group// -->    
+
+
 
 <!------googlerecaptcha ----->
 

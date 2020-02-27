@@ -131,7 +131,7 @@ a.btn-card {
 /////////////////////////////////////////////////////////////////////                   
 
 
-                                $sql = "SELECT * FROM Courses";
+                        $sql = "SELECT * FROM Courses";
                         $result = mysqli_query($conn, $sql);
 
                         if (mysqli_num_rows($result) > 0) {
