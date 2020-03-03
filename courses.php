@@ -118,7 +118,6 @@ a.btn-card {
 
 
 
-
 <?php  include 'connection.php'; ?>
 
 <section class="details-card">
@@ -128,61 +127,65 @@ a.btn-card {
 
 <?php 
 
-/////////////////////////////////////////////////////////////////////                   
+        $sql = "SELECT * FROM Courses";
+        $result = mysqli_query($conn, $sql);
 
-
-                        $sql = "SELECT * FROM Courses";
-                        $result = mysqli_query($conn, $sql);
-
-                        if (mysqli_num_rows($result) > 0) {
-                            // output data of each row
-                            while($row = mysqli_fetch_assoc($result)) {
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($result)) {
                             
-                        $date_created = $row["date_created"];
-                        $time = strtotime($date_created);
-                        $date = date("m/d/y g:i A", $time);
+        $date_created = $row["date_created"];
+        $time = strtotime($date_created);
+        $date = date("m/d/y g:i A", $time);
 
                         
-                        $course_id = $row["course_id"]; 
-                        $course_title = $row["course_title"];
-                        $course_description = $row["course_description"];
-                        $course_img = $row["course_img"];
-                        $link = "enrollment.php?cid=$course_id";    
-
-///////////////////////////////////////////////////////////////////////////   
-              
-?>
+        $course_id = $row["course_id"]; 
+        $course_title = $row["course_title"];
+        $course_description = $row["course_description"];
+        $course_img = $row["course_img"];
+        $link = "enrollment.php?cid=$course_id";    
+             
+    ?>
 
 
 
     <div class="col-md-4 mt-4">
-                <div class="card-content">
-                    <div class="card-img">
-                    <span><h4><?php echo $date ?></h4></span>
-                        <img src="<?php echo $course_img ?>" alt="">   
-                    </div>
-                    <div class="card-desc">
-                        <h3><?php echo $course_title?></h3>
-                        <p><?php echo $course_description ?></p>
-                            <p><a href="<?php echo $link ?>" class="btn-card">View</a>   
-                               
-                    </div>
-                </div>
-            </div>           
-     <?php    
-}
-                
-    } else {
-     echo "0 results";
-}
+        <div class="card-content">
+           <div class="card-img">
+              <span><h4><?php echo $date ?></h4></span>
+                <img src="<?php echo "$course_img" ?>" alt="">   
+                  </div>
+        <div class="card-desc">
+                  <h3><?php echo $course_title?></h3>
+                <p><?php echo $course_description ?></p>
+              <p><a href="<?php echo $link ?>" class="btn-card">View</a>                  
+            </div>
+           </div>
+          </div>
 
+
+
+    <?php 
+
+        }
+                        
+          }else{
+           echo "0 results";
+        }
              
-                ?>
-        </div>
-    </div>
+    ?>
+
+
+
+  </div>
+ </div>
 </section>
+
 <!-- details card section starts from here -->
 
 <?php include 'footer.php'; ?>
+
+
+
 
 

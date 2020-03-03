@@ -10,7 +10,6 @@ session_start();
 }
 
 
-
 	if(isset($_SESSION["attempt_id"])){
 	    $attempt_id = $_SESSION["attempt_id"];
 	    $question_number = $_SESSION["question_number"];
@@ -39,9 +38,6 @@ session_start();
 		}else {
 			$icon = '<i class="fas fa-times-circle answer_icon red"></i>';
 		}
-
-
-
 
 		include 'connection.php';
 

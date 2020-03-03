@@ -8,7 +8,6 @@
 <html lang="en">
 <head>
 
-<!----------bootstrap------------>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +21,10 @@
 <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
 
 
-<!----google recaptcha -----> 
+
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-<!----google recaptcha end ----->
 
 </script>
 </head>
@@ -40,7 +38,7 @@
 
             <ul class="nav navbar-nav navbar-right">
               <li class="nav-item">
-                <a class="nav-link" href="homepage.php" class="active-page">Home</a>
+                <a class="nav-link" href="index.php" class="active-page">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.php" class="active-page">About Us</a>
@@ -63,27 +61,34 @@
                     <a class="nav-link" href ="##"> <?php echo "Welcome $first_name $last_name";?> </a>
 
                     <li class="nav-item"> 
-             <?php
-                    } else {             
-                    echo '<a class="nav-link" href="registration.php">REGISTER</a>';
-             ?> 
 
+                    <?php
+                           } else {             
+                           echo '<a class="nav-link" href="registration.php">REGISTER</a>';
+                     ?>
 
                     <li class="nav-item"> 
-             <?php echo '<a class="nav-link" href="login.php">Login</a>';
+                          <?php echo '<a class="nav-link" href="login.php">Login</a>';
+                           echo '</ul>';
+                       }
 
-                   echo '</ul>';
-                    }
-             ?> 
-            </li>    
-            </li>
-          </ul>
-        </div>  
-      </nav>
-
-<style>
+                     ?>        
+                    </li>    
+                 </li>
+               </ul>
+             </div>  
+           </nav>
+       <style>
+        
 .nav .nav-link{
   color: orange;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
 }
 
 /*body { 

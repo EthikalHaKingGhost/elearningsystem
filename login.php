@@ -27,7 +27,7 @@ if(isset($_POST["login"])){
                     $_SESSION["first_name"] = $row["first_name"];
                     $_SESSION["last_name"] = $row["last_name"];
                     $_SESSION["email"] = $row["email"];             
-                    header("location: homepage.php");
+                    header("location: index.php");
                      // for login page
                     //redirect to page
             } else 

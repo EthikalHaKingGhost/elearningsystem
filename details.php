@@ -1,4 +1,5 @@
 <?php 
+
 if(session_status() === PHP_SESSION_NONE) session_start();
 
 if(isset($_GET["eid"])){
@@ -37,74 +38,165 @@ include 'header.php'; ?>
     .bs-example{
         margin: 20px;
     }
+
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    color: lightblue;
+
+    text-decoration: none;
+    color: initial;
+}
+
 </style>
 
+<?php
 
+include'connection.php';
 
+$sql = "SELECT * FROM topics WHERE topics.topic_id=$topic_id";
 
+$result = mysqli_query($conn, $sql);
 
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+
+    while($row = mysqli_fetch_assoc($result)) {
+
+      $topic_title = $row["topic_title"];
+      $topic_description = $row["topic_description"];
+
+    }
+  }
+
+?>
 </head>
 <body>
-
+<br> 
 <div class="container">
-<br>
-<br>
-<br>
 <div class="card">
 <div class="card-body">
-<h1>Deatails</h1>
-<p>
-Addition (usually signified by the plus symbol "+") is one of the four basic operations of arithmetic; the others are subtraction, multiplication and division. The addition of two whole numbers is the total amount of those values combined. For example, in the adjacent picture, there is a combination of three apples and two apples together, making a total of five apples. This observation is equivalent to the mathematical expression "3 + 2 = 5" i.e., "3 add 2 is equal to 5".
-</p>
+<h1> <?php echo $topic_title ?> </h1>
+<p><?php echo $topic_description ?></p>
 
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Completion</th>
+      <th scope="col">Lesson Title</th>
+      <th scope="col">Lesson Type</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+<tbody>
 
 <?php
 
 include 'connection.php';
 
-$sql = "SELECT * FROM quizzes";
+$sql = "SELECT * FROM lessons";
+
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
+
     while($row = mysqli_fetch_assoc($result)) {
-    
-        $quiz_id = $row["quiz_id"];
-        $quiz_title = $row["quiz_title"];
-        $quiz_description = $row["quiz_description"];
-        $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
-
-    ?>
+        $lesson_title = $row["lesson_title"];
+        $lesson_type = $row["lesson_type"];
+       
+       // $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
 
 
-<div class="bs-example">
-    <div class="accordion" id="accordionExample">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><?php echo $quiz_title ?></button>                                    
-                </h2>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                    <p><?php echo $quiz_description ?><a href="<?php echo "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";?>" target="_blank">Learn more.</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
- </div>
-</div>
-</div>
-                                                      
-    <?php
+?> 
+<!---begin $time_spent when Launch button is clicked----->
+      <!---default $completion = incomplete ---->
+      <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
+      <!---the completion shows complete after the button completed is clicked in the lesson, if complete button is activated after crtain time..complete is linked to another table---->
+    <tr> 
+      <th scope="row"> complete </th>
+      <td><?php echo $lesson_title; ?></td>
+      <td><?php echo $lesson_type; ?></td>
+      <td><a class="btn btn-success" href="<?php echo "#";?>">Launch</a></td>   
+    </tr>
+ 
 
-    }
-} else {
-    echo "Not in database";
-}
+<?php 
+
+   }
+ }
 
 ?>
+</tbody>
+</table>  
+<br> 
+
+
+
+
+<hr>
+
+
+
+
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Score</th>
+      <th scope="col">Quiz Title</th>
+      <th scope="col">Quiz Type</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+<tbody>
+<?php
+
+include 'connection.php';
+
+$sql = "";
+
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+
+    while($row = mysqli_fetch_assoc($result)) {
+        $total_correct = $row["total_correct"];
+        $total_questions = $row["total_questions"];
+
+        $quiz_id = $row["quiz_id"];
+        $quiz_title = $row["quiz_title"];
+        $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+
+
+?> 
+    <tr>
+
+      <th scope="row"><?php echo $total_correct;?>/<?php echo $total_questions;?></th>
+      <td><?php echo $quiz_title; ?></td>
+      <td>#</td>
+      <td><a class="btn btn-success" href="<?php echo "$link";?>">Launch</a></td>   
+    </tr>
+ 
+
+<?php 
+
+   }
+ }
+
+?>
+</tbody>
+</table>  
+</div>
+</div>
+</div>
 <br>                                   
+
+
+
 
 <?php include 'footer.php'; ?>

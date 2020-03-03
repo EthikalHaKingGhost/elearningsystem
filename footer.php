@@ -1,139 +1,153 @@
 
 
 <style>
-/*footer*/
 
-.col_white_amrc { color:#FFF;}
-footer { width:100%; background-color:#263238; min-height:250px; padding:10px 0px 25px 0px ;}
-.pt2 { padding-top:40px ; margin-bottom:20px ;}
-
-footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
-.mb10 { padding-bottom:15px ;}
-.footer_ul_amrc { margin:0px ; list-style-type:none ; font-size:14px; padding:0px 0px 10px 0px ; }
-.footer_ul_amrc li {padding:0px 0px 5px 0px;}
-.footer_ul_amrc li a{ color:#CCC;}
-.footer_ul_amrc li a:hover{ color:#FFC312; text-decoration:none;}
-.fleft { float:left;}
-.padding-right { padding-right:10px; }
-
-.footer_ul2_amrc {margin:0px; list-style-type:none; padding:0px;}
-.footer_ul2_amrc li p { display:table; }
-.footer_ul2_amrc li a:hover { color: #FFC312; text-decoration:none;}
-.footer_ul2_amrc li i { margin-top:5px;}
-
-.bottom_border { border-bottom:1px solid #323f45; padding-bottom:20px;}
-.footer_bottom_ul_amrc {
-	list-style-type:none;
-	padding:0px;
-	display:table;
-	margin-top: 10px;
-	margin-right: auto;
-	margin-bottom: 10px;
-	margin-left: auto;
+footer {
+  background: #16222A;
+  background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
+  background: linear-gradient(59deg, #3A6073, #16222A);
+  color: white;
+  margin-top:100px;
 }
-.footer_bottom_ul_amrc li { display:inline;}
-.footer_bottom_ul_amrc li a { color:#999; margin:0 12px;}
-.footer_bottom_ul_amrc li a:hover {color: #FFC312;}
-.social_footer_ul { display:table; margin:15px auto 0 auto; list-style-type:none;}
-.social_footer_ul li { padding-left:20px; padding-top:10px; float:left; }
-.social_footer_ul li a { color:#CCC; border:1px solid #CCC; padding:8px;border-radius:50%;}
-.social_footer_ul li i {  width:20px; height:20px; text-align:center;}
 
-.fa-facebook-f:hover { color:white;} 
-.fa-twitter:hover{color:white; }
-.fa-linkedin:hover {color:white; }
+footer a {
+  color: #fff;
+  font-size: 14px;
+  transition-duration: 0.2s;
+}
 
-.text-center-link:hover {color:#FFC312;}
+footer a:hover {
+  color: #FA944B;
+  text-decoration: none;
+}
 
+.copy {
+  font-size: 12px;
+  padding: 10px;
+  border-top: 1px solid #FFFFFF;
+}
+
+.footer-middle {
+  padding-top: 2em;
+  color: white;
+}
+
+
+
+
+/*social icons*/
+.social:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ .social {
+     -webkit-transform: scale(0.8);
+     /* Browser Variations: */
+     
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+
+ 
+ #social-fb:hover {
+     color: #3B5998;
+ }
+ #social-tw:hover {
+     color: #4099FF;
+ }
+ #social-gp:hover {
+     color: #d34836;
+ }
+ #social-em:hover {
+     color: #f39c12;
+ }
 
 </style>
 
     
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+ <!--Fontawesome CDN-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="styles.css">
+		<!--Custom styles-->
+		<link rel="stylesheet" type="text/css" href="styles.css">
 
-<!--footer starts from here-->
-<footer class="footer">
-<div class="container bottom_border">
-<div class="row">
-<div class=" col-sm-4 col-md col-sm-4  col-12 col">
-<h5 class="headin5_amrc col_white_amrc pt2">Help and Support</h5>
-<!--headin5_amrc-->
-<p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-<p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
-<p><i class="fa fa-phone"></i>  +91-9999878398  </p>
-<p><i class="fa fa fa-envelope"></i> Elearingproject2020@ecu.com</p>
-</div>
+</head>
+<body>
 
-
-<div class=" col-sm-4 col-md  col-12 col">
-<h5 class="headin5_amrc col_white_amrc pt2">I want to</h5>
-<!--headin5_amrc-->
-<ul class="footer_ul_amrc">
-<li><a href="login.php">Log into my account</a></li>
-<li><a href="courses.php">Select a course</a></li>
-<li><a href="about.php">Know about the school</a></li>
-<li><a href="registration.php">Register for an account</a></li>
-</ul>
-<!--footer_ul_amrc ends here-->
-</div>
-
-
-<div class=" col-sm-4 col-md  col-6 col">
-<h5 class="headin5_amrc col_white_amrc pt2">Go to</h5>
-<!--headin5_amrc-->
-<ul class="footer_ul_amrc">
-<li><a href="#top">Back to top of page</a></li>
-<li><a href="homepage.php">Home Page</a></li>
-<li><a href="##">Go to my account</a></li>
-
-</ul>
-<!--footer_ul_amrc ends here-->
-</div>
-
-
-<div class=" col-sm-4 col-md  col-6 col">
-<h5 class="headin5_amrc col_white_amrc pt2">Follow us</h5>
-<!--headin5_amrc ends here-->
-
-<ul class="footer_ul2_amrc">
-<li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
-<li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
-<li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
-</ul>
-<!--footer_ul2_amrc ends here-->
-</div>
-</div>
-</div>
-
-
-<div class="container">
-<ul class="footer_bottom_ul_amrc">
-<li><a href="homepage.php">Home</a></li>
-<li><a href="about.php">About</a></li>
-<li><a href="Courses.php">Courses</a></li>
-<li><a href="##">Fees and funding</a></li>
-<li><a href="#Blog.php#>Student Community</a></li>
-</ul>
-<!--footer_bottom_ul_amrc ends here-->
-<p class="text-center">Copyright @2020 Elearningproject | <a href="#" class="text-center-link">Terms of use</a> | <a href="#" class="text-center-link">Privacy Policy</a></p>
-
-<ul class="social_footer_ul" >
-<li><a href="http://webenlance.com"><i class="fab fa-facebook-f"></i></a></li>
-<li><a href="http://webenlance.com"><i class="fab fa-twitter"></i></a></li>
-<li><a href="http://webenlance.com"><i class="fab fa-linkedin"></i></a></li>
-</ul>
-<!--social_footer_ul ends here-->
-</div>
+<footer class="mainfooter" role="contentinfo">
+  <div class="footer-middle">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+        <div class="footer-pad">
+          <h4>Heading 1</h4>
+          <ul class="list-unstyled">
+            <li><a href="#"></a></li>
+            <li><a href="#">Payment Center</a></li>
+            <li><a href="#">Contact Directory</a></li>
+            <li><a href="#">Forms</a></li>
+            <li><a href="#">News and Updates</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+        <div class="footer-pad">
+          <h4>Heading 2</h4>
+          <ul class="list-unstyled">
+            <li><a href="#">Website Tutorial</a></li>
+            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">Disclaimer</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Webmaster</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+        <div class="footer-pad">
+          <h4>Heading 3</h4>
+          <ul class="list-unstyled">
+            <li><a href="#">Parks and Recreation</a></li>
+            <li><a href="#">Public Works</a></li>
+            <li><a href="#">Police Department</a></li>
+            <li><a href="#">Fire</a></li>
+            <li><a href="#">Mayor and City Council</a></li>
+            <li>
+              <a href="#"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    	<div class="col-md-3">
+    		<h4>Follow Us</h4>
+    		<ul><a href="https://www.facebook.com/bootsnipp"><i id="social-fb" class="fa fa-facebook fa-3x social"></i></a>
+	            <a href="https://twitter.com/bootsnipp"><i id="social-tw" class="fa fa-twitter fa-3x social"></i></a>
+	            <a href="https://plus.google.com/+Bootsnipp-page"><i id="social-gp" class="fa fa-google-plus fa-3x social"></i></a>
+	            <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope fa-3x social"></i></a>
+            </ul>
+            <p><h5 class="mb-1 col-md-0">Register Now!</h5><a href="" class="btn btn-danger btn-rounded">Sign up!</a></p>	
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12 copy">
+	      <p class="text-center">&copy; Copyright 2018 - ealearningcourses.  All rights reserved.</p>
+		</div>
+	</div>
+  <!--Call to action-->               
+  </div>
+  </div>
 </footer>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-</body>
+  </body>
 </html>
+	                       
+
+
+	                     

@@ -3,16 +3,6 @@
 
 if(session_status() === PHP_SESSION_NONE) session_start();
 
-if(isset($_SESSION["user_id"])){
-    $user_id = $_SESSION["user_id"];
-}else{
-    echo "please login";
-    exit();
-
-}
-
-
-
 if(isset($_SESSION["attempt_id"])){
 	$total_correct = $_SESSION["total_correct"];
 	$total_questions = $_SESSION["total_questions"];
@@ -41,10 +31,7 @@ if(isset($_SESSION["attempt_id"])){
 
 }
 
-
  include 'header.php'; ?>
-
- 
 
 <h1>Results</h1>
 <hr>

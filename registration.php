@@ -1,6 +1,9 @@
 
 <?php 
-	if(isset($_POST["registration"])){
+
+
+    if(isset($_POST["registration"])){
+
 
 include "connection.php";
 
@@ -15,23 +18,22 @@ include "connection.php";
 //login only if reCAPTCHA is clicked on 
  if($google_details->success){
 
+    $first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
-	$first_name = $_POST["first_name"];
-	$last_name = $_POST["last_name"];
-	$email = $_POST["email"];
-	$password = $_POST["password"];
-	$password = password_hash($password, PASSWORD_DEFAULT);
-
-	$sql = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `regdate`) 
-	VALUES ('NULL', '$first_name', '$last_name', '$email', '$password', current_timestamp());";
+    $sql = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `regdate`) 
+    VALUES ('NULL', '$first_name', '$last_name', '$email', '$password', current_timestamp());";
 
 
-	if (mysqli_query($conn, $sql)) {
+    if (mysqli_query($conn, $sql)) {
          header("location: login.php");
        
-	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 
 
         }else{
@@ -110,70 +112,81 @@ background-color: #39C16C;
 }
 .card{
 height: 100%;
-margin-top: auto;
+margin-top: 30px;
 margin-bottom: auto;
 width: 100%;
+border:none;
 background-color: rgba(0,0,0,0.5) !important;
+}
+
+
+.parallax {
+  background-image: url("./images/blur-background12.jpg");
+  height: auto;
+  width:auto;
+    border:none;
+
+
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-position: center;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.g-recaptcha {
+    position: center;
 }
 
 </style>
 
-
-
-<br>
 <div class="container" >
 <div class="card bg-light">
-<article class="card-body mx-auto" style="max-width: 400px;">
-	<h4 class="card-title mt-3 text-center">Create Account</h4>
-	<p class="text-center">Get started with your free account</p>
-	<p>
-		<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
-		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-	</p>
-	<p class="divider-text">
+<div class="parallax"><article class="card-body mx-auto" style="max-width: 400px;">
+    <h4 class="card-title mt-3 text-center">Create Account</h4>
+    <p class="text-center">Get started with your free account</p>
+    <p>
+        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+        <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+    </p>
+    <p class="divider-text">
         <span class="bg-light">OR</span>
     </p>
 
-
-
-
-
-
-	<form action="registration.php" method= "post">
-	<div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		 </div>
+    <form action="registration.php" method= "post">
+    <div class="form-group input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+         </div>
         <input name="first_name" class="form-control" placeholder="First Name" type="text" required>
-
 
 
     </div> <!-- form-group// -->
     <div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		 </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+         </div>
         <input name="last_name" class="form-control" placeholder="Last Name" type="text" required>
     </div> <!-- form-group// -->
 
 
     <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-		 </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+         </div>
         <input name="email" class="form-control" placeholder="Email address" type="email" required>
     </div> <!-- form-group// -->
 
     <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+        </div>
 
     <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-	title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
     </div> <!-- form-group// -->    
-
-
 
 <!------googlerecaptcha ----->
 
@@ -185,10 +198,11 @@ background-color: rgba(0,0,0,0.5) !important;
     </div> <!-- form-group// -->      
     <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
 
-</form>
-</article>
+</form> 
+</article></div>
 </div> <!-- card.// -->
 </div>
-<br><br>
+<br>
 </article>
+
 <?php include 'footer.php'; ?>
