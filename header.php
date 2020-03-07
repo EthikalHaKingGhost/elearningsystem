@@ -58,13 +58,13 @@
                     <a class="nav-link" href ="logout.php"><?php echo "Logout"; ?> </a>
                     
                     <li class="nav-item"> 
-                    <a class="nav-link" href ="##"> <?php echo "Welcome $first_name $last_name";?> </a>
+                    <a class="nav-link" href ="##"> <?php echo '<i class="fa fa-fw fa-user"></i>'. $first_name ;?></a>
 
                     <li class="nav-item"> 
 
                     <?php
                            } else {             
-                           echo '<a class="nav-link" href="registration.php">REGISTER</a>';
+                           echo '<a style="color:orange;" class="nav-link" href="registration.php">REGISTER</a>';
                      ?>
 
                     <li class="nav-item"> 
@@ -78,7 +78,35 @@
                </ul>
              </div>  
            </nav>
-       <style>
+
+<?php
+
+    if(isset($_SESSION["alerts"])){
+        $alerts = $_SESSION["alerts"];
+
+        ?>
+          <div class="message">
+          <div class="alert alert-info" id="alerts" name="alerts">
+            <strong>Message!</strong> <?php echo $alerts; ?>
+          </div>
+          </div>
+
+          <script> 
+            $("#alerts").fadeTo(2000, 600).slideUp(600, function(){
+            $("#alerts").slideUp(600);
+            });
+          </script>
+
+        <?php
+
+          unset($_SESSION["alerts"]);
+
+          }
+
+?>
+
+
+<style>
         
 .nav .nav-link{
   color: orange;
@@ -89,6 +117,7 @@ body, html {
   height: 100%;
   color: #777;
   line-height: 1.8;
+  background-color: #EEEEEE;
 }
 
 /*body { 

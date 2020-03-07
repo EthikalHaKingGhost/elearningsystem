@@ -1,5 +1,7 @@
 <?php 
 
+session_start();
+
 if(isset($_POST["create_quiz"])){
 
 include "connection.php";
@@ -10,14 +12,13 @@ $quiz_description = $_POST["quiz_description"];
 $sql = "INSERT INTO `quizzes` (`quiz_id`, `quiz_title`, `quiz_description`, `total_questions`, `topic_id`) VALUES (NULL, '$quiz_title', '$quiz_description', '0', '$topic_id');";
 
 if (mysqli_query($conn, $sql)) {
-    echo "created succesfully";
+    $_SESSION["alerts"] = "Quiz created succesfully";
 
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 }
-
 
 
 include 'header.php'; ?>

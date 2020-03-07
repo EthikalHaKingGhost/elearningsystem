@@ -9,7 +9,6 @@
     opacity: 0.9;
     filter: brightness(50%);
     height: 200px;
-
   background-attachment: fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -20,43 +19,70 @@
 
 }
 
-
-.w3-image{
-	opacity: 0.9;
-	filter: brightness(70%)
-}
-.w3-image:hover{
-	opacity: 1;
-	filter: brightness(100%);
+.container{
+ align:center;
+ align:justify;
 }
 
+.heading{
+  text-align: center;
+}
+.subheading{
+  text-align: center;
+}
 
 
+
+.image1{
+  marging:auto;
+  padding-left:auto;
+  padding-bottom: 30px;
+  padding-top: 10px;
+  width:auto;
+  height: 320px;
+}
+
+
+.row {
+margin:auto;
+padding:auto;
+text-align: justify;
+}
 
 </style>
 
 <div class="parallax"></div>
 
-<div class="w3-content w3-container w3-padding-64" id="about">
-  <h3 class="w3-center"><b>ABOUT US</b></h3>
-  <p class="w3-center"><em>Learn anything</em></p>
-  <p align="justify"> We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="container"><br>
+  <h3 class="heading"><b>ABOUT US</b></h3>
+  <p class="subheading"><em>Learn anything</em></p>
+  <p> We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+    qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br>
 
-  <div class="w3-row">
-    <div class="w3-col m6 w3-center w3-padding-32">
-      <h4><b>Courses</b></h4>
-      <img src="./images/ma.jpg" class="w3-round w3-image" alt="Photo of Me" width="380" height="200">
-    </div>
+
+
+     <div class="row">
+      <div class="sub-container">
+      <div class="row">
+      <div class="col-md-6 section">  
+      <img class="image1" src="./images/ma.jpg" alt="photo"/>
+      </div><br>
+      
+
 
     <!-- Hide this text on small devices -->
-    <div class="w3-col m6 w3-hide-small w3-padding-32">
-      <p align="justify">Welcome to my website. I am lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <div class="col-md-6 section">
+      <p>Welcome to my website. I am lorem <a href="courses.php"> Courses </a> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
+      incididunt ut labore et dolore magna aliqua. Ut enim ad minimbbbbbb bbbb bbbbbbb bbbbbbbbb bbbbb bbbbbbb bbbbbbbb bbbbbbb bbbbbb bbbbbb bbbbbbb bbbbb bbbb bbbbbbbb bbbb veniam.r in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
+      incididunt ut labore et dolore magna aliqua. Ut enim ad minimbbbbbb bbbb bbbbbbb bbbbbbbbb bbbbb bbbbbbb bbbbbbbb bb
+      </p>
+      </br>
+      </br>
     </div>
   </div>
+</div>
+</div>
 </div>
 
 
@@ -64,8 +90,5 @@
 <div class="parallax"></div></div>
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-ios.css">
 
 <?php include 'footer.php'; ?>

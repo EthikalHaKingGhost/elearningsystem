@@ -17,10 +17,9 @@ session_start();
 	    $icon= "";
 
 	}else{
-	    echo "No values found in attempt to start the quiz";
+	    $_SESSION["alerts"] = "No values found in attempt to start the quiz";
 	    exit();
 }
-
 
 
 	if(isset($_POST["submit"])){
@@ -44,7 +43,6 @@ session_start();
 		$sql = "INSERT INTO `responses` (`response_id`, `qa_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$attempt_id', '$choice', '$correct');";
 
 		if (mysqli_query($conn, $sql)) {
-		    echo "record created";
 
 		} else {
 		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -55,7 +53,6 @@ session_start();
 
 
 //to change from one quiz to the next with LIMIT
-
 
 if(isset($_POST["next"])){
 $_SESSION["question_number"] += 1;

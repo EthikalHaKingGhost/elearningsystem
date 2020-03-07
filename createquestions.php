@@ -1,4 +1,8 @@
-<?php include 'header.php';
+<?php 
+
+session_start();
+
+include 'header.php';
 
 include 'connection.php';
 
@@ -16,7 +20,7 @@ if(isset($_POST["createquestion"])){
 $sql = "INSERT INTO `questions` (`question_id`, `question`, `question_solutions`, `question_type`, `option1`, `option2`, `option3`, `option4`) VALUES (NULL, '$question', '$question_solution', '$question_type', '$option1', '$option2', '$option3', '$option4');";
 
 	if (mysqli_query($conn, $sql)) {
-	    echo "question created";
+	    $_SESSION["alerts"] = "question created successfully";
 
 		$question_id = mysqli_insert_id($conn);
 
@@ -24,14 +28,14 @@ $sql = "INSERT INTO `questions` (`question_id`, `question`, `question_solutions`
 $sql = "INSERT INTO `questions_assigned` (`qa_id`, `quiz_id`, `question_id`) VALUES (NULL, '$quiz_id', '$question_id');";
 
 	if (mysqli_query($conn, $sql)) {
-	    echo "nassigned question to quiz";
+	    $_SESSION["alerts"] = "question assigned to quiz";
 
 		$sql = "UPDATE `quizzes` SET `total_questions` = (SELECT COUNT(*) FROM questions_assigned WHERE questions_assigned.quiz_id = $quiz_id) WHERE `quizzes`.`quiz_id` = $quiz_id;";
 
 		if (mysqli_query($conn, $sql)) {
-		    echo "Record updated successfully";
+		    $_SESSION["alerts"] = "Quizzes updated successfully";
 		} else {
-		    echo "Error updating record: " . mysqli_error($conn);
+		    $_SESSION["alerts"] = "Error updating record: " . mysqli_error($conn);
 		}
 
 

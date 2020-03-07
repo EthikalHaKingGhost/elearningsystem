@@ -1,6 +1,7 @@
 
 <?php 
 
+session_start();
 
     if(isset($_POST["registration"])){
 
@@ -29,16 +30,20 @@ include "connection.php";
 
 
     if (mysqli_query($conn, $sql)) {
+
+        $_SESSION["alerts"] = "Registration Successful";
          header("location: login.php");
-       
+       exit();
+
     } else {
+
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
 
         }else{
         
-       echo "Please click google reCAPTCHA";
+       $_SESSION["alerts"] = "Please click google reCAPTCHA";
 
         }
 
@@ -48,7 +53,9 @@ include 'header.php'; ?>
 
 <style>
 
-
+section{
+    padding:100px;
+}
 .divider-text {
     position: relative;
     text-align: center;
@@ -84,6 +91,7 @@ background-color: #FFC312;
 color: black;
 border:0 !important;
 }
+
 .btn-facebook {
     background-color: #FFC312;
     color: black;
@@ -98,57 +106,52 @@ border:0 !important;
     color: black;
     border: none;
 }
+
 .btn-facebook:hover{
 color: black;
 background-color: #3b5998;
 }
+
 .btn-twitter:hover{
 color: black;
 background-color: #00acee;
 }
+
 .btn-primary:hover{
 color: black;
 background-color: #39C16C;
 }
+
 .card{
-height: 100%;
-margin-top: 30px;
-margin-bottom: auto;
-width: 100%;
+height: auto;
+width: auto;
+border:none;    
 border:none;
-background-color: rgba(0,0,0,0.5) !important;
+align-content: center;
+background-attachment: fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+background-position: center;
+-o-background-size: cover;
+background-repeat: no-repeat;
+background-size: cover;  
+background-image: url("./images/blur-background13.jpg");  
 }
 
-
-.parallax {
-  background-image: url("./images/blur-background12.jpg");
-  height: auto;
-  width:auto;
-    border:none;
-
-
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-position: center;
-  -o-background-size: cover;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
 .g-recaptcha {
     position: center;
 }
 
+
 </style>
 
-<div class="container" >
-<div class="card bg-light">
-<div class="parallax"><article class="card-body mx-auto" style="max-width: 400px;">
-    <h4 class="card-title mt-3 text-center">Create Account</h4>
-    <p class="text-center">Get started with your free account</p>
-    <p>
-        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+<section class="registration-card">
+    <div class="container">
+    <div class="card">
+ <h4 class="card-title mt-3 text-center">Create Account</h4>
+    <p class="text-center">Get started with your free account</p><hr>
+    <div class="card-body mx-auto" style="max-width: 500px; min-width: 400px;">
+    <p><a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>Login via Twitter</a>
         <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
     </p>
     <p class="divider-text">
@@ -199,10 +202,9 @@ background-color: rgba(0,0,0,0.5) !important;
     <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
 
 </form> 
-</article></div>
+</div>
 </div> <!-- card.// -->
 </div>
-<br>
-</article>
+</section>
 
 <?php include 'footer.php'; ?>

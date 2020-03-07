@@ -1,11 +1,11 @@
 <?php 
 
-if(session_status() === PHP_SESSION_NONE) session_start();
+session_start();
 
 if(isset($_GET["eid"])){
     $enroll_id = $_GET["eid"];
 }else{
-    echo "No enroll id in the url";
+    $_SESSION["alerts"] = "Wrong url address, enroll id missing";
 
     exit();
 }
@@ -16,19 +16,19 @@ $course_id = $_GET["cid"];
 
 }else {
 
-    echo "No courses Id in the url";
+    $_SESSION["alerts"] = "No courses selected";
     exit();
 }
-
 
 
 if(isset($_GET["tid"])){
     $topic_id = $_GET["tid"];
 }else{
-    echo "No topic id in the url";
+    $_SESSION["alerts"] = "No topics selected, enroll id missing";
 
     exit();
 }
+
 
 include 'header.php'; ?>
 
@@ -81,23 +81,21 @@ if (mysqli_num_rows($result) > 0) {
 <h1> <?php echo $topic_title ?> </h1>
 <p><?php echo $topic_description ?></p>
 
-
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th scope="col">Completion</th>
-      <th scope="col">Lesson Title</th>
+      <th scope="col">Lesson</th>
       <th scope="col">Lesson Type</th>
-      <th scope="col"></th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
 <tbody>
 
-<?php
+ <?php
 
 include 'connection.php';
 
-$sql = "SELECT * FROM lessons";
+$sql = "SELECT * FROM lessons WHERE lessons.topic_id = $topic_id";
 
 $result = mysqli_query($conn, $sql);
 
@@ -105,10 +103,11 @@ if (mysqli_num_rows($result) > 0) {
     // output data of each row
 
     while($row = mysqli_fetch_assoc($result)) {
-        $lesson_title = $row["lesson_title"];
+        $lesson_id = $row["lesson_id"];
+        $lesson_name = $row["lesson_name"];
         $lesson_type = $row["lesson_type"];
-       
-       // $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+        $lesson_source = $row["lesson_source"];
+        $link= "lessons.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&lid=$lesson_id";
 
 
 ?> 
@@ -116,14 +115,13 @@ if (mysqli_num_rows($result) > 0) {
       <!---default $completion = incomplete ---->
       <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
       <!---the completion shows complete after the button completed is clicked in the lesson, if complete button is activated after crtain time..complete is linked to another table---->
+
     <tr> 
-      <th scope="row"> complete </th>
-      <td><?php echo $lesson_title; ?></td>
+      <td><?php echo $lesson_name; ?></td>
       <td><?php echo $lesson_type; ?></td>
-      <td><a class="btn btn-success" href="<?php echo "#";?>">Launch</a></td>   
+      <td><a class="btn btn-success" href="<?php echo "$link";?>">Launch</a></td>   
     </tr>
  
-
 <?php 
 
    }
@@ -141,44 +139,37 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-
-
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th scope="col">Score</th>
       <th scope="col">Quiz Title</th>
-      <th scope="col">Quiz Type</th>
-      <th scope="col"></th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
-<tbody>
+  <tbody>
+
 <?php
 
-include 'connection.php';
-
-$sql = "";
-
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-
-    while($row = mysqli_fetch_assoc($result)) {
-        $total_correct = $row["total_correct"];
-        $total_questions = $row["total_questions"];
-
-        $quiz_id = $row["quiz_id"];
-        $quiz_title = $row["quiz_title"];
-        $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+    include 'connection.php';
 
 
-?> 
+    $sql = "SELECT * FROM quizzes, topics WHERE topics.topic_id = $topic_id";
+
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+
+            while($row = mysqli_fetch_assoc($result)) {
+            $quiz_id = $row["quiz_id"];
+            $quiz_title = $row["quiz_title"];
+            $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+
+    ?> 
+
+   
     <tr>
-
-      <th scope="row"><?php echo $total_correct;?>/<?php echo $total_questions;?></th>
       <td><?php echo $quiz_title; ?></td>
-      <td>#</td>
       <td><a class="btn btn-success" href="<?php echo "$link";?>">Launch</a></td>   
     </tr>
  
@@ -195,8 +186,6 @@ if (mysqli_num_rows($result) > 0) {
 </div>
 </div>
 <br>                                   
-
-
 
 
 <?php include 'footer.php'; ?>

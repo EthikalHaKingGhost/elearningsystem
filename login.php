@@ -22,19 +22,24 @@ if(isset($_POST["login"])){
             $db_password = $row["password"];
             if(password_verify($password, $db_password)){
 
-                    echo "You are logged in";
                     $_SESSION["user_id"] = $row["user_id"];
                     $_SESSION["first_name"] = $row["first_name"];
                     $_SESSION["last_name"] = $row["last_name"];
-                    $_SESSION["email"] = $row["email"];             
+                    $_SESSION["email"] = $row["email"]; 
+
+                    $_SESSION["alerts"] = "Login Successful"; 
+
                     header("location: index.php");
+                    exit();
+
                      // for login page
                     //redirect to page
+
             } else 
-                    echo "incorrect password";
+            $_SESSION["alerts"] = "incorrect Login Details";
             }
             } else {
-                 echo "Please enter correct login information";
+            $_SESSION["alerts"] = "Please enter correct login information";
             }
 		}
 
@@ -42,24 +47,26 @@ include 'header.php'; ?>
 
 <style>
 
-@import url('https://fonts.googleapis.com/css?family=Numans');
-
-html,body{
-height: 100%;
-font-family: 'Numans', sans-serif;
-}
-
 .container{
-height: 100%;
-align-content: center;
+padding: 50px;
 }
 
 .card{
+background-image: url("./images/blur-background13.jpg");
 height: 400px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
+border:none;
+align-content: center;
+background-attachment: fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+background-position: center;
+-o-background-size: cover;
+background-repeat: no-repeat;
+background-size: cover;  
+background-image: url("./images/blur-background13.jpg");
 }
 
 .social_icon span{
@@ -130,14 +137,11 @@ margin-left: 4px;
 }
 
 
+
+
 </style>
 
 <title>Login Page</title>
-   <!--Made with love by Mutiullah Samim -->
-   
-<!--Bootsrap 4 CDN-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 </head>
 <body>
 <div class="container">

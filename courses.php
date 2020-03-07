@@ -1,21 +1,17 @@
 
 <?php   
+
+session_start();
                                                      
-
-
 include 'header.php'; ?>
 
 <style>
 
-/* card details start  */
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto+Condensed:400,400i,700,700i');
-section{
-    padding: 100px 0;
-}
 .link {
 color: black;
 font-size: 12px;
 }
+
 .link:hover {
     color: orange;
 }
@@ -113,23 +109,32 @@ a.btn-card {
     text-decoration: none;
     color: #fff;
 }
+
+.card-text{
+    text-align: center;
+  color:black;
+}
+
+.container{
+    position: ;
+}
+
 /* End card section */
 </style>
-
-
 
 <?php  include 'connection.php'; ?>
 
 <section class="details-card">
-    <div class="container">
-        <div class="row">
+    <div class="container" style="padding:20px;">
+        <h3 class="card-text">Courses</h3>
+        <p class="card-text">Start enrolling in our courses</p><hr>
+    <div class="row">
 
-
-<?php 
+<?php
 
         $sql = "SELECT * FROM Courses";
         $result = mysqli_query($conn, $sql);
-
+        
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             while($row = mysqli_fetch_assoc($result)) {
@@ -147,24 +152,19 @@ a.btn-card {
              
     ?>
 
-
-
     <div class="col-md-4 mt-4">
         <div class="card-content">
            <div class="card-img">
               <span><h4><?php echo $date ?></h4></span>
-                <img src="<?php echo "$course_img" ?>" alt="">   
+                <img src="<?php echo $course_img ?>" alt="photo">   
                   </div>
-        <div class="card-desc">
+                    <div class="card-desc">
                   <h3><?php echo $course_title?></h3>
                 <p><?php echo $course_description ?></p>
               <p><a href="<?php echo $link ?>" class="btn-card">View</a>                  
             </div>
            </div>
           </div>
-
-
-
     <?php 
 
         }
@@ -172,13 +172,12 @@ a.btn-card {
           }else{
            echo "0 results";
         }
-             
+
     ?>
-
-
 
   </div>
  </div>
+</div>
 </section>
 
 <!-- details card section starts from here -->
