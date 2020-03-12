@@ -179,8 +179,9 @@ background-image: url("./images/blur-background13.jpg");
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
          </div>
-        <input name="email" class="form-control" placeholder="Email address" type="email" required>
-    </div> <!-- form-group// -->
+        <input name="email" id="email"class="form-control" placeholder="Email address" type="email" required>
+    </div>
+    <p id="warning"></p> <!-- form-group// -->
 
     <div class="form-group input-group">
         <div class="input-group-prepend">
@@ -206,5 +207,33 @@ background-image: url("./images/blur-background13.jpg");
 </div> <!-- card.// -->
 </div>
 </section>
+
+
+
+<!--show that email is already in use-->
+
+<script>
+
+   $("#email").on("focusout", function(){
+
+    console.log("focusout");
+
+///pull information from a field
+    var email = $("#email").val();
+
+//send information to the page
+    $.get("sample.php", 
+        {email: email}, 
+        function(data, success){
+        $("#warning").html(data);     
+            
+    });
+
+          
+   }); 
+
+</script>
+
+
 
 <?php include 'footer.php'; ?>

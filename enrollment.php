@@ -1,13 +1,14 @@
-
-
 <?php 
 
 session_start();
 
     if(isset($_SESSION["user_id"])){
         $user_id = $_SESSION["user_id"];
+
     }else{
+
         $_SESSION["alerts"] = "please login";
+
         exit();
 
     }
@@ -15,9 +16,12 @@ session_start();
 
     if(isset($_GET["cid"])){
          $course_id = $_GET["cid"];
-         $page= "enrollment.php?cid=$course_id";             
+         $page= "enrollment.php?cid=$course_id";   
+
     }else{
+
          $_SESSION["alerts"] = "Please enroll into a course";
+
          exit();
     }           
         
@@ -42,6 +46,7 @@ session_start();
               }
     
        
+        //insert enrollment information from database
 
                 include "connection.php";
 
@@ -53,6 +58,7 @@ session_start();
 
                     $enroll_id = mysqli_insert_id($conn);
                     $link = "topics.php?eid=$enroll_id&cid=$course_id";
+
                     $_SESSION["alerts"] = "course enrolled";
                     header("location: $link");
 

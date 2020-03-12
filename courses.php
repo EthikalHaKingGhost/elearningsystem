@@ -110,24 +110,15 @@ a.btn-card {
     color: #fff;
 }
 
-.card-text{
-    text-align: center;
-  color:black;
-}
-
-.container{
-    position: ;
-}
-
 /* End card section */
 </style>
 
 <?php  include 'connection.php'; ?>
 
 <section class="details-card">
-    <div class="container" style="padding:20px;">
-        <h3 class="card-text">Courses</h3>
-        <p class="card-text">Start enrolling in our courses</p><hr>
+    <h1><i class="fas fa-graduation-cap"> Courses</i></h1>
+    <hr>
+    <div class="container">
     <div class="row">
 
 <?php
@@ -170,11 +161,11 @@ a.btn-card {
         }
                         
           }else{
-           echo "0 results";
+            echo "No courses Available please return to courses page <a href='index.php'> Home Page</a>";
+
         }
 
     ?>
-
   </div>
  </div>
 </div>

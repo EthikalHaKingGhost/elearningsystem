@@ -19,34 +19,19 @@
 
 }
 
-.container{
- align:center;
- align:justify;
+p {
+  text-align:justify;
 }
 
 .heading{
   text-align: center;
 }
-.subheading{
-  text-align: center;
-}
 
-
-
-.image1{
-  marging:auto;
-  padding-left:auto;
-  padding-bottom: 30px;
+.responsive {
+  width: 100%;
+  height: auto;
   padding-top: 10px;
-  width:auto;
-  height: 320px;
-}
-
-
-.row {
-margin:auto;
-padding:auto;
-text-align: justify;
+  padding-bottom: 20px;
 }
 
 </style>
@@ -55,30 +40,22 @@ text-align: justify;
 
 <div class="container"><br>
   <h3 class="heading"><b>ABOUT US</b></h3>
-  <p class="subheading"><em>Learn anything</em></p>
+  <p class="heading"><em>Learn anything</em></p>
   <p> We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br>
+    qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-
-
-     <div class="row">
-      <div class="sub-container">
+   
       <div class="row">
       <div class="col-md-6 section">  
-      <img class="image1" src="./images/ma.jpg" alt="photo"/>
-      </div><br>
-      
+      <img src="./images/ma.jpg" alt="photo" class="responsive"/>
+      </div>
 
-
-    <!-- Hide this text on small devices -->
     <div class="col-md-6 section">
       <p>Welcome to my website. I am lorem <a href="courses.php"> Courses </a> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
       incididunt ut labore et dolore magna aliqua. Ut enim ad minimbbbbbb bbbb bbbbbbb bbbbbbbbb bbbbb bbbbbbb bbbbbbbb bbbbbbb bbbbbb bbbbbb bbbbbbb bbbbb bbbb bbbbbbbb bbbb veniam.r in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
       incididunt ut labore et dolore magna aliqua. Ut enim ad minimbbbbbb bbbb bbbbbbb bbbbbbbbb bbbbb bbbbbbb bbbbbbbb bb
       </p>
-      </br>
-      </br>
     </div>
   </div>
 </div>
@@ -88,7 +65,6 @@ text-align: justify;
 
 <!-- Container element -->
 <div class="parallax"></div></div>
-
 
 
 <?php include 'footer.php'; ?>

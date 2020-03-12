@@ -9,16 +9,18 @@ if(isset($_POST["createlessons"])){
 
    $lesson_name = $_POST["lesson_name"];
    $lesson_details = $_POST["lesson_details"];
-   $uploadOK = 1;
+   $uploadOk = 1;
    $lesson_type = $_POST["lesson_type"];
    $topic_id = $_POST["topic_id"];
 
 if ($_FILES['fileToUpload']['error'] == 0){
+
 	$_SESSION["alerts"] = "the file is ok to upload";
     
     include 'upload.php';
 
 }else{
+
 	$_SESSION["alerts"] = "error uploading file or no file selected";
 
 	$lesson_source = $_POST["lesson_source"];

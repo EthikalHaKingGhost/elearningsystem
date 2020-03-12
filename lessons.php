@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) > 0) {
  	
 .container{
 	align-content: center;
-	padding-top:20px;
+	padding:auto;
 	margin:none;
 }
 
@@ -64,6 +64,39 @@ if (mysqli_num_rows($result) > 0) {
 	height: 480px;
 	width:800px;
 }
+
+
+.ul-lessons {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.lessons a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.lessons a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.lessons a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+
+
+
 </style>
 
 
@@ -82,23 +115,28 @@ if (mysqli_num_rows($result) > 0) {
 
          $lesson_type = $row["lesson_type"];
 
+
+
+// audio lessons page
 if ($lesson_type == "Audio") {
 
 		?>
+
 		 <div class="container">
 		  <h2 style="text-align: center;">Lessons</h2>
 		  <p style="text-align: center;"><?php echo $lesson_name ?></p><hr>
 		    <audio controls preload="metadata" style=" width:400px; ">
-		 <source src="<?php echo "$lesson_source" ?>">
+		 <source <?php echo "$lesson_source" ?>>
 		 Your browser does not support the audio element.
 		</audio><br />			
-		<a href="http://scriptgenerator.net/really-simple-embed-audio-player-script/"></a> 
 		  <div>
 		    <?php echo "$lesson_source" ?>
 		</div>
 
 		<?php
 
+
+// video lessons page
 }elseif ($lesson_type == "Video"){
 
 		?>
@@ -106,6 +144,7 @@ if ($lesson_type == "Audio") {
 		  <h2 style="text-align: center;">Lessons</h2><hr>
 		  		<div id="mydiv">
 				  <div id="mydivheader"><?php echo $lesson_name ?></div>
+
 		       <?php echo "$lesson_source" ?>
         </div>
 		  </div>
