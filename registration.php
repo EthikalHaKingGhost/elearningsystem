@@ -31,7 +31,7 @@ include "connection.php";
 
     if (mysqli_query($conn, $sql)) {
 
-        $_SESSION["alerts"] = "Registration Successful";
+        $_SESSION["alerts_success"] = "Registration Successful, please check your email";
          header("location: login.php");
        exit();
 
@@ -43,7 +43,7 @@ include "connection.php";
 
         }else{
         
-       $_SESSION["alerts"] = "Please click google reCAPTCHA";
+       $_SESSION["alerts_info"] = "Please click google reCAPTCHA";
 
         }
 
@@ -145,3 +145,14 @@ include "header.php"; ?>
 
 </script>
 <?php include "footer.php"; ?>
+
+
+<style type="text/css">
+  
+  body{
+    background-image:url(images/login-cover.jpeg);
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  
+</style>

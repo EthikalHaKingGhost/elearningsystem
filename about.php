@@ -1,5 +1,9 @@
 
-<?php include 'header.php'; ?>
+<?php 
+
+
+
+include 'header.php'; ?>
 
 <style>
 
@@ -19,12 +23,8 @@
 
 }
 
-p {
+.container p {
   text-align:justify;
-}
-
-.heading{
-  text-align: center;
 }
 
 .responsive {
@@ -32,15 +32,21 @@ p {
   height: auto;
   padding-top: 10px;
   padding-bottom: 20px;
+  text-align: center;
 }
 
 </style>
 
-<div class="parallax"></div>
+<div class="banner">
+
+  <h1><i class="fas fa-address-card"></i> About Us</h1>
+  <p><em>Learn anything</em></p>
+  
+</div>
 
 <div class="container"><br>
-  <h3 class="heading"><b>ABOUT US</b></h3>
-  <p class="heading"><em>Learn anything</em></p>
+
+  
   <p> We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
     qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>

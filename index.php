@@ -38,10 +38,27 @@ if(isset($_SESSION["first_name"])){
   color: white;
 }
 
+.banner{
+  background-image:url(images/banner.png);
+  background-repeat:no-repeat;
+  background-size: contain;
+   background-size: center;
+}
+
 </style>
 
+<div class="banner">
 
-<?php include 'slider.php';?>
+  <div class="banner_image">
+    
+  </div>
+  
+</div>
+
+
+<?php 
+
+include 'slider.php';?>
 
 
 <div class="parallax"></div>

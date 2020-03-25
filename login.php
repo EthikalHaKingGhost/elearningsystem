@@ -52,7 +52,7 @@ if(isset($_POST["login"])){
 include "header.php"; ?>
 
 <div class="container p-5">
-<div class="row">
+<div class="row p-5">
 
   <div class="col-md-6 rounded-sm"  style="background-image:url(images/blur-background09.jpg); background-size:cover;">
 
@@ -60,7 +60,7 @@ include "header.php"; ?>
 
   <div class="col-md-6 p-0 m-0">
     <div class="card p-4">
-      <h2 class="text-center">Login</h2>
+      <h2 class="text-center"> Account Login</h2>
       <div class="card-body">
         <div class="d-flex justify-content-end social_icon">
           <a href="#"><i class="fab fa-facebook-square fa-3x ml-1" style="color:#3b5998;"></i></a>
@@ -82,7 +82,8 @@ include "header.php"; ?>
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input type="password" class="form-control" placeholder="password" name="password">
+            <input id="password-field" type="password" class="form-control rounded-sm" placeholder="password" name="password" value="secret">
+            <span toggle="#password-field" class="far fa-fw fa-eye field-icon toggle-password"></span>
           </div>
      
           <div class="custom-control custom-checkbox my-1 mr-sm-2 my-4">
@@ -102,7 +103,40 @@ include "header.php"; ?>
 </div>
 </div>
 
+<script type="text/javascript">
 
+  $(".toggle-password").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+</script>
+
+<style type="text/css">
+
+  body{
+    background-image:url(images/login-cover.jpeg);
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+
+  .field-icon {
+  float: right;
+  margin: 0 0 0 -16px;
+  position: relative;
+  top:12px;
+  left:-7px;
+  z-index: 3;
+  font-size:2vh;
+
+}
+
+</style>
             
 </body>
 </html>

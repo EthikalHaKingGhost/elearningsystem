@@ -87,24 +87,20 @@ font-size: 12px;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
     padding: .84rem 2.14rem;
     font-size: .81rem;
-    -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    -o-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     margin: 0;
     border: 0;
     -webkit-border-radius: .125rem;
     border-radius: .125rem;
     cursor: pointer;
-    text-transform: uppercase;
-    white-space: normal;
-    word-wrap: break-word;
-    color: #fff;
+   
+   
 }
+
 .btn-card:hover {
     background: orange;
 }
+
 a.btn-card {
     text-decoration: none;
     color: #fff;
@@ -117,9 +113,15 @@ a.btn-card {
 
 <?php  include 'connection.php'; ?>
 
+
+<div class="banner">
+
+    <h1><i class="fas fa-graduation-cap"></i> Courses</h1>
+    <p><em>Enroll in some of the newest courses</em></p>
+
+</div>
+
 <section class="details-card">
-    <h1><i class="fas fa-graduation-cap"> Courses</i></h1>
-    <hr>
     <div class="container">
     <div class="row">
 
@@ -149,12 +151,13 @@ a.btn-card {
         <div class="card-content">
            <div class="card-img">
               <span><h4><?php echo $date ?></h4></span>
-                <img src="<?php echo $course_img ?>" alt="photo">   
+                <img src="<?php echo "images/$course_img" ?>" alt="photo">   
                   </div>
                     <div class="card-desc">
-                  <h3><?php echo $course_title?></h3>
-                <p><?php echo $course_description ?></p>
-              <p><a href="<?php echo $link; ?>" class="btn-card">View</a>                  
+                        <div><h3><?php echo $course_title?><h3></div>
+                    <div><p><?php echo $course_description ?></p></div>
+                
+              <a href="<?php echo $link; ?>" class="btn-card">Find out more</a>                  
             </div>
            </div>
           </div>

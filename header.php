@@ -5,11 +5,20 @@ html body{
   background-color:#D3D3D3;
 }
 
-li a:hover {
+
+.active {
+  background-color: #FFC312;
+  transition: 0.3s;
+  }
+.active:hover{
+  filter: brightness(110%);
+}
+
+li:hover {
   background-color: #FFC312;
 }
 
-li a:active{
+li:active{
   background-color: darkorange;
 }
 
@@ -25,7 +34,14 @@ body,h1,h2,h3,h4,h5,h6 {
 
 .banner{
   width:auto;
-  height:75px;
+  height:150px;
+  background-color:#ecf0f1;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 50px;
+  text-align:center;
+  vertical-align: middle;
+
 }
 
 
@@ -48,7 +64,7 @@ body,h1,h2,h3,h4,h5,h6 {
 
 <!--------------fontawesome------------------------------->
 
-            <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
+            <link rel="stylesheet" type="text/css" href="icons/css/all.min.css">
 
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       </head>
@@ -62,7 +78,7 @@ body,h1,h2,h3,h4,h5,h6 {
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-            <ul class="nav navbar-nav navbar-right p-2">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                   <a class="nav-link" href="index.php">Home</a>
                 </li>
@@ -111,8 +127,8 @@ body,h1,h2,h3,h4,h5,h6 {
 
 
                            echo '<ul class="nav navbar-nav ml-auto">';
-                            echo '<li class="nav-item">'; 
-                           echo '<a class="nav-link active" href="registration.php">REGISTER</a>';
+                            echo '<li class="nav-item active">'; 
+                           echo '<a class="nav-link" href="registration.php">REGISTER</a>';
                            echo "</li>"; 
                           echo "</ul>";
                        }
@@ -185,11 +201,7 @@ body,h1,h2,h3,h4,h5,h6 {
 ?>
 
 
-<div class="banner">
-  
 
-  
-</div>
 
 
 

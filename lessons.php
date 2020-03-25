@@ -122,8 +122,13 @@ if ($lesson_type == "Audio") {
 
 		?>
 
+	<div class="banner">
+
+    <h1><i class="fas fa-photo-video"></i> Lesson </h1>
+
+	</div>
+
 		 <div class="container">
-		  <h2 style="text-align: center;">Lessons</h2>
 		  <p style="text-align: center;"><?php echo $lesson_name ?></p><hr>
 		    <audio controls preload="metadata" style=" width:400px; ">
 		 <source <?php echo "$lesson_source" ?>>

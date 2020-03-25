@@ -2,13 +2,15 @@
 
 <style>
  .carousel-item {
-  height: 65vh;
-  min-height: 350px;
-  background: no-repeat center center scroll;
+  height: 68vh;
+  min-height: 375px;
+  background: no-repeat center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  padding: 0;
+  margin: 0;
  }
 
 </style>
