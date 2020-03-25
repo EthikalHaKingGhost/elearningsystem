@@ -25,170 +25,84 @@ if(isset($_POST["login"])){
                     $_SESSION["user_id"] = $row["user_id"];
                     $_SESSION["first_name"] = $row["first_name"];
                     $_SESSION["last_name"] = $row["last_name"];
-                    $_SESSION["email"] = $row["email"]; 
+                    $_SESSION["email"] = $row["email"];
+                    $first_name = $_SESSION["first_name"];
+                    $last_name = $_SESSION["last_name"];
 
-                    $_SESSION["alerts"] = "Login Successful"; 
+
+                   $_SESSION["alerts_success"] = ' Login Successful, Welcome ' .$first_name. ', ' .$last_name. '! <i class="fas fa-smile"></i>'; 
 
                     header("location: index.php");
+
                     exit();
 
                      // for login page
                     //redirect to page
 
             } else 
-            $_SESSION["alerts"] = "incorrect Login Details";
+            $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
             }
             } else {
-            $_SESSION["alerts"] = "Please enter correct login information";
+            $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
             }
-		}
-
-include 'header.php'; ?>
-
-<style>
-
-.container{
-padding: 50px;
-}
-
-.card{
-background-image: url("./images/blur-background13.jpg");
-height: 400px;
-margin-top: auto;
-margin-bottom: auto;
-width: 400px;
-border:none;
-align-content: center;
-background-attachment: fixed;
--webkit-background-size: cover;
--moz-background-size: cover;
-background-position: center;
--o-background-size: cover;
-background-repeat: no-repeat;
-background-size: cover;  
-background-image: url("./images/blur-background13.jpg");
-}
-
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
-}
-.social_icon span:hover{
-color: white;
-cursor: pointer;
-}
-
-.card-header h3{
-color: white;
-}
-
-.social_icon{
-position: absolute;
-right: 20px;
-top: -15px;
-}
-
-.input-group-prepend span{
-width: 50px;
-background-color: #FFC312;
-color: black;
-border:0 !important;
-}
-
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
-}
-
-.remember{
-color: white;
-}
-
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
-}
-
-.login_btn{
-color: black;
-background-color: #FFC312;
-width: 100px;
-}
-
-.login_btn:hover{
-color: black;
-background-color: white;
-}
-
-.links{
-color: white;
-}
-
-.links a{
-margin-left: 4px;
-}
-
-.footer-links:hover {color:#FFC312;
-}
+    }
 
 
 
+include "header.php"; ?>
 
-</style>
+<div class="container p-5">
+<div class="row">
 
-<title>Login Page</title>
-</head>
-<body>
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Sign In</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
-			</div>
-			<div class="card-body">
-				<form action="login.php" method="post">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Email Address" name="email">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="password" name="password">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<input type="submit" name="login" class="btn float-right login_btn" value="Login">
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="registration.php" class="footer-links">Sign Up</a>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a href="#" class="footer-links">Forgot your password?</a>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="col-md-6 rounded-sm"  style="background-image:url(images/blur-background09.jpg); background-size:cover;">
+
+</div>
+
+  <div class="col-md-6 p-0 m-0">
+    <div class="card p-4">
+      <h2 class="text-center">Login</h2>
+      <div class="card-body">
+        <div class="d-flex justify-content-end social_icon">
+          <a href="#"><i class="fab fa-facebook-square fa-3x ml-1" style="color:#3b5998;"></i></a>
+          <a href="#"><i class="fab fa-google-plus-square fa-3x ml-1" style="color:red;"></i></a>
+          <a href="#"><i class="fab fa-twitter-square fa-3x ml-1" style="color:#00acee;"></i></a>
+        </div>
+        <hr>
+  
+        <form action="login.php" method="post">
+          <div class="input-group form-group my-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Email Address" name="email">
+          </div>
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="password" name="password">
+          </div>
+     
+          <div class="custom-control custom-checkbox my-1 mr-sm-2 my-4">
+          <input type="checkbox" class="custom-control-input" id="customControlInline">
+          <label class="custom-control-label" for="customControlInline">Remember Me</label>
+          </div>
+
+
+          <div class="form-group">
+            <input type="submit" name="login" class="btn btn-success btn-block" value="Login">
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
 
-<?php include 'footer.php'; ?>
+            
+</body>
+</html>

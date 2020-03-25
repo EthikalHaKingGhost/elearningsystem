@@ -1,5 +1,5 @@
-
-<?php 
+  
+ <?php 
 
 session_start();
 
@@ -47,127 +47,38 @@ include "connection.php";
 
         }
 
+
 }
 
-include 'header.php'; ?>
+include "header.php"; ?>
 
-<style>
+<div class="container p-5">
+<div class="row">
 
-section{
-    padding:100px;
-}
-.divider-text {
-    position: relative;
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-.divider-text span {
-    padding: 7px;
-    font-size: 12px;
-    position: relative;   
-    z-index: 2;
-}
-.divider-text:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-    top: 55%;
-    left: 0;
-    z-index: 1;
-}
+	<div class="col-md-6 rounded-sm"  style="background-image:url(images/blur-background09.jpg); background-size:cover;">
 
-.text-center{
-    color: White;
-}
-.card-title{
-    color: White;
-}
-
-.input-group-prepend span{
-width: 50px;
-background-color: #FFC312;
-color: black;
-border:0 !important;
-}
-
-.btn-facebook {
-    background-color: #FFC312;
-    color: black;
-}
-.btn-twitter {
-    background-color: #FFC312;
-    color: black;
-}
-
-.btn-primary{
-     background-color: #FFC312;
-    color: black;
-    border: none;
-}
-
-.btn-facebook:hover{
-color: black;
-background-color: #3b5998;
-}
-
-.btn-twitter:hover{
-color: black;
-background-color: #00acee;
-}
-
-.btn-primary:hover{
-color: black;
-background-color: #39C16C;
-}
-
-.card{
-height: auto;
-width: auto;
-border:none;    
-border:none;
-align-content: center;
-background-attachment: fixed;
--webkit-background-size: cover;
--moz-background-size: cover;
-background-position: center;
--o-background-size: cover;
-background-repeat: no-repeat;
-background-size: cover;  
-background-image: url("./images/blur-background13.jpg");  
-}
-
-.g-recaptcha {
-    position: center;
-}
+</div>
 
 
-</style>
-
-<section class="registration-card">
-    <div class="container">
-    <div class="card">
- <h4 class="card-title mt-3 text-center">Create Account</h4>
-    <p class="text-center">Get started with your free account</p><hr>
-    <div class="card-body mx-auto" style="max-width: 500px; min-width: 400px;">
-    <p><a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>Login via Twitter</a>
-        <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-    </p>
-    <p class="divider-text">
-        <span class="bg-light">OR</span>
-    </p>
-
-    <form action="registration.php" method= "post">
-    <div class="form-group input-group">
+    <div class="col-md-6 p-0 m-0">
+    <div class="card p-4">
+        <h2 class="text-center">Register</h2>
+      <div class="card-body">
+        <div class="d-flex justify-content-end social_icon">
+          <a href="#"><i class="fab fa-facebook-square fa-3x ml-1" style="color:#3b5998;"></i></a>
+          <a href="#"><i class="fab fa-google-plus-square fa-3x ml-1" style="color:red;"></i></a>
+          <a href="#"><i class="fab fa-twitter-square fa-3x ml-1" style="color:#00acee;"></i></a>
+        </div>
+        <hr>
+  <form action="registration.php" method= "post">
+    <div class="form-group input-group mt-5">
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
          </div>
         <input name="first_name" class="form-control" placeholder="First Name" type="text" required>
+</div> <!-- form-group// -->
 
-
-    </div> <!-- form-group// -->
-    <div class="form-group input-group">
+    <div class="form-group input-group my-4">
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
          </div>
@@ -175,13 +86,12 @@ background-image: url("./images/blur-background13.jpg");
     </div> <!-- form-group// -->
 
 
-    <div class="form-group input-group">
+    <div class="form-group input-group my-4">
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
          </div>
         <input name="email" id="email"class="form-control" placeholder="Email address" type="email" required>
-    </div>
-    <p id="warning"></p> <!-- form-group// -->
+    </div><!-- form-group// -->
 
     <div class="form-group input-group">
         <div class="input-group-prepend">
@@ -190,25 +100,26 @@ background-image: url("./images/blur-background13.jpg");
 
     <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-    </div> <!-- form-group// -->    
+    </div><!-- form-group// -->    
 
 <!------googlerecaptcha ----->
 
-   <div class="g-recaptcha" data-sitekey="6LfAXtkUAAAAAOw3rmTY3-n___31Jx4JaXugeUG-"></div>
+   <div class="g-recaptcha my-4" data-sitekey="6LfAXtkUAAAAAOw3rmTY3-n___31Jx4JaXugeUG-"></div>
 
     <div class="form-group">
-        <button name="registration" type="submit" class="btn btn-primary btn-block" value="register"> Create Account  </button>
+        <button name="registration" type="submit" class="btn btn-info btn-block" value="register"> Create Account  </button>
     
     </div> <!-- form-group// -->      
-    <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
+    <div class="text-center">Have an account? <a href="login.php">Log In</div> 
 
 </form> 
-</div>
-</div> <!-- card.// -->
-</div>
-</section>
 
 
+   </div>
+  </div>
+ </div>
+</div>
+</div>
 
 <!--show that email is already in use-->
 
@@ -233,7 +144,4 @@ background-image: url("./images/blur-background13.jpg");
    }); 
 
 </script>
-
-
-
-<?php include 'footer.php'; ?>
+<?php include "footer.php"; ?>

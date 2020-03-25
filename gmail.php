@@ -1,13 +1,23 @@
 <?php include "header.php"; ?>
 
-
 <h2>Sending Emails</h2>
 
 
-
-
-
 <?php
+
+
+$info["name"] = "John Doe";
+//$info["page"] = "http://localhost/elearningproject/login.php";
+
+
+
+$mail_template = file_get_contents("mail.html");
+
+foreach ($info as $key => $value) {
+
+   $mail_template = str_replace('{{'.$key.'}}', $value, $mail_template);
+
+}
 
 
 /**
@@ -59,7 +69,7 @@ $mail->SMTPAuth = true;
 $mail->Username = 'travo.edward@gmail.com';
 
 //Password to use for SMTP authentication
-$mail->Password = file_get_contents("password.txt");
+$mail->Password = file_get_contents("../password.txt");
 
 //Set who the message is to be sent from
 $mail->setFrom('travo.edward@gmail.com', 'Travis Laptop');
@@ -76,7 +86,7 @@ $mail->Subject = ' TESTING PHPMailer GMail SMTP test';
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
 //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
-$mail->msgHTML('<b> if you are reading this it works </b>');
+$mail->msgHTML($mail_template);
 
 //Replace the plain text body with one created manually
 $mail->AltBody = 'This is a plain-text message body';

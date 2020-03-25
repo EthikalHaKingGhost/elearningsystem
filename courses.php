@@ -110,6 +110,8 @@ a.btn-card {
     color: #fff;
 }
 
+
+
 /* End card section */
 </style>
 
@@ -152,7 +154,7 @@ a.btn-card {
                     <div class="card-desc">
                   <h3><?php echo $course_title?></h3>
                 <p><?php echo $course_description ?></p>
-              <p><a href="<?php echo $link ?>" class="btn-card">View</a>                  
+              <p><a href="<?php echo $link; ?>" class="btn-card">View</a>                  
             </div>
            </div>
           </div>

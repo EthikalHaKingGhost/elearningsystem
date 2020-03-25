@@ -5,7 +5,9 @@ session_start();
 if(isset($_GET["eid"])){
     $enroll_id = $_GET["eid"];
 }else{
-    $_SESSION["alerts"] = "Wrong url address, enroll id missing";
+
+    echo "<h1>OOPS!</h1><hr>";
+    $_SESSION["alerts_info"] = "Wrong url address, enroll id missing";
 
     exit();
 }
@@ -16,7 +18,8 @@ $course_id = $_GET["cid"];
 
 }else {
 
-    $_SESSION["alerts"] = "No courses selected";
+      echo "<h1>OOPS!</h1><hr>";
+    $_SESSION["alerts_info"] = "No courses  were selected, course id missing";
     exit();
 }
 
@@ -24,7 +27,8 @@ $course_id = $_GET["cid"];
 if(isset($_GET["tid"])){
     $topic_id = $_GET["tid"];
 }else{
-    $_SESSION["alerts"] = "No topics selected, enroll id missing";
+    echo "<h1>OOPS!</h1><hr>";
+    $_SESSION["alerts_info"] = "No topics selected, enroll id missing";
 
     exit();
 }

@@ -72,7 +72,10 @@ $question_number = $_SESSION["question_number"];
 
 include'connection.php';
 
-$sql = "SELECT * FROM questions_assigned, questions WHERE questions_assigned.question_id = questions.queestion_id AND questions_assigned.quiz_id= 1 LIMIT $question_number";
+$sql = "SELECT * FROM questions_assigned, questions
+	WHERE questions_assigned.question_id = questions.question_id 
+	AND questions_assigned.quiz_id= 1 LIMIT $question_number";
+
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {

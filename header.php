@@ -1,6 +1,10 @@
 
 <style>
 
+html body{
+  background-color:#D3D3D3;
+}
+
 li a:hover {
   background-color: #FFC312;
 }
@@ -9,26 +13,21 @@ li a:active{
   background-color: darkorange;
 }
 
-body h1{
-  margin: 20px;
-}
+.nav-item .nav-link{
+    color: white !important;
+    font-size: 1em !important;
+    font-family: 'Lato', sans-serif;
+    }
+
 
 body,h1,h2,h3,h4,h5,h6 {
   font-family: "Lato", sans-serif;}
 
-body, html {
-  height: 100%;
-  line-height: 1.8;
+.banner{
+  width:auto;
+  height:75px;
 }
 
-body hr{
-     position: relative; 
-     border: none; 
-     background: slategrey; 
-     margin-bottom: 30px;
-
-     padding:1px;
-}    
 
 </style>
 
@@ -54,86 +53,143 @@ body hr{
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       </head>
 
-
-
-
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+
+<nav class="navbar navbar-expand-sm bg-info navbar-dark sticky-top pl-5 pr-5">
   <a class="navbar-brand" href="#">ElearningProject</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
   <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-            <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.php">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="courses.php">Courses</a>
-              </li>
+            <ul class="nav navbar-nav navbar-right p-2">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.php">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="courses.php">Courses</a>
+                </li>
 
-        <li class="nav-item">
-            <?php if(isset($_SESSION["first_name"])){  
+              <?php if(isset($_SESSION["first_name"])){  
 
               $first_name = $_SESSION["first_name"];
-              $last_name = $_SESSION["last_name"];
 
               ?>
-                    <li class="nav-item" >
-                    <a class="nav-link" href ="logout.php"><?php echo "Logout"; ?> </a>
+                    <li class="nav-item dropdown">
                     
-                    <li class="nav-item"> 
-                    <a class="nav-link" href ="#"> <?php echo '<i class="fa fa-fw fa-user"></i>'. $first_name ;?></a>
+                    
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $first_name; ?>
+                    </a>
 
-                    <li class="nav-item"> 
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item" href="#">Account</a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="#">Settings</a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href ="logout.php"><?php echo "Logout"; ?> </a>
+                </div>
+            </li>
+                    
+
+                    
 
                     <?php
-                           } else {             
-                           echo '<a class="nav-link active" href="registration.php">REGISTER</a>';
-                     ?>
 
-                    <li class="nav-item"> 
-                          <?php echo '<a class="nav-link" href="login.php">Login</a>';
-                           echo '</ul>';
+                           } else { 
+                           echo '<li class="nav-item">';
+                           echo '<a class="nav-link" href="login.php">Login</a>';
+                           echo "</li>"; 
+                           echo "</ul>";         
+
+
+                           echo '<ul class="nav navbar-nav ml-auto">';
+                            echo '<li class="nav-item">'; 
+                           echo '<a class="nav-link active" href="registration.php">REGISTER</a>';
+                           echo "</li>"; 
+                          echo "</ul>";
                        }
 
-                     ?>        
+                     ?> 
+
                     </li>    
                  </li>
-               </ul>
              </div>  
            </nav>
 
 <?php
 
-    if(isset($_SESSION["alerts"])){
-        $alerts = $_SESSION["alerts"];
+    if(isset($_SESSION["alerts_success"])){
+        $alerts_success = $_SESSION["alerts_success"];
 
         ?>
-          <div class="message">
-          <div class="alert alert-info" id="alerts" name="alerts">
-            <strong>Message!</strong> <?php echo $alerts; ?>
-          </div>
-          </div>
 
-   <script> 
-            $("#alerts").fadeTo(2000, 600).slideUp(600, function(){
-            $("#alerts").slideUp(600);
-            });
-          </script>
-
+        <div class="alert alert-success alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message!</strong><?php echo $alerts_success; ?>
+        </div>
+      
+    
        
         <?php
 
-          unset($_SESSION["alerts"]);
+          unset($_SESSION["alerts_success"]);
+
+      }
+
+
+
+    if(isset($_SESSION["alerts_danger"])){
+        $alerts_danger = $_SESSION["alerts_danger"];
+
+        ?>
+
+        <div class="alert alert-danger alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message!</strong><?php echo $alerts_danger; ?>
+        </div>
+      
+    
+        <?php
+
+          unset($_SESSION["alerts_danger"]);
+
+      }
+
+
+    if(isset($_SESSION["alerts_info"])){
+        $alerts_info = $_SESSION["alerts_info"];
+
+        ?>
+
+        <div class="alert alert-info alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message!</strong><?php echo $alerts_info; ?>
+        </div>
+      
+    
+       
+        <?php
+
+          unset($_SESSION["alerts_info"]);
 
       }
 
 ?>
+
+
+<div class="banner">
+  
+
+  
+</div>
 
 
 
