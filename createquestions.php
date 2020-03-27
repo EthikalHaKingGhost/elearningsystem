@@ -4,7 +4,7 @@ session_start();
 
 include 'header.php';
 
-include 'connection.php';
+include 'include/connection.php';
 
 if(isset($_POST["createquestion"])){
   $quiz_id = $_POST["quiz_id"];
@@ -59,7 +59,7 @@ $sql = "INSERT INTO `questions_assigned` (`qa_id`, `quiz_id`, `question_id`) VAL
 
 	<?php
 
-include 'connection.php';
+include 'include/connection.php';
 
 	$sql = "SELECT * FROM quizzes";
 

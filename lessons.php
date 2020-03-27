@@ -4,15 +4,17 @@ session_start();
 
 if(isset($_GET["lid"])){
 
-$lesson_id = $_GET["lid"];
+	$lesson_id = $_GET["lid"];
 
-}else{ 
-	$_SESSION["alerts"] = "No lesson id in url";
-	exit();
+}else{
+
+  header("Location: index.php");
+die();
+
 }
 
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM lessons WHERE lessons.lesson_id = $lesson_id";
 $result = mysqli_query($conn, $sql);
@@ -103,7 +105,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <?php
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM lessons WHERE lessons.lesson_id = $lesson_id";
 $result = mysqli_query($conn, $sql);

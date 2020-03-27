@@ -47,7 +47,7 @@ if(isset($_GET["qid"])){
     exit();
 }
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM `quizzes` WHERE quizzes.quiz_id = 1";
 $result = mysqli_query($conn, $sql);
@@ -66,7 +66,7 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-include 'connection.php';
+include 'include/connection.php';
 
 
 $sql = "INSERT INTO `quizzes_attempted` (`attempt_id`, `enroll_id`, `quiz_id`, `total_correct`, `user_id`) VALUES (NULL, '$enroll_id', '$quiz_id', '0', '$user_id');";

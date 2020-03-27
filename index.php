@@ -1,19 +1,29 @@
 
+
+
+
+
 <?php 
 
 session_start();
 
-if(isset($_SESSION["first_name"])){
+if(isset($_SESSION["username"])){
 
-  $first_name = $_SESSION["first_name"];
-   $last_name = $_SESSION["last_name"];
+  $username = $_SESSION["username"];
+
 
 }
 
  include 'header.php';?> 
 
- 
- <style>
+
+<style>
+
+.banner{
+
+  background-image: url("images/1.jpg");
+
+}
 
 .parallax {
   background-image: url("./images/ma.jpg");
@@ -38,50 +48,151 @@ if(isset($_SESSION["first_name"])){
   color: white;
 }
 
-.banner{
-  background-image:url(images/banner.png);
-  background-repeat:no-repeat;
-  background-size: contain;
-   background-size: center;
-}
-
 </style>
 
-<div class="banner">
 
-  <div class="banner_image">
-    
-  </div>
+
+
+ <?php
+        if (isset($_GET["error"])) {
+
+          if ($_GET["error"] == "wrongpwd") {
+
+?>
+            <div class="alert alert-danger alert-dismissible" name="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message!</strong><?php echo "incorrect email or password please sign in , successful, Please check you email!" ?>
+            </div>
+
+
+<?php
+
+        }
+
+      }
+
+  ?>
+
+ 
+
+<div class="banner">
   
 </div>
 
 
+<div class="container-fluid">
+
+<div class="row">
+
+  <div class="col-md-4 text-center">
+
+        <div class="card text-white bg-danger border-0 mt-3 mb-3">
+          <div class="card-header">Health Update!</div>
+          <a style="text-decoration: none; color:white;" href="about.php">
+          <div class="card-body rounded-lg card-danger">
+            <h5>Coronavirus (COVID-19) - updated 4pm</h5></a>
+          </div>
+        </div>
+
+        <div class="card border-0 bg-light">
+          <div class=" card-header"><strong>News Update!</strong></div>
+          <div class="card-body">
+            <h5 class="card-title">Discounts</h5>
+            <p>
+              Please be advised that all new registion fees will be canceled registeration to our courses are now free of charged. There will be a discount on all Maths courses by weekend. If you need more information please contact us via email.
+            </p>
+
+          </div>
+        </div>
+
+  </div>
+
+
+  <div class="col-md-8 text-center">
+
+        <div class="card border-0 bg-light mb-3 mt-3">
+          <div class="card-body">
+            <h5 class=" card-header text-center"><strong>Newly Released Courses</strong></h5>
+            
+<div class="container-fluid p-3 mb-3">
+    <div class="row m-0 text-center p-4">
+
 <?php 
 
-include 'slider.php';?>
+include 'include/connection.php';
 
+//code to show recent courses added
 
-<div class="parallax"></div>
+        $sql = "SELECT * FROM Courses ORDER BY `Courses`.`date_created` ASC LIMIT 3";
+        $result = mysqli_query($conn, $sql);
+        
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($result)) {
+                            
+        $course_id = $row["course_id"]; 
+        $course_title = $row["course_title"];
+        $course_description = $row["course_description"];
+        $course_img = $row["course_img"];  
 
-  <div class="paragraph">
-    <h2>Biology</h2>
-    <p>For a remarkable about page, all you need to do is figure out
-    your company's unique identity, and then share it with the world. Easy, right? Of course not. Your "About Us" page is one of the most important pages on your website, and it needs to be well crafted. This profile also happens to be one of the most commonly overlooked pages, which is why you should make it stand out.The good news? It can be done. In fact, there are some companies out there with remarkable "About Us" pages, the elements of which you can emulate on your own website.</p>
+    ?>
+
+<div class="col-md-4">
+<div class="card">
+  <img class="card-img-top e" src="<?php echo "images/$course_img"; ?>" alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text"><?php echo $course_description; ?></p>
+    <h5 class="card-title"><?php echo $course_title; ?></h5>
+    <hr>
+    <a 
+
+<?php
+  if(isset($_SESSION["user_id"])){
+    echo 'href="courses.php"';
+  }else{
+    echo 'href="register.php"';
+  }
+?>
+
+ class="btn btn-dark btn-sm">find out more</a>
   </div>
 </div>
-
-<div class="paragraph">
-  <h2>English</h2>
-  <p>Paris is the capital of France. important pages on your website, and it needs to be well crafted. This profile also happens to be one of the most commonly overlooked pages, which is why you should make it stand out.The good news? It can be done. In fact, there are some companies out there with remarkable "About Us" pages, the elements of which you can emulate on your own website.</p>
 </div>
 
-<div class="paragraph">
-  <h2>Maths</h2>
-  <p>Tokyo is the capital of Japan. important pages on your website, and it needs to be well crafted. This profile also happens to be one of the most commonly overlooked pages, which is why you should make it stand out.The good news? It can be done. In fact, there are some companies out there with remarkable "About Us" pages, the elements of which you can emulate on your own website.</p>
+          
+<?php
+
+  }                
+          }else{
+
+            header("location: index.php?error=nocourses");
+
+        }
+
+    ?>
+</div>
+</div> 
+
+
+          </div>
+        </div>
+        
+
+  </div>
+  
+
 </div>
 
 
-<?php include'footer.php'; ?>
+</div>
+
+
+
+
+
+
+
+
 
 <!-- Container element -->
 <div class="parallax"></div>

@@ -1,11 +1,19 @@
 
+
+
 <?php 
-
-
 
 include 'header.php'; ?>
 
+
+
+
+
 <style>
+
+.banner{
+    background-image: url('images/2.jpg');
+}
 
 .parallax {
   background-image: url("./images/ma.jpg");
@@ -37,8 +45,14 @@ include 'header.php'; ?>
 
 </style>
 
-<div class="banner">
 
+
+<div class="banner">
+  
+
+</div>
+
+<div class=" card-header text-center pt-4">
   <h1><i class="fas fa-address-card"></i> About Us</h1>
   <p><em>Learn anything</em></p>
   

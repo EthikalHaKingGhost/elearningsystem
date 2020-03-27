@@ -112,7 +112,7 @@ a.btn-card {
 
 </style>
 
-<?php include 'connection.php'; ?>
+<?php include 'include/connection.php'; ?>
 
 <!-- details card section starts from here -->
             <section class="details-card">

@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_POST["create"])){
 
-	include 'connection.php';
+	include 'include/connection.php';
 
 	$topic_title = $_POST["topic_title"];
     $topic_description = $_POST["topic_description"];
@@ -49,7 +49,7 @@ include 'header.php'; ?>
 
 if(isset($_POST["assign_topic"])){
 
-	include 'connection.php';
+	include 'include/connection.php';
 
 	$course_id = $_POST["course_id"];
 	$topic_id = $_POST["topic_id"];
@@ -80,7 +80,7 @@ if(isset($_POST["assign_topic"])){
 
 <?php 
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM courses";
 
@@ -115,7 +115,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <?php 
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM topics";
 

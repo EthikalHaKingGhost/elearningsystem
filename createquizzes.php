@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_POST["create_quiz"])){
 
-include "connection.php";
+include "include/connection.php";
 $topic_id = $_POST["topic_id"];
 $quiz_title = $_POST["quiz_title"];
 $quiz_description = $_POST["quiz_description"];
@@ -30,7 +30,7 @@ include 'header.php'; ?>
 <h3>Topic</h3>
 	<p><select name="topic_id">
 		<option>select a topic</option>
-		<?php include 'connection.php';
+		<?php include 'include/connection.php';
 
 				$sql = "SELECT * FROM topics";
 				$result = mysqli_query($conn, $sql);

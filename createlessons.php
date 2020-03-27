@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_POST["createlessons"])){
 
-	include 'connection.php';
+	include 'include/connection.php';
 
    $lesson_name = $_POST["lesson_name"];
    $lesson_details = $_POST["lesson_details"];
@@ -53,7 +53,7 @@ include 'header.php';?>
 
     	<?php
 
-    	include 'connection.php';
+    	include 'include/connection.php';
 
 			$sql = "SELECT * FROM topics_assigned, courses, topics WHERE courses.course_id = topics_assigned.course_id AND topics.topic_id = topics_assigned.topic_id";
 			$result = mysqli_query($conn, $sql);

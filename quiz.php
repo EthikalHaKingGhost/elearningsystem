@@ -38,7 +38,7 @@ session_start();
 			$icon = '<i class="fas fa-times-circle answer_icon red"></i>';
 		}
 
-		include 'connection.php';
+		include 'include/connection.php';
 
 		$sql = "INSERT INTO `responses` (`response_id`, `qa_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$attempt_id', '$choice', '$correct');";
 
@@ -70,7 +70,7 @@ $question_number = $_SESSION["question_number"];
 
 
 
-include'connection.php';
+include'include/connection.php';
 
 $sql = "SELECT * FROM questions_assigned, questions
 	WHERE questions_assigned.question_id = questions.question_id 

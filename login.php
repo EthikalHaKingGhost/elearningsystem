@@ -1,10 +1,31 @@
 
+<style type="text/css">
+
+  body{
+    background-image:url(images/login-cover.jpeg);
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+
+  .field-icon {
+  float: right;
+  margin: 0 0 0 -17px;
+  position: relative;
+  top:12px;
+  left:-7px;
+  z-index: 3;
+  font-size:2vh;
+
+}
+
+</style>
+
 <?php
 session_start();
 
 if(isset($_POST["login"])){
 
-    include "connection.php";
+    include "include/connection.php";
 
 //add login as admin functionality
 
@@ -23,14 +44,12 @@ if(isset($_POST["login"])){
             if(password_verify($password, $db_password)){
 
                     $_SESSION["user_id"] = $row["user_id"];
-                    $_SESSION["first_name"] = $row["first_name"];
-                    $_SESSION["last_name"] = $row["last_name"];
+                    $_SESSION["username"] = $row["uid_username"];
                     $_SESSION["email"] = $row["email"];
-                    $first_name = $_SESSION["first_name"];
-                    $last_name = $_SESSION["last_name"];
+                    $username = $_SESSION["username"];
 
 
-                   $_SESSION["alerts_success"] = ' Login Successful, Welcome ' .$first_name. ', ' .$last_name. '! <i class="fas fa-smile"></i>'; 
+                   $_SESSION["alerts_success"] = ' Login Successful, Welcome ' .$username.'! <i class="fas fa-smile"></i>'; 
 
                     header("location: index.php");
 
@@ -82,7 +101,7 @@ include "header.php"; ?>
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="password-field" type="password" class="form-control rounded-sm" placeholder="password" name="password" value="secret">
+            <input id="password-field" type="password" class="form-control rounded-sm" placeholder="password" name="password">
             <span toggle="#password-field" class="far fa-fw fa-eye field-icon toggle-password"></span>
           </div>
      
@@ -115,28 +134,8 @@ include "header.php"; ?>
     input.attr("type", "password");
   }
 });
+
 </script>
-
-<style type="text/css">
-
-  body{
-    background-image:url(images/login-cover.jpeg);
-    background-size:cover;
-    background-repeat:no-repeat;
-  }
-
-  .field-icon {
-  float: right;
-  margin: 0 0 0 -16px;
-  position: relative;
-  top:12px;
-  left:-7px;
-  z-index: 3;
-  font-size:2vh;
-
-}
-
-</style>
             
 </body>
 </html>

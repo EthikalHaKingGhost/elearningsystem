@@ -58,7 +58,7 @@ a.button {
 
 <?php
 
-include'connection.php';
+include'include/connection.php';
 
 $sql = "SELECT * FROM topics WHERE topics.topic_id=$topic_id";
 
@@ -78,13 +78,21 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 </head>
 <body>
-<br> 
+
 <div class="container">
-<div class="card">
-<div class="card-body">
+
+<div class="card-header text-center">
 <h1> <?php echo $topic_title ?> </h1>
 <p><?php echo $topic_description ?></p>
+<input class="form-control" id="myInput" type="text" placeholder="Search for lesson or quiz...">
+</div>  
+  
+<div class="row">
 
+<div class="col-md-6">
+  
+<div class="card border-0">
+<div class="card-body">
 <table class="table">
   <thead class="thead-light">
     <tr>
@@ -93,11 +101,11 @@ if (mysqli_num_rows($result) > 0) {
       <th scope="col">Action</th>
     </tr>
   </thead>
-<tbody>
+<tbody id="myTable">
 
  <?php
 
-include 'connection.php';
+include 'include/connection.php';
 
 $sql = "SELECT * FROM lessons WHERE lessons.topic_id = $topic_id";
 
@@ -112,9 +120,8 @@ if (mysqli_num_rows($result) > 0) {
         $lesson_type = $row["lesson_type"];
         $lesson_source = $row["lesson_source"];
         $link= "lessons.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&lid=$lesson_id";
-
-
 ?> 
+
 <!---begin $time_spent when Launch button is clicked----->
       <!---default $completion = incomplete ---->
       <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
@@ -123,7 +130,7 @@ if (mysqli_num_rows($result) > 0) {
     <tr> 
       <td><?php echo $lesson_name; ?></td>
       <td><?php echo $lesson_type; ?></td>
-      <td><a class="btn btn-success" href="<?php echo "$link";?>">Launch</a></td>   
+      <td><a class="btn btn-secondary" href="<?php echo "$link";?>">Launch</a></td>   
     </tr>
  
 <?php 
@@ -134,27 +141,29 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 </tbody>
 </table>  
-<br> 
+
+</div> 
+</div>
+</div>
 
 
 
-
-<hr>
-
-
-
-<table class="table">
+<div class="col-md-6">
+  
+<div class="card border-0">
+<div class="card-body">
+  <table class="table">
   <thead class="thead-light">
     <tr>
       <th scope="col">Quiz Title</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="myTable">
 
 <?php
 
-    include 'connection.php';
+    include 'include/connection.php';
 
 
     $sql = "SELECT * FROM quizzes, topics WHERE topics.topic_id = $topic_id";
@@ -174,7 +183,7 @@ if (mysqli_num_rows($result) > 0) {
    
     <tr>
       <td><?php echo $quiz_title; ?></td>
-      <td><a class="btn btn-success" href="<?php echo "$link";?>">Launch</a></td>   
+      <td><a class="btn btn-secondary" href="<?php echo "$link";?>">Launch</a></td>   
     </tr>
  
 
@@ -189,7 +198,24 @@ if (mysqli_num_rows($result) > 0) {
 </div>
 </div>
 </div>
-<br>                                   
+
+
+</div>
+
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>              
 
 
 <?php include 'footer.php'; ?>

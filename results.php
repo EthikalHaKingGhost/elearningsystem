@@ -8,7 +8,7 @@ if(isset($_SESSION["attempt_id"])){
 	$total_questions = $_SESSION["total_questions"];
 	$attempt_id = $_SESSION["attempt_id"];
 
-	include 'connection.php';
+	include 'include/connection.php';
 
 		$sql = "UPDATE `quizzes_attempted` SET `total_correct` = '$total_correct' WHERE `quizzes_attempted`.`attempt_id` = $attempt_id;";
 

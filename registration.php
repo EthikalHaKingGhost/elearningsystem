@@ -1,4 +1,6 @@
-  
+
+
+
  <?php 
 
 session_start();
@@ -6,7 +8,7 @@ session_start();
     if(isset($_POST["registration"])){
 
 
-include "connection.php";
+include "include/connection.php";
 
 //google recaptcha 
     $secret = "6LfAXtkUAAAAALan_VfC9IweBZkDE5SRSJUIP5Lz";
@@ -50,10 +52,37 @@ include "connection.php";
 
 }
 
+
 include "header.php"; ?>
+<link rel="stylesheet" href="pwdstrength/src/password.css">
+<script src="pwdstrength/src/password.js"></script>
+
+  
+<style type="text/css">
+  
+body{
+    background-image:url(images/login-cover.jpeg);
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  
+.field-icon {
+  float: right;
+  margin: 0 0 0 -17px;
+  position: relative;
+  top:12px;
+  left:-7px;
+  z-index: 3;
+  font-size: 2vh;
+  
+
+}
+
+</style>
+
 
 <div class="container p-5">
-<div class="row">
+<div class="row p-3">
 
 	<div class="col-md-6 rounded-sm"  style="background-image:url(images/blur-background09.jpg); background-size:cover;">
 
@@ -98,8 +127,10 @@ include "header.php"; ?>
             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
         </div>
 
-    <input  name="password" class="form-control" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <input id="password" type="password" class="form-control rounded-sm" placeholder="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    
+      <span toggle="#password-field" class="far fa-fw fa-eye field-icon toggle-password"></span>
+
     </div><!-- form-group// -->    
 
 <!------googlerecaptcha ----->
@@ -125,6 +156,8 @@ include "header.php"; ?>
 
 <script>
 
+  email confirmation
+
    $("#email").on("focusout", function(){
 
     console.log("focusout");
@@ -144,15 +177,56 @@ include "header.php"; ?>
    }); 
 
 </script>
+
+
+
+<script type="text/javascript">
+  //eye icon changer
+
+  $(".toggle-password").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+
+</script>
+
+
+<script type="text/javascript">
+
+  $('#password').password({
+  enterPass: 'Type your password',
+  shortPass: 'The password is too short',
+  containsField: 'The password contains your username',
+  steps: {
+    // Easily change the steps' expected score here
+    13: 'Really insecure password',
+    33: 'Weak; try combining letters & numbers',
+    67: 'Medium; try using special characters',
+    94: 'Strong password',
+  },
+  showPercent: false,
+  showText: true, // shows the text tips
+  animate: true, // whether or not to animate the progress bar on input blur/focus
+  animateSpeed: 'fast', // the above animation speed
+  field: false, // select the match field (selector or jQuery instance) for better password checks
+  fieldPartialMatch: true, // whether to check for partials in field
+  minimumLength: 4, // minimum password length (below this threshold, the score is 0)
+  useColorBarImage: true, // use the (old) colorbar image
+  customColorBarRGB: {
+    red: [0, 240],
+    green: [0, 240],
+    blue: 10,
+  } // set custom rgb color ranges for colorbar.
+
+   });
+  
+</script>
 <?php include "footer.php"; ?>
 
 
-<style type="text/css">
-  
-  body{
-    background-image:url(images/login-cover.jpeg);
-    background-size:cover;
-    background-repeat:no-repeat;
-  }
-  
-</style>

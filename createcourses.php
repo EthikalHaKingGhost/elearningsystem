@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_POST["create"])){
 
-include 'connection.php'; 
+include 'include/connection.php'; 
 
     $course_title = $_POST["course_title"];                       
     $course_description = $_POST["course_description"];
