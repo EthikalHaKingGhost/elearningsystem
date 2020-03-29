@@ -6,9 +6,6 @@
 include 'header.php'; ?>
 
 
-
-
-
 <style>
 
 .banner{
@@ -53,7 +50,7 @@ include 'header.php'; ?>
 </div>
 
 <div class=" card-header text-center pt-4">
-  <h1><i class="fas fa-address-card"></i> About Us</h1>
+  <i class="fas fa-address-card"></i><h1> About Us</h1>
   <p><em>Learn anything</em></p>
   
 </div>

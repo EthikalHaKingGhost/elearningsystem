@@ -14,12 +14,14 @@ include 'header.php'; ?>
 
 </div>
 
-    <div class="card-header page-title text-center bg-light">
+
+
+<div class="container-fluid pb-4">
+        <div class="card-header page-title text-center">
 <h1><i class="fas fa-graduation-cap"></i> Courses</h1>
     <p><em>Enroll in some of the newest courses</em></p>
 </div>
-
-<div class="row text-center pt-0 m-0">
+<div class="row text-center">
 
 <?php
 
@@ -38,15 +40,16 @@ include 'header.php'; ?>
         $course_title = $row["course_title"];
         $course_description = $row["course_description"];
         $course_img = $row["course_img"];
-        $link = "enrollment.php?cid=$course_id";    
-             
+        $link = "enrollment.php?cid=$course_id";
+
+
         ?>
-        <div class="col-md-3 mt-4">
-        
-        <div class="card" style="width: 18rem;">
+        <div class="col-md-4 mt-4">
+        <div class="card">
         <img class="card-img-top" src="<?php echo "images/$course_img"; ?>" alt="Card image cap">
           <div class="card-body">
-            <p class="card-text"><?php echo $course_description; ?></p>
+            <p class="card-text">
+                <?php echo $course_description; ?></p>
             <h5 class="card-title"><?php echo $course_title; ?></h5> 
             <a href="<?php echo $link; ?>" class="btn btn-secondary">Begin Course</a>
           </div>
@@ -65,11 +68,8 @@ include 'header.php'; ?>
 
     ?>
   </div>
- 
+ </div>
 
-
-
-</script>
 
 <?php include 'footer.php'; ?>
 

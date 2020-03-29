@@ -179,7 +179,7 @@ echo
 
       <div class="card-body">
 
-        <!--------------error messages for users server side valiation-------------->
+<!--------------error messages for users server side valiation-------------->
          <?php
 
         if (isset($_GET["error"])) {
@@ -212,7 +212,10 @@ echo
         }
 
         ?>
-        
+
+ <!------------end of error messages-------------->   
+
+
 
   <form action="include/register-info.php" method= "post">
 
@@ -248,7 +251,7 @@ echo
      <input name="pwd-repeat" type="password" class="form-control" placeholder="Confirm password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required>
 
     </div>
-    <!-- form-group// -->
+  <!-- form-group// -->
 
 
 

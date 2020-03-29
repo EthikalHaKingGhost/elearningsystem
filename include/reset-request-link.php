@@ -17,7 +17,8 @@ $expires = date("U") + 1800;
 
 include "connection.php";
 
-$userEmail = $_POST["email"];
+
+$email = $_POST["email"];
 
 //delete any exsisting tokens to prevent bulking
 
@@ -31,7 +32,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 }else{
 
-	mysqli_stmt_bind_param($stmt, "s", $userEmail);
+	mysqli_stmt_bind_param($stmt, "s", $email);
 	mysqli_stmt_execute($stmt);
 }
 
@@ -49,7 +50,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 	$hashedToken = password_hash($token, PASSWORD_DEFAULT);
 
-	mysqli_stmt_bind_param($stmt, "ssss", $userEmail, $pwdResetSelector, $hashedToken, $pwdResetExpires );
+	mysqli_stmt_bind_param($stmt, "ssss", $email, $pwdResetSelector, $hashedToken, $pwdResetExpires );
 	mysqli_stmt_execute($stmt);
 }
 
@@ -59,7 +60,7 @@ mysqli_close($conn);
 
 
 
-$to $userEmail;
+$to = $email;
 
 $subject = 'Reset your password for your account';
 
@@ -68,21 +69,24 @@ $message .= "<p> Here is your password reset link: </br>";
 
 $message .= '<a href="' . $url . '">' . $url . '<a/></p>';
 
-$headers = "From: Elearningproject <travo.edward@gmail.com>\r\n";
+include("../include/gmail.php");
+
+/*$headers = "From: Elearningproject <travo.edward@gmail.com>\r\n";
 
 $headers .= "Reply-To: Elearningproject travo.edward@gmail.com>\r\n";
 
 $headers .= "Content-type: text/html\r\n";
 
-
-mail($to, $subject, $message, $headers);
+mail($to, $subject, $message, $headers); */
 
 
 header("location: ../resetpassword.php?reset=success");
 
 }else{
 
-	header("location: ../index.php");
+	echo "error";
+
+	/* header("location: ../index.php"); */
 
 
 }

@@ -136,5 +136,6 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 }else{
 
-	header("location: ../index.php");
+	echo"error";
+	/* header("location: ../index.php"); */
 }

@@ -50,13 +50,14 @@ body,p,h1,h2,h3,h4,h5,h6 {
 
 height:200px;
  width:100%;
+ padding-top:60px;
   background-color:#ecf0f1;
   background: no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-
+  filter: brightness(90%);
 }
 
 </style>
@@ -65,7 +66,7 @@ height:200px;
 
 <body>
 
-   <?php
+  <?php
         if (isset($_GET["error"])) {
 
           if ($_GET["error"] == "wronginfo") {
@@ -91,6 +92,24 @@ echo
  ?>
 
 
+<?php
+  
+        if (isset($_GET["info"])) {
+
+          if ($_GET["info"] == "reg2enroll") {
+
+        echo  '<div class="alert alert-info m-0 rounded-lg text-center alert-dismissible" name="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message!</strong> Please Register to enroll in our courses Registeration is FREE"</div>';
+
+        }
+    }
+
+?>
+
+
+
+
  <div class="header-nav bg-light sticky-top">
   <div class="container-fluid">
     <div class="row">
@@ -110,9 +129,7 @@ echo
               </li>
                     <?php
 
-                        if(isset($_SESSION["user_id"])){
-
-                           
+                        if(isset($_SESSION["user_id"])){  
 
                         }else{
 
@@ -122,23 +139,19 @@ echo
                                   </li>
                                   <li class="nav-item ml-2">
                                     <a class="nav-link" href="courses.php">Courses</a>
-                                  </li>'; 
-                       
-                                  
-                            }
-                      ?>
+                                  </li>';        
+                                  }
+                            ?>
+                      </ul>
 
+                         <?php
 
-               </ul>
+                            if(isset($_SESSION["user_id"])){
+                              $username = $_SESSION["username"];
+                              $user_id = $_SESSION["user_id"];
+                           ?>
 
-         <?php
-
-            if(isset($_SESSION["user_id"])){
-                    $username = $_SESSION["username"];
-                    $user_id = $_SESSION["user_id"];
-        ?>
-
- <ul class="navbar-nav ml-auto nav-flex-icons mr-4">
+      <ul class="navbar-nav ml-auto nav-flex-icons mr-4">
         <li class="nav-item avatar dropdown">
           <a class="nav-link" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">

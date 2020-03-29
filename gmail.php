@@ -1,19 +1,18 @@
-<?php include "header.php"; ?>
-
-<h2>Sending Emails</h2>
 
 
 <?php
 
 
-$info["name"] = "John Doe";
-//$info["page"] = "http://localhost/elearningproject/login.php";
-
-
+$info["name"] = "$to";
+$info2["message"] = "$message";
 
 $mail_template = file_get_contents("mail.html");
 
 foreach ($info as $key => $value) {
+
+   $mail_template = str_replace('{{'.$key.'}}', $value, $mail_template);
+
+}foreach ($info2 as $key => $value) {
 
    $mail_template = str_replace('{{'.$key.'}}', $value, $mail_template);
 
@@ -78,10 +77,10 @@ $mail->setFrom('travo.edward@gmail.com', 'Travis Laptop');
 //$mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->addAddress('traviszedward@gmail.com', 'Travis Edward');
+$mail->addAddress($email, 'Travis Edward');
 
 //Set the subject line
-$mail->Subject = ' TESTING PHPMailer GMail SMTP test';
+$mail->Subject = $subject;
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
@@ -99,6 +98,9 @@ if (!$mail->send()) {
     echo 'Mailer Error: '. $mail->ErrorInfo;
 } else {
     echo 'Message sent!';
+
+
+
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
     #if (save_mail($mail)) {
@@ -125,6 +127,6 @@ function save_mail($mail)
     return $result;
 }
 
+
 ?>
 
-<?php include "footer.php"; ?>

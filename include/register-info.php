@@ -36,9 +36,16 @@ if(isset($_POST["register"])){
 $username = $_POST["uid"];
 $email = $_POST["mail"];
 $password = $_POST["pwd"];
-$password_repeat = $_POST["pwd-repeat"];
+$password_repeat = $_POST["pwd-repeat"];           
 
+$sql = "SELECT * FROM users WHERE uid_username = '$username' and email='$email'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+          if (mysqli_num_rows($result) > 0) {
 
+            echo "user already exist;";
+
+}else{
 
   if (empty($username) || empty($email) || empty($password) || empty($password_repeat) ){
     header("location: ../register.php?error=emptyfields&uid=".$username."&mail=".$email);

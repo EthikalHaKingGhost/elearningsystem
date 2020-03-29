@@ -218,4 +218,8 @@ $(document).ready(function(){
 </script>              
 
 
+<style type="text/css"> 
+
+</style>
+
 <?php include 'footer.php'; ?>
