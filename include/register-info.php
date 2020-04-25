@@ -34,27 +34,21 @@ if(isset($_POST["register"])){
 
 
 $username = $_POST["uid"];
-$email = $_POST["mail"];
+$useremail = $_POST["email"];
 $password = $_POST["pwd"];
 $password_repeat = $_POST["pwd-repeat"];           
 
-$sql = "SELECT * FROM users WHERE uid_username = '$username' and email='$email'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-          if (mysqli_num_rows($result) > 0) {
 
-            echo "user already exist;";
 
-}else{
 
-  if (empty($username) || empty($email) || empty($password) || empty($password_repeat) ){
-    header("location: ../register.php?error=emptyfields&uid=".$username."&mail=".$email);
+  if (empty($username) || empty($useremail) || empty($password) || empty($password_repeat) ){
+    header("location: ../register.php?error=emptyfields&uid=".$username."&mail=".$useremail);
 
   exit();
 
 
   //check for both username and email
-  }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)){
+  }elseif(!filter_var($useremail, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)){
 
     header("location: ../register.php?error=invalidmailuid");
 
@@ -63,9 +57,9 @@ $sql = "SELECT * FROM users WHERE uid_username = '$username' and email='$email'"
  
 //check parameter to see if email is valid
 
-  }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+  }elseif(!filter_var($useremail, FILTER_VALIDATE_EMAIL)){
 
-        header("location: ../register.php?error=invalidmail&uid=".$email);
+        header("location: ../register.php?error=invalidmail&uid=".$useremail);
 
   exit();
 
@@ -79,7 +73,7 @@ $sql = "SELECT * FROM users WHERE uid_username = '$username' and email='$email'"
 
 }elseif($password !== $password_repeat){
 
-     header("location: ../register.php?error=passwordcheck&uid=".$username."&email=".$email);
+     header("location: ../register.php?error=passwordcheck&uid=".$username."&email=".$useremail);
 
 exit();
 
@@ -105,8 +99,10 @@ exit();
     $resultCheck = mysqli_stmt_num_rows($stmt);
       if ($resultCheck > 0) {
 
-        header("location: ../register.php?error=usertaken&mail=".$username);
+        header("location: ../register.php?error=usertaken&uid=".$username);
+
 exit();
+
 
 }else{
 
@@ -123,7 +119,7 @@ exit();
 
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password_hash);
+    mysqli_stmt_bind_param($stmt, "sss", $username, $useremail, $password_hash);
     mysqli_stmt_execute($stmt);
 
     header("location: ../register.php?signup=success");
@@ -136,6 +132,7 @@ $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 }
 
+
 }else{
 
   header("location: ../register.php?error=norecaptcha");
@@ -146,6 +143,7 @@ exit();
 
 mysqli_stmt_close($stmt);
 mysqli_close($conn);
+
 
 
 }else{

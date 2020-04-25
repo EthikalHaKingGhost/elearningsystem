@@ -6,7 +6,7 @@ if(isset($_GET["email"])){
 }
 
 
-include "connection.php";
+include "include/connection.php";
 
 $sql = "SELECT * FROM users WHERE email = '$email'";
 $result = mysqli_query($conn, $sql);

@@ -1,42 +1,24 @@
 
-<style type="text/css">
-
-.banner{
-    background-image: url('images/3.jpg');
-}
-
-#topofpage {
-    overflow: hidden;
-    display: none;
-    cursor: pointer;
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    background-color: transparent;
-    color: #e84118;
-    text-align: center;
-    font-size: 30px;
-    text-decoration: none;
-    border-radius: 50px 50px;
-}
-#topofpage:hover {
-    background-color:transparent;
-    color: #e84118;
-    border-radius: 50px 50px;
-}
-
-</style>
-
-
 
 <!----------Scroll to the top of the page ---------->
 
 <a id="topofpage" title="Top Of Page" href="index.php"><i class="fas fa-chevron-up"></i></a>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <script type="text/javascript">
 
+    $('#text').webSpeaker();
 
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="notify/bootstrap-notify.js"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+
+
+<script type="text/javascript">
 /*Scroll to top when arrow up clicked BEGIN*/
 $(window).scroll(function() {
     var height = $(window).scrollTop();
@@ -57,9 +39,16 @@ $(document).ready(function() {
 
 </script>
 
+
+
+
+<footer>    
+<div class="footer">
+        <div class="container">
+             
+            <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All rights reserved.
+        </div>
+    </div>
+</footer>
   </body>
 </html>
-	                       
-
-
-	                     

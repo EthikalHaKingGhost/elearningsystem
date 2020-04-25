@@ -2,9 +2,11 @@
 
 <?php
 
-
 $info["name"] = "$to";
-$info2["message"] = "$message";
+$info["email"] = "$email";
+$info["message"] = "$message";
+$info["subject"] = "$subject";
+
 
 $mail_template = file_get_contents("mail.html");
 
@@ -12,12 +14,9 @@ foreach ($info as $key => $value) {
 
    $mail_template = str_replace('{{'.$key.'}}', $value, $mail_template);
 
-}foreach ($info2 as $key => $value) {
 
-   $mail_template = str_replace('{{'.$key.'}}', $value, $mail_template);
 
-}
-
+exit();
 
 /**
  * This example shows settings to use when sending via Google's Gmail servers.

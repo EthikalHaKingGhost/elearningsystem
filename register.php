@@ -58,42 +58,6 @@ body{
 
 <?php include "header.php"; ?>
 
-<?php
-
-if (isset($_GET["signup"])) {
-
-  if ($_GET["signup"] == "success") {
-
-?>
-            <div class="alert alert-success alert-dismissible" name="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Message!</strong><?php echo "Registration successful, Please check you email!";?>
-            </div>
- <?php  
-
-      }
-    }
-?>
-
-
-<!------successful password reset --------->
-
-   <?php
-        if (isset($_GET["newpwd"])) {
-
-          if ($_GET["newpwd"] == "pwdupdated") {
-
-echo
-            '<div class="alert alert-danger m-0 rounded-lg text-center alert-dismissible" name="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Message!</strong> Your password has been changed successfully!</div>';
-
-        }
-
-      }
-
- ?>
-
 <div class="container p-5">
 
 <div class="row p-3">
@@ -180,6 +144,7 @@ echo
       <div class="card-body">
 
 <!--------------error messages for users server side valiation-------------->
+  
          <?php
 
         if (isset($_GET["error"])) {
@@ -206,6 +171,10 @@ echo
           }else if ($_GET["error"] == "usertaken") {
 
             echo '<p class="text-center text-danger">Sorry, that username already exists!</p>';
+
+          }else if ($_GET["error"] == "passwordcheck") {
+
+            echo '<p class="text-center text-danger">Passwords does not match!</p>';
           }
 
 
@@ -231,7 +200,7 @@ echo
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
          </div>
-        <input name="mail" id="email"class="form-control" placeholder="Email address" type="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
+        <input name="email" id="email"class="form-control" placeholder="Email address" type="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
     </div><!-- form-group// -->
 
 

@@ -1,8 +1,4 @@
 
-
-
-
-
 <?php 
 
 session_start();
@@ -14,79 +10,20 @@ if(isset($_SESSION["username"])){
 
 }
 
- include 'header.php';?> 
+include 'header.php'; ?>
 
-
-<style>
-
-.banner{
-
-  background-image: url("images/1.jpg");
-
-}
-
-.parallax {
-  background-image: url("./images/ma.jpg");
-
-  opacity: 0.9;
-    filter: brightness(50%);
-    height: 300px;
-
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-position: center;
-  -o-background-size: cover;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
-.paragraph{
-  margin: 20px;
-  padding: 20px;
-  background-color: #555;
-  color: white;
-}
-
-</style>
-
-
-
-
- <?php
-        if (isset($_GET["error"])) {
-
-          if ($_GET["error"] == "wrongpwd") {
-
-?>
-            <div class="alert alert-danger alert-dismissible" name="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Message!</strong><?php echo "incorrect email or password please sign in , successful, Please check you email!" ?>
-            </div>
-
-
-<?php
-
-        }
-
-      }
-
-  ?>
-
- 
-
-<div class="banner">
+<div class="banner" style='background-image: url("images/1.jpg")';>
   
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid" style="background-image: url('images/blur-background12.jpg');  background-size: cover; background-size: no-repeat; ">
 
 <div class="row">
 
   <div class="col-md-4 text-center">
 
-        <div class="card text-white bg-danger border-0 mt-3 mb-3">
+        <div class="card text-white bg-danger border-0 mt-5 mb-3">
           <div class="card-header">Health Update!</div>
           <a style="text-decoration: none; color:white;" href="about.php">
           <div class="card-body rounded-lg card-danger">
@@ -110,12 +47,12 @@ if(isset($_SESSION["username"])){
 
   <div class="col-md-8 text-center">
 
-        <div class="card border-0 bg-light mb-3 mt-3">
-          <div class="card-body">
-            <h5 class=" card-header text-center"><strong>Newly Released Courses</strong></h5>
+        <div class="card border-0 bg-light mb-5 mt-5">
+          <div class="card-body rounded-0">
+            <div class="h5 text-left"><strong>Newly Released Courses</strong>
+              <hr>
             
-<div class="container-fluid p-3 mb-3">
-    <div class="row m-0 text-center p-4">
+<div class="container-fluid">
 
 <?php 
 
@@ -137,29 +74,35 @@ include 'include/connection.php';
 
     ?>
 
-<div class="col-md-4">
-<div class="card">
-  <img class="card-img-top e" src="<?php echo "images/$course_img"; ?>" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text"><?php echo $course_description; ?></p>
-    <h5 class="card-title"><?php echo $course_title; ?></h5>
-    <hr>
-    <a 
+<div class="row py-auto my-2">
 
-<?php
-  if(isset($_SESSION["user_id"])){
-    echo 'href="courses.php"';
-  }else{
-    echo 'href="register.php"';
-  }
-?>
+<a <?php
 
- class="btn btn-dark btn-sm">find out more</a>
+      if(isset($_SESSION["user_id"])){
+        echo 'href="courses.php"';
+      }else{
+        echo 'href="register.php"';
+      } ?> class="btn btn-light bg-shadow text-decoration-none rounded-0">
+
+<div class="row p-0 m-0">    
+ <div class="col-md-3 m-0 p-0">
+   <img class="card-img-top e" src="<?php echo "images/$course_img"; ?>" alt="Image">
+ </div> 
+  
+  <div class="col-md-7 rounded-0 my-auto">
+    <h5 class="text-left"><?php echo $course_title; ?></h5>
+    <p class="card-text text-justify font-italic"><?php echo $course_description; ?></p>
+  </div>
+
+  <div class="col-md-2 rounded-0 my-auto">
+
   </div>
 </div>
+</a>
 </div>
 
-          
+
+        
 <?php
 
   }                
@@ -185,17 +128,6 @@ include 'include/connection.php';
 
 
 </div>
-
-
-
-
-
-
-
-
-
-<!-- Container element -->
-<div class="parallax"></div>
 
 
 <?php include 'footer.php'; ?>

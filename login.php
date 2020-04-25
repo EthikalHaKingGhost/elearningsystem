@@ -1,4 +1,3 @@
-
 <style type="text/css">
 
   body{
@@ -23,50 +22,51 @@
 <?php
 session_start();
 
-if(isset($_POST["login"])){
+if (isset($_POST["login"]))
+{
 
     include "include/connection.php";
 
-//add login as admin functionality
-
-    $email = $_POST["email"];                       
+    //add login as admin functionality
+    $email = $_POST["email"];
     $password = $_POST["password"];
-
 
     $sql = "SELECT * FROM `users` WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-        while($row = mysqli_fetch_assoc($result)) {
+    if (mysqli_num_rows($result) > 0)
+    {
+        // output data of each row
+        while ($row = mysqli_fetch_assoc($result))
+        {
 
             $db_password = $row["password"];
-            if(password_verify($password, $db_password)){
+            if (password_verify($password, $db_password))
+            {
 
-                    $_SESSION["user_id"] = $row["user_id"];
-                    $_SESSION["username"] = $row["uid_username"];
-                    $_SESSION["email"] = $row["email"];
-                    $username = $_SESSION["username"];
+                $_SESSION["user_id"] = $row["user_id"];
+                $_SESSION["username"] = $row["uid_username"];
+                $_SESSION["email"] = $row["email"];
+                $username = $_SESSION["username"];
 
+                $_SESSION["alerts_success"] = ' Login Successful, Welcome ' . $username . '! <i class="fas fa-smile"></i>';
 
-                   $_SESSION["alerts_success"] = ' Login Successful, Welcome ' .$username.'! <i class="fas fa-smile"></i>'; 
+                header("location: index.php");
 
-                    header("location: index.php");
+                exit();
 
-                    exit();
-
-                     // for login page
-                    //redirect to page
-
-            } else 
-            $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
+                // for login page
+                //redirect to page
+                
             }
-            } else {
-            $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
-            }
+            else $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
+        }
     }
-
-
+    else
+    {
+        $_SESSION["alerts_danger"] = "You have entered an invalid username or password";
+    }
+}
 
 include "header.php"; ?>
 

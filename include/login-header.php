@@ -50,7 +50,7 @@ if(empty($mailuid) || empty($password)){
 			$_SESSION["user_id"] =$row["user_id"];
 			$_SESSION["username"] =$row["uid_username"];
 
-		header("location: ../index.php");
+		header("location: ../index.php?login=success");
 		
 		exit();
 
@@ -73,7 +73,7 @@ if(empty($mailuid) || empty($password)){
 
 }else{
 
-	header("location: ../index.phph");
+	header("location: ../index.php");
 }
 
  

@@ -47,6 +47,7 @@ session_start();
 		} else {
 		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
+
 }
 
 
@@ -60,6 +61,12 @@ $question_number = $_SESSION["question_number"];
 
 }
 
+if(isset($_POST["previous"])){
+$_SESSION["question_number"] -= 1;
+$question_number = $_SESSION["question_number"]; 
+
+}
+
 
 // to stop quiz
 
@@ -67,6 +74,58 @@ $question_number = $_SESSION["question_number"];
 
 		header('location: results.php');
 }
+
+?>
+
+
+ <div class="row">
+
+          <?php 
+
+include 'include/connection.php';
+
+  $sql ="SELECT * FROM products, WHERE question_number < $total_questions ORDER BY product_id DESC LIMIT 1";
+      $query = mysqli_query($conn, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $prevproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+<div class="col-md-12 pb-4">
+<div class="float-right">
+ <a href="product_details.php?pid=<?php echo $prevproduct_id; ?>" title="previous product" class="btn btn-dark rounded"><i class="fas fa-angle-left fa-2x text-light"></i></a>
+
+
+
+
+<?php 
+
+  $sql ="SELECT * FROM products WHERE product_id > $question_number ORDER BY product_id ASC LIMIT 1";
+      $query = mysqli_query($conn, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $nextproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+
+<a href="product_details.php?pid=<?php echo $nextproduct_id; ?>" title="Next product" class="btn btn-dark rounded"><i class="fas fa-angle-right fa-2x text-light"></i></a>
+</div>
+</div>
+</div>
+
+
+<?php
+
 
 
 
@@ -98,6 +157,7 @@ if (mysqli_num_rows($result) > 0) {
 
 include 'header.php'; ?>
 
+ <script src="Webspeaker/src/jquery.webSpeaker.js"></script>
 
 <style>
 
@@ -122,7 +182,7 @@ include 'header.php'; ?>
 
 
 <h3><?php echo  "Question $question_number of $total_questions;" ?></h3>
-<h3><?php echo $question; ?></h3>
+<h3 id="text"><?php echo $question; ?></h3>
 
 <form action="quiz.php" method="post">
 
@@ -130,10 +190,20 @@ include 'header.php'; ?>
 <p><input type="radio" name="choice" value="<?php echo $option2;?>"><?php echo $option2; ?></p>
 <p><input type="radio" name="choice" value="<?php echo $option3;?>"><?php echo $option3; ?></p>
 <p><input type="radio" name="choice" value="<?php echo $option4;?>"><?php echo $option4; ?></p>
-<p><input class="btn btn-danger btn-lg" type="submit" name="next" value="Next">
-<input class="btn btn-success btn-lg" type="submit" name="submit" value="Submit">
+<p><input class="btn btn-danger btn-lg" type="submit" name="previous" value="Previous">
+<input class="btn btn-success btn-lg" type="submit" name="next" value="Next">
 <?php echo $icon ?></p>
 
 </form>
+
+
+
+<script type="text/javascript">
+
+    $('#text').webSpeaker();
+
+</script>
+
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
 <?php include 'footer.php'; ?>

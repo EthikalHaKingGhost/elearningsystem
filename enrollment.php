@@ -7,7 +7,7 @@ session_start();
 
     }else{
 
-        header("location: register.php?info=reg2enroll");;
+      header("location: courses.php?info=login");;
 
         exit();
     }
@@ -26,7 +26,6 @@ session_start();
         exit();
 
     }           
-        
 
                 include 'include/connection.php'; 
 

@@ -56,6 +56,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 		if ($tokenCheck === false) {
 			
 			echo "You need to re-submit your reset request.";
+			
 		exit();
 
 		}elseif ($tokenCheck === true){

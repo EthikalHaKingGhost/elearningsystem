@@ -59,7 +59,6 @@ mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
 
-
 $to = $email;
 
 $subject = 'Reset your password for your account';
@@ -69,7 +68,7 @@ $message .= "<p> Here is your password reset link: </br>";
 
 $message .= '<a href="' . $url . '">' . $url . '<a/></p>';
 
-include("../include/gmail.php");
+include("gmail.php");
 
 /*$headers = "From: Elearningproject <travo.edward@gmail.com>\r\n";
 
