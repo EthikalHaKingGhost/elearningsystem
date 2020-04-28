@@ -4,7 +4,8 @@ session_start();
 	if(isset($_SESSION["user_id"])){
 	    $user_id = $_SESSION["user_id"];
 	}else{
-	    echo "please login";
+
+	    header('location: register.php?info=login');
 	    exit();
 
 }
@@ -17,7 +18,9 @@ session_start();
 	    $icon= "";
 
 	}else{
-	    $_SESSION["alerts"] = "No values found in attempt to start the quiz";
+
+	    header('location: details.php?error=url');
+
 	    exit();
 }
 
@@ -32,10 +35,12 @@ session_start();
 	if($choice == $question_solutions){
 		$_SESSION["total_correct"] += 1;
 		$correct = "correct";
-		$icon = '<i class="fas fa-check-circle answer_icon green"></i></p>';
+
+		$icon = 'yes';
 
 		}else {
-			$icon = '<i class="fas fa-times-circle answer_icon red"></i>';
+
+			$icon = 'no';
 		}
 
 		include 'include/connection.php';
@@ -50,82 +55,83 @@ session_start();
 
 }
 
-
-
-
 //to change from one quiz to the next with LIMIT
-
+$Message = "";
 if(isset($_POST["next"])){
+
+	if (empty($_POST["choice"])){
+		
+		$Message = '<div class="alert alert-info m-0 rounded-lg text-center alert-dismissible" name="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>You Got This!</strong> Select an answer by right clicking the option.</div>';
+
+	}else{
+
 $_SESSION["question_number"] += 1;
 $question_number = $_SESSION["question_number"]; 
 
 }
 
+}
+
 if(isset($_POST["previous"])){
+
 $_SESSION["question_number"] -= 1;
 $question_number = $_SESSION["question_number"]; 
 
 }
 
 
-// to stop quiz
 
-	if ($question_number > $total_questions){
+// quiz navigation 
+$titleprev="Previous question";
+$titlenext = "Next question";
+$labelprev = 'Previous';
+$Labelnext = "Next";
+$submit = $total_questions - 1 ;
+$goback = "";
+
+if ($question_number > $total_questions){
 
 		header('location: results.php');
 }
 
-?>
+//show submit buttonand title
+if ($question_number > $submit){
+		$titlenext = "Submit all answers";
+		$Labelnext = 'Submit';	
+}
+
+//show cancel buttonand title
+if ($question_number == 1 ){
+
+$titleprev="If canceled you will have to start over";
+$labelprev = 'Cancel';
 
 
- <div class="row">
+}
 
-          <?php 
+//Go back to courses page and delete all sessions.
 
-include 'include/connection.php';
+if ($question_number == 0 ){
 
-  $sql ="SELECT * FROM products, WHERE question_number < $total_questions ORDER BY product_id DESC LIMIT 1";
-      $query = mysqli_query($conn, $sql);
-          if($query){
-            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
-                
-              $prevproduct_id = $row["product_id"];
+//unset($_SESSION["enroll_id"]); 
+//unset($_SESSION["course_id"]);
+unset($_SESSION["topic_id"]);
+unset($_SESSION["quiz_id"]);
+unset($_SESSION["attempt_id"]);
+unset($_SESSION["total_questions"]);
+unset($_SESSION["question_number"]);
+unset($_SESSION["total_correct"]);
+unset($_SESSION["qa_id"]);
+unset($_SESSION["question_solutions"]);
+unset($_SESSION["total_correct"]);
 
-              }
+header("location: topics.php?eid={$_SESSION["enroll_id"]}&cid={$_SESSION["course_id"]}");
 
-              }
+exit();
 
-            ?>
-<div class="col-md-12 pb-4">
-<div class="float-right">
- <a href="product_details.php?pid=<?php echo $prevproduct_id; ?>" title="previous product" class="btn btn-dark rounded"><i class="fas fa-angle-left fa-2x text-light"></i></a>
-
-
-
-
-<?php 
-
-  $sql ="SELECT * FROM products WHERE product_id > $question_number ORDER BY product_id ASC LIMIT 1";
-      $query = mysqli_query($conn, $sql);
-          if($query){
-            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
-                
-              $nextproduct_id = $row["product_id"];
-
-              }
-
-              }
-
-            ?>
-
-<a href="product_details.php?pid=<?php echo $nextproduct_id; ?>" title="Next product" class="btn btn-dark rounded"><i class="fas fa-angle-right fa-2x text-light"></i></a>
-</div>
-</div>
-</div>
-
-
-<?php
-
+}
 
 
 
@@ -133,7 +139,7 @@ include'include/connection.php';
 
 $sql = "SELECT * FROM questions_assigned, questions
 	WHERE questions_assigned.question_id = questions.question_id 
-	AND questions_assigned.quiz_id= 1 LIMIT $question_number";
+	AND questions_assigned.quiz_id = {$_SESSION["quiz_id"]} LIMIT $question_number";
 
 $result = mysqli_query($conn, $sql);
 
@@ -147,56 +153,97 @@ if (mysqli_num_rows($result) > 0) {
       $option3 = $row["option3"];
       $option4 = $row["option4"];
       $_SESSION["question_solutions"] = $row["question_solutions"];
-  
+
 	} 
 
 }else {
-		    echo "0 results";
+
+	//do nothing
+
 }
+
+
+
 
 
 include 'header.php'; ?>
 
  <script src="Webspeaker/src/jquery.webSpeaker.js"></script>
 
-<style>
-
-	.answer_icon{
-		font-size: 2.5rem;
-	}
-	.red{
-		color:red;
-	}
-	.green{
-		color:green;
-	}
-
-</style>
 
 
+<div class="banner" style="background-image:url('images/3.jpg'); background-size:no-repeat; background-position: center; background-size: cover;">
+	
+</div>
 
+<?php echo $Message ?>
 
+<div class="container-fluid bg-dark">
 
-<h1>Quiz Name</h1>
-<hr>
+<div class="col-md-6 offset-md-3 py-5">
 
+<div class="card border-0 rounded-0">
 
-<h3><?php echo  "Question $question_number of $total_questions;" ?></h3>
-<h3 id="text"><?php echo $question; ?></h3>
+<div class="card-header border-0 rounded-0" style="background-image:url('images/ma.jpg')">
+	<span id="text" class="h4"> <?php echo " $question ";?> </span>
+</div>
 
 <form action="quiz.php" method="post">
 
-<p><input checked type="radio" name="choice" value="<?php echo $option1;?>"><?php echo $option1; ?></p>
-<p><input type="radio" name="choice" value="<?php echo $option2;?>"><?php echo $option2; ?></p>
-<p><input type="radio" name="choice" value="<?php echo $option3;?>"><?php echo $option3; ?></p>
-<p><input type="radio" name="choice" value="<?php echo $option4;?>"><?php echo $option4; ?></p>
-<p><input class="btn btn-danger btn-lg" type="submit" name="previous" value="Previous">
-<input class="btn btn-success btn-lg" type="submit" name="next" value="Next">
-<?php echo $icon ?></p>
+<div class="text-center font-weight-bold">
+
+<div class="row choices bg-light">
+        <label>
+          <input type="radio" name="choice"  value="<?php echo $option1;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 bg-shadow">
+              <div class="answer"><?php echo $option1; ?></div>
+            </div>
+        </label>
+      </div>
+
+      <div class="row choices bg-light">
+        <label>
+          <input type="radio" name="choice"  value="<?php echo $option2;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 bg-shadow">
+              <div class="answer"><?php echo $option2; ?></div>
+            </div>
+        </label>
+      </div>
+
+      <div class="row choices bg-light">
+        <label>
+          <input type="radio"  name="choice"  value="<?php echo $option3;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 bg-shadow">
+              <div class="answer"><?php echo $option3; ?></div>
+            </div>
+        </label>
+      </div>
+
+      <div class="row choices bg-light">
+        <label>
+          <input type="radio" name="choice"  value="<?php echo $option4;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 bg-shadow">
+              <div class="answer"><?php echo $option4; ?></div>
+            </div>
+        </label>
+      </div>
+     </div>
+
+
+		<div class="card-footer bg-warning border-0 rounded-0" style="background-image:url('images/ma.jpg')">
+			<input class="btn btn-danger rounded-0" type="submit" title="<?php echo $titleprev ?>" name="previous" value="<?php echo "$labelprev" ?>">
+				<input class="btn btn-success rounded-0" type="submit" title="<?php echo $titlenext ?>" name="next" value="<?php echo "$Labelnext" ?>">
+				<?php echo $icon ?>
+				<span class="font-italic my-auto float-right"><?php echo  "Question $question_number of $total_questions"; ?></span>
+
+
+		</div>
+
+</div>
 
 </form>
 
-
+</div>
 
 <script type="text/javascript">
 

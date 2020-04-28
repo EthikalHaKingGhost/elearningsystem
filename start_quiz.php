@@ -49,7 +49,7 @@ if(isset($_GET["qid"])){
 
 include 'include/connection.php';
 
-$sql = "SELECT * FROM `quizzes` WHERE quizzes.quiz_id = 1";
+$sql = "SELECT * FROM `quizzes` WHERE quizzes.quiz_id = $quiz_id";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
@@ -61,9 +61,6 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "0 results";
 }
-
-
-
 
 
 include 'include/connection.php';

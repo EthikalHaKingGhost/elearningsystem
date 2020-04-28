@@ -79,9 +79,17 @@ include 'include/connection.php';
 <a <?php
 
       if(isset($_SESSION["user_id"])){
-        echo 'href="courses.php"';
+
+       ?> 
+
+       href="enrollment.php?cid=<?php echo $course_id ?>"; 
+
+       <?php
+
       }else{
-        echo 'href="register.php"';
+
+        echo 'href="register.php?info=login"';
+
       } ?> class="btn btn-light bg-shadow text-decoration-none rounded-0">
 
 <div class="row p-0 m-0">    

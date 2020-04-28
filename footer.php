@@ -5,16 +5,10 @@
 <a id="topofpage" title="Top Of Page" href="index.php"><i class="fas fa-chevron-up"></i></a>
 
 
-<script type="text/javascript">
-
-    $('#text').webSpeaker();
-
-
-</script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="notify/bootstrap-notify.js"></script>
-<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
 
 
 
