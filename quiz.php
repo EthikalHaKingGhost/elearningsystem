@@ -251,6 +251,34 @@ include 'header.php'; ?>
 
 </script>
 
+<script type="text/javascript">
+  var prompt=true;
+
+    $(document).ready(function() {
+
+        $('input:not(:button,:submit),radio').change(function () {
+          window.onbeforeunload = function () {
+            if (prompt == true) 
+              return "Are you sure you want to leave the quiz?";
+            }
+          });
+//http://truelogic.org/wordpress/2012/07/20/how-to-prevent-a-user-leaving-a-page-with-unsaved-data/
+        $('input:submit').click(function(e) {
+        	unset($_SESSION["topic_id"]);
+			unset($_SESSION["quiz_id"]);
+			unset($_SESSION["attempt_id"]);
+			unset($_SESSION["total_questions"]);
+			unset($_SESSION["question_number"]);
+			unset($_SESSION["total_correct"]);
+			unset($_SESSION["qa_id"]);
+			unset($_SESSION["question_solutions"]);
+			unset($_SESSION["total_correct"]);
+          prompt = false;
+          });
+      });
+
+</script>
+
 <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
 <?php include 'footer.php'; ?>

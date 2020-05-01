@@ -13,6 +13,7 @@ if(isset($_SESSION["attempt_id"])){
 		$sql = "UPDATE `quizzes_attempted` SET `total_correct` = '$total_correct' WHERE `quizzes_attempted`.`attempt_id` = $attempt_id;";
 
 	if (mysqli_query($conn, $sql)) {
+
 	    echo "Record updated successfully";
 
 	    /*unset($_SESSION["enroll_id"]);
@@ -27,6 +28,8 @@ if(isset($_SESSION["attempt_id"])){
 	} else {
 
 	    echo "Error updating record: " . mysqli_error($conn);
+
+
 	}
 
 }
@@ -34,6 +37,7 @@ if(isset($_SESSION["attempt_id"])){
  include 'header.php'; ?>
 
 <h1>Results</h1>
+
 <hr>
 
 <h3><?php echo "You got $total_correct out of $total_questions";?></h3>

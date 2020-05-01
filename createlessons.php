@@ -12,6 +12,7 @@ if(isset($_POST["createlessons"])){
    $uploadOk = 1;
    $lesson_type = $_POST["lesson_type"];
    $topic_id = $_POST["topic_id"];
+   $contenttype = $_POST["content"];
 
 if ($_FILES['fileToUpload']['error'] == 0){
 
@@ -29,9 +30,10 @@ if ($_FILES['fileToUpload']['error'] == 0){
 
 if ($uploadOk == 1){
 
-		$sql = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_type`, `lesson_source`, `topic_id`) VALUES (NULL, '$lesson_name', '$lesson_type', '$lesson_source', '$topic_id');";	
+$sql = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_type`, `file_size`, `lesson_source`, `topic_id`, `downloads`) VALUES (NULL, '$lesson_name', '$lesson_type', '$size', '$lesson_source', '$topic_id', '$downloads', '$contenttype')";	
 
 		if (mysqli_query($conn, $sql)) {
+
 			$_SESSION["alerts"] = "Lesson Uploaded successfully";
 
 		} else {
@@ -49,6 +51,7 @@ include 'header.php';?>
 	<h1>Create Lessons</h1>
 
     <p>Select Topic from Course</p>
+
     <p><select name="topic_id">
 
     	<?php
@@ -72,8 +75,11 @@ include 'header.php';?>
 			        <?php
 			        
 			    }
+
 			} else {
+
 			    echo "0 results";
+
 			}
 
     	?>
@@ -100,14 +106,11 @@ include 'header.php';?>
 	</select></p>
 
 
-<p>Select trial Limit</p>
-      <p><select name="limit" id="limit">
-        <option value="0">Unlimited</option>
-        <option value="#">1</option>
-        <option value="#">2</option>
-        <option value="#">3</option>
-        <option value="#">5</option>
-        <option value="#">10</option>
+<p>Lesson Content</p>
+      <p><select name="content" id="content">
+        <option value="download">Download Only</option>
+        <option value="webbased">Web based</option>
+        <option value="both">Download + Web Based</option>
       </select></p>
 
       <p><textarea name="lesson_source" cols="30" rows="10"></textarea></p>

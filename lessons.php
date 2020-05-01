@@ -36,76 +36,16 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 
- include 'header.php'; ?>
+ include 'header.php'; 
 
-<style>
+
+ include 'include/connection.php'; ?>
+
+ <div class="banner" style="background-image:url(images/2.jpg);">
  	
-.container{
-	align-content: center;
-	padding:auto;
-	margin:none;
-}
-
-#mydiv {
-  position: absolute;
-  z-index: 9;
-  background-color: #f1f1f1;
-  text-align: center;
-  border: 1px solid #d3d3d3;
-}
-
-#mydivheader {
-  padding: 10px;
-  cursor: move;
-  z-index: 5;
-  background-color: #012;
-  color: #fff;
-}
-
-.embed-responsive{
-	height: 480px;
-	width:800px;
-}
-
-
-.ul-lessons {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}
-
-.lessons a {
-  display: block;
-  color: #000;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-.lessons a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.lessons a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-}
-
-
-
-
-</style>
-
-
+ </div>
 
 <?php
-
-include 'include/connection.php';
 
 $sql = "SELECT * FROM lessons WHERE lessons.lesson_id = $lesson_id";
 $result = mysqli_query($conn, $sql);
@@ -124,20 +64,15 @@ if ($lesson_type == "Audio") {
 
 		?>
 
-	<div class="banner">
-
-    <h1><i class="fas fa-photo-video"></i> Lesson </h1>
-
-	</div>
-
 		 <div class="container">
 		  <p style="text-align: center;"><?php echo $lesson_name ?></p><hr>
 		    <audio controls preload="metadata" style=" width:400px; ">
-		 <source <?php echo "$lesson_source" ?>>
+		 <?php echo '<source src="data:audio/mp3;base64,'.base64_encode($lesson_source).'">';  ?>
+
 		 Your browser does not support the audio element.
 		</audio><br />			
 		  <div>
-		    <?php echo "$lesson_source" ?>
+		    <source >
 		</div>
 
 		<?php
