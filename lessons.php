@@ -9,6 +9,7 @@ if(isset($_GET["lid"])){
 }else{
 
   header("Location: index.php");
+  
 die();
 
 }

@@ -1,13 +1,22 @@
 
-
 <?php
+
+if (isset($_POST['submission'])) {
+
+	$target_dir = "submissions/";
+
+}else{
+
 $target_dir = "uploads/";
+
+}
 
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
 $uploadOk = 1;
-
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$lesson_source = "";
+$book_path = "";
+$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 $size = $_FILES["fileToUpload"]['size'];
 
@@ -17,34 +26,56 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 && $imageFileType != "ppt" && $imageFileType != "mp3" && $imageFileType != "mp4"
 && $imageFileType != "mov" && $imageFileType != "mpeg" && $imageFileType != "wmv" 
 && $imageFileType != "doc" && $imageFileType != "docx" && $imageFileType != "txt" 
-&& $imageFileType != "xltx"&& $imageFileType != "xlsx" && $imageFileType != "xlms"){
+&& $imageFileType != "xltx"&& $imageFileType != "xlsx" && $imageFileType != "xlms" 
+&& $imageFileType != "zip" && $imageFileType != "rar"){
 
-echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed. <br>";
+$_SESSION["error"] = array();
+
+$_SESSION["error"][] = "File type is not allowed, please contact administration.";
 
     $uploadOk = 0;
 }
 
-$date=date_create();
+$date = date_create();
 
-$target_file = $target_dir .$book_title. "." . $imageFileType;
+if (!empty($_POST['lesson_name'])){
 
-echo "The file should be stored in the $target_file"."<br>"; 
+	$target_file = $target_dir .$lesson_name. "." . $imageFileType;
 
-$lesson_source = $target_file;
-$book_path = $target_file;
+	$lesson_source = $target_file;
+}
+
+if (!empty($_POST['book_title'])){
+
+	$target_file = $target_dir .$book_title. "." . $imageFileType;
+
+	$book_path = $target_file;
+}
+if (!empty($_POST['submission'])){
+
+	$target_file = $target_dir .$user."[".$assignment."]." . $imageFileType;
+
+	$sub_path = $target_file;
+
+}
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.<br>";
+
+   $_SESSION["error"][] = "Your file was not uploaded.";
 
 // if everything is ok, try to upload file
 } else {
 
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded. <br>";
+    	$_SESSION["success"] = array();
+
+    	$_SESSION["success"][] = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+
     } else {
-        echo "Sorry, there was an error uploading your file.</br>";
+
+        $_SESSION["error"][] = "Sorry, there was an error uploading your file.";
     }
 }
 ?>

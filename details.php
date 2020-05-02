@@ -5,8 +5,11 @@ session_start();
 if(isset($_SESSION["user_id"])){
 
     $userid = $_SESSION["user_id"];
+    $user = $_SESSION["username"];
+
 }else{
 
+    header('location: register.php?info=login');
 
     exit();
 }
@@ -64,6 +67,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
 
       $topic_title = $row["topic_title"];
+
       $topic_description = $row["topic_description"];
 
     }
@@ -78,6 +82,52 @@ if (mysqli_num_rows($result) > 0) {
 <p class="text-center text-dark"><?php echo $topic_description ?></p>
 </div>
 </div>
+
+<?php
+
+if(!empty($_SESSION['error'])){
+
+$error = $_SESSION['error'];
+
+        foreach ($error as $error_msg)
+
+        {
+            echo  '<div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong>'.$error_msg.'</div>';
+
+        }
+
+        unset($_SESSION['error']);
+
+    }
+
+    if(!empty($_SESSION['success'])){
+
+$success = $_SESSION['success'];
+
+        foreach ($success as $success_msg)
+
+        { 
+          echo  '<div class="alert alert-success alert-dismissible">
+          <button type="button" class="close fade show" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong>'.$success_msg.'</div>';
+
+      }
+
+        }
+
+//unset the sessions on page reload or change. 
+      function unset_filter_session() {
+          if ( ! wp_doing_ajax() ) {
+              //Reset sessions on refresh page
+              unset( $_SESSION['success'] );
+              unset( $_SESSION['error'] );
+          }
+
+        }
+
+?>
 
 
   <div class="container">
@@ -307,7 +357,7 @@ if (mysqli_num_rows($result) > 0) {
   </li>
   <li><a class="font-weight-bold h2">Library</a>
 <section>
-<div class="font-italic border">
+<div class="font-italic border bg-shadow">
 
 <input class="form-control border-0" id="myInput3" type="text" placeholder="Search for Book..."> 
   
@@ -419,15 +469,212 @@ if (mysqli_num_rows($result) > 0) {
   </section>
   </li>
   <li><a class="font-weight-bold h2">Assignments</a>
-  <section>
+  <section class="border bg-shadow">
     
+<div class="row p-5">
+
+<?php   
+include 'include/connection.php';
+
+$sql = "SELECT * FROM assignments WHERE topic_id = $topic_id";
+
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+
+    while($row = mysqli_fetch_assoc($result)) {
+        $assignment_id = $row["assignment_id"];
+        $bytes1 = $row['file_size'];
+        $assignment_title = $row["assignment_title"];
+        $assignment_details = $row["assignment_details"];
+        $assignment_path = $row["assignment_path"];
+        $link= "";
+        $buttonlabel = "";
+
+
+//change file size name according to size, Snippet from PHP Share: http://www.phpshare.org
+
+        if ($bytes1 >= 1073741824)
+        {
+            $bytes1 = number_format($bytes1 / 1073741824, 2) . ' GB';
+        }
+        elseif ($bytes1 >= 1048576)
+        {
+            $bytes1 = number_format($bytes1 / 1048576, 2) . ' MB';
+        }
+        elseif ($bytes1 >= 1024)
+        {
+            $bytes1 = number_format($bytes1 / 1024, 2) . ' KB';
+        }
+        elseif ($bytes1 > 1)
+        {
+            $bytes1 = $bytes1 . ' bytes';
+        }
+        elseif ($bytes1 == 1)
+        {
+            $bytes1 = $bytes1 . ' byte';
+        }
+        else
+        {
+            $bytes1 = '0 bytes';
+        }
+
+
+?>
+
+<!---begin $time_spent when Launch button is clicked----->
+      <!---default $completion = incomplete ---->
+      <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
+      <!---the completion shows complete after the button completed is clicked in the lesson, if complete button is activated after crtain time..complete is linked to another table---->
+
+
+<div class="col-md-4 border border-3">
+
+<div class="h1 text-center"><?php echo $assignment_title. "[".$assignment_id."]"; ?></div>
+
+      
+
+      <hr>
+
+<div class="text-justifiy">
+  <div class="text-justifiy"><?php echo $assignment_details; ?></div>
+   <a href="<?php echo "$link";?>" class="text-decoration-none">
+    <div class="text-center text-dark font-weight-bold py-4">
+    <img src="images/pdf.png" width="80">
+    <div>Download<?php echo "(".$bytes1.")"; ?>
+  </div>
+   </div>
+</a>
+</div>  
+  
+</div>
+
+<?php 
+
+   }
+ }if (mysqli_num_rows($result) == 0){
+
+  ?>
+
+  <div class="h1 text-center">NO ASSIGNMENTS</div>
+
+  <?php
+
+ }
+
+?>
+
+
+</div>
 
   </section>
+<?php
+
+if(isset($_POST["submission"])){
+
+  include 'include/connection.php';
+
+   $assignment = $_POST["assignment"];
+   $uploadOk = 1;
+   $comment = $_POST["comment"];
+
+if($_FILES['fileToUpload']['error'] == 0){
+    
+include 'upload.php';
+
+}else{
+
+$_SESSION["error"][] = "error uploading file or no file selected";
+
+}
+
+
+
+if ($uploadOk == 1){
+
+$sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_id`, `sub_file`, `comments`, `sub_date`) VALUES (NULL, '$userid', '$topic_id', '$assignment', '$sub_path', '$comment', current_timestamp())";  
+
+    if (mysqli_query($conn, $sql)) {
+
+      $_SESSION["success"][] = "Assignment submitted successfully";
+
+    } else {
+
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+  
+      
+  }
+
+}
+
+  ?>
+
   </li>
   <li><a class="font-weight-bold h2">Submissions</a>
-  <section>
+  <section class="border bg-shadow">
     
+         <div class="col-md-8 offset-md-2 py-4">
+        <form method="post" action="details.php?eid=<?php echo $enroll_id; ?>&cid=<?php echo $course_id; ?>&tid=<?php echo $topic_id; ?>" enctype="multipart/form-data">
 
+
+          <div class="form-group">
+        <label for="assignment" class="h1">Select Assignment:</label>
+        <select class="form-control" id="assignment" name="assignment">
+
+          <?php 
+
+          $sql = "SELECT * FROM assignments WHERE topic_id = $topic_id";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_assoc($result)) {
+                  $assignment_id =$row['assignment_id'];
+                  $assign_title = $row['assignment_title'];
+            ?>
+          <option value="<?php echo $assignment_id;  ?>"><?php echo $assign_title; ?></option>
+          <?php
+           }
+            } else {
+
+                echo "No Assignments";
+            }
+
+          ?>
+        </select>
+      </div>
+              
+              <div class="form-group files color">
+                <label for="fileToUpload" class="h1">Upload Files:</label>
+                <input type="file" for="fileToUpload" name="fileToUpload">
+              </div>
+             
+             <div class="form-group">
+          <label for="comment" class="h1">Comments:</label>
+          <textarea class="form-control" name="comment" rows="5" maxlength="500" id="comment"></textarea>
+      </div>
+
+      <div cass="text-center">
+              <input type="submit" name="submission" class="btn btn-warning btn-block" value="Submit">
+              </div>
+
+          </form>
+
+          <script>
+        /* $(function(){
+            $("input[type = 'submit']").click(function(){
+               var $fileUpload = $("input[type='file']");
+               if (parseInt($fileUpload.get(0).files.length) > 1){
+                  alert("You are only allowed to upload a maximum of (1) file");
+               }
+            });
+         });  */
+      </script>
+        
+        
+    </div>
   </section>
   </li>
 </ul>
@@ -470,6 +717,7 @@ $('.topictabs').accordionortabs({
   hashbangPrefix: "tab",
   tabsIfPossible: true,
   });
+
 </script>
 
 
