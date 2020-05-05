@@ -1,10 +1,9 @@
 <?php 
 
-session_start();
-
 if(isset($_POST["create_quiz"])){
 
 include "include/connection.php";
+
 $topic_id = $_POST["topic_id"];
 $quiz_title = $_POST["quiz_title"];
 $quiz_description = $_POST["quiz_description"];
@@ -19,13 +18,11 @@ if (mysqli_query($conn, $sql)) {
 }
 
 }
-
-
-include 'header.php'; ?>
+?>
 
 <h1>Create Quiz</h1>
 
-<form action="createquizzes.php" method="POST">
+<form action="dashboard.php" method="POST">
 
 <h3>Topic</h3>
 	<p><select name="topic_id">
@@ -65,4 +62,3 @@ include 'header.php'; ?>
 <p><input type="submit" name="create_quiz" value="Add Quiz"></p>
 </form>
 
-<?php include 'footer.php'; ?>

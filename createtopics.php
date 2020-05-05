@@ -1,16 +1,84 @@
+<?php  
 
-<style type="text/css">
-	.scrollable-menu {
-    height: auto;
-    max-height: 30px;
-    overflow-x: hidden;
+
+	
+
+if(isset($_POST["create-topic"])){
+
+    include 'include/connection.php';
+
+    $topic_title = $_POST["topic_title"];
+
+    $topic_description = $_POST["topic_description"];
+
+   	$sql = "SELECT topic_title FROM topics WHERE topic_title = '$topic_title'";
+				$query = mysqli_query($conn, $sql);
+				if($query){
+					if (mysqli_num_rows($query) > 0) {
+
+						header('location: dashboard.php?error=topic');
+
+	}else{
+
+$sql = "INSERT INTO `topics` (`topic_id`, `topic_title`, `topic_description`) VALUES (NULL, '$topic_title', '$topic_description');";
+
+if (mysqli_query($conn, $sql)) {
+
+header('location: dashboard.php?success=topic');
+
+        } else {
+
+            echo "Error in code";
+    }
 }
-      
-</style>
 
+}
+
+}
+
+?>
+
+<form action="createcourses.php" method="post">
+
+<div class="container bg-light mt-2 p-3 rounded-lg">
+
+         <div class="text-center font-weight-bold h5 pb-4">Create Topic</div>
+
+<!-------- Course Title -------->
+
+    <div class="row pl-4 pr-4 text-justify">
+        <div class="col-md-3 pr-0 mt-2">
+           <strong>Topic Title:</strong>
+        </div>
+        <div class="col-md-9 mb-4">
+            <div class="form-group">
+                <input type="text" name="topic_title" title="The topic title displays as a heading of each topic" required class="form-control form-control-sm">      
+            </div>
+        </div>
+
+<!-------- Course description -------->
+
+        <div class="col-md-3 pr-0 mt-2">
+          <strong>Description:</strong>
+        </div>
+        <div class="col-md-9  mb-4">
+                <div class="form-group">
+                <textarea type="text" rows="5" name="topic_description" class="form-control small font-italic" id="pwd"></textarea> 
+                <div class="figure-caption">300 characters maximum</div>   
+            </div>
+        </div>
+    </div>
+
+<div class="row text-center pb-3">
+    <div class="col-md-6 offset-md-3">
+<input class="btn btn-primary" type="submit" name="create-topic" value="Create Topic">              
+</div>
+</div>
+</form>
+<hr>
+
+<!----assign the topic ---------->
 	<?php 
-
-		session_start();
 
 
 		if(isset($_POST["assign_topic"])){
@@ -46,39 +114,24 @@
 
 }
 	
+?>
 
-	include 'header.php'; ?>
+<form action="dashboard.php" method="post">
 
-
-		<div class="banner">
-			
-
-		</div>
-
-
-
-
-<div class="container bg-light mt-5">
-	
-<!-------------Create Courses ---------------------->
-
-<form action="createtopics.php" method="post">
-	<h1 class="text-center pt-3 mb-4">Assign topic to Course</h1>
-		<p>Assign a topic to a course by selecting the course and the topic below. Each topic assigned to a course is visible. To change edit the lessons in a cours please go to <a href="createlessons.php">create lessons</a> page.</p>
+	<div class="text-center font-weight-bold h5 pb-4">Assign Topic to Course</div>
      
 <!-------- Course Title -------->
 
 
-<div class="row">
-	<div class="col-md-6 mb-5">
-		<div class="card-header"><h1 class="text-lg text-center"><strong>Course</strong></div>
-			<div class="card-body text-center">
-	    		<div class="btn-group">
-                	<select type="button" class="btn btn-default btn-lg dropdown-toggle text-white bg-secondary" data-toggle="dropdown" name="course_id"class="caret" class="dropdown-menu scrollable-menu scrollbar-lady-lips force-overflow" role="menu" required>
-                		<option value = "" selected><strong>Select from courses available:</option>
-               
-
-						<?php 
+<div class="row pl-4 pr-4 text-justify">
+        <div class="col-md-3 pr-0 mt-2">
+           <strong>Course Title:</strong>
+        </div>
+        <div class="col-md-9 mb-4">
+            <div class="form-group">
+            	<select type="select" title="Assign a topic to a course by selecting the course and the topic below. Each topic assigned to a course is visible." class="form-control form-control-sm" data-toggle="dropdown" name="course_id" required>  
+           <option disabled selected><strong>Select from courses available:</strong></option>
+           			<?php 
 
 						include 'include/connection.php';
 
@@ -106,18 +159,19 @@
 					  }
 
 				?>
-              
-			  </select>
-          </div>
-     </div>
-</div>
+            	</select> 
+            </div>
+        </div>
+    </div>
 
-<div class="col-md-6">
-	<div class="card-header"><h1 class="text-lg text-center"><strong>Topic</strong></div>
-	<div class="card-body text-center">
-	    <div class="btn-group text-center">
-                <select type="button" class="btn btn-default btn-lg dropdown-toggle text-white bg-secondary" data-toggle="dropdown" name="topic_id"class="caret" class="dropdown-menu scrollable-menu" role="menu" required>
-                <option value = "" selected><strong>Select from topics available:</option>
+        <div class="row pl-4 pr-4 text-justify">
+        <div class="col-md-3 pr-0 mt-2">
+           <strong>Topic Title:</strong>
+        </div>
+        <div class="col-md-9 mb-4">
+            <div class="form-group">
+            	<select type="select" class="form-control form-control-sm" data-toggle="dropdown" name="topic_id" required>  
+           <option disabled selected><strong>Select from topics available:</strong></option>
      
                 	<?php 
 
@@ -140,27 +194,28 @@
 					<?php
 							}
 
-							} else {
-							    echo "There are no topics available";
-						  }
+							}else 
+
+							{
+							    ?>
+							     <option disabled>No topics available</option>
+							    <?php
+							 }
 
 					  ?>	
 
 				</select>
             </div>
         </div>
-	</div>
-</div>
-	
-<!-------- Assign Topic -------->
+    </div>
 
 <div class="row text-center pb-5">
-    <div class="col-md-6 offset-md-3 pt-5">
-<input type="submit" name="assign_topic" class="btn btn-info btn-lg" value="Assign Topic">            
+    <div class="col-md-6 offset-md-3">
+<input type="submit" name="assign_topic" class="btn btn-primary" value="Assign Topic">            
 </div>
 </div>
 </form>
-</div>
 
-<?php include 'footer.php'; ?>
+
+
 

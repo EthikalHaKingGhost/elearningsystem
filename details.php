@@ -41,6 +41,7 @@ if(isset($_GET["tid"])){
     $topic_id = $_GET["tid"];
 }else{
     echo "<h1>OOPS!</h1><hr>";
+	
     $_SESSION["alerts_info"] = "No topics selected, enroll id missing";
 
     exit();
@@ -73,6 +74,7 @@ if (mysqli_num_rows($result) > 0) {
     }
   }
 
+
 ?>
 
 <div class="banner" style="background-image: url(images/2.jpg);">
@@ -82,53 +84,6 @@ if (mysqli_num_rows($result) > 0) {
 <p class="text-center text-dark"><?php echo $topic_description ?></p>
 </div>
 </div>
-
-<?php
-
-if(!empty($_SESSION['error'])){
-
-$error = $_SESSION['error'];
-
-        foreach ($error as $error_msg)
-
-        {
-            echo  '<div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Success!</strong>'.$error_msg.'</div>';
-
-        }
-
-        unset($_SESSION['error']);
-
-    }
-
-    if(!empty($_SESSION['success'])){
-
-$success = $_SESSION['success'];
-
-        foreach ($success as $success_msg)
-
-        { 
-          echo  '<div class="alert alert-success alert-dismissible">
-          <button type="button" class="close fade show" data-dismiss="alert">&times;</button>
-          <strong>Success!</strong>'.$success_msg.'</div>';
-
-      }
-
-        }
-
-//unset the sessions on page reload or change. 
-      function unset_filter_session() {
-          if ( ! wp_doing_ajax() ) {
-              //Reset sessions on refresh page
-              unset( $_SESSION['success'] );
-              unset( $_SESSION['error'] );
-          }
-
-        }
-
-?>
-
 
   <div class="container">
 
@@ -575,7 +530,7 @@ if(isset($_POST["submission"])){
 
   include 'include/connection.php';
 
-   $assignment = $_POST["assignment"];
+   $filesubmit_id = $_POST["filesubmit_id"];
    $uploadOk = 1;
    $comment = $_POST["comment"];
 
@@ -585,19 +540,35 @@ include 'upload.php';
 
 }else{
 
-$_SESSION["error"][] = "error uploading file or no file selected";
+$errors[] = "error uploading file or no file selected";
 
 }
 
 
 
 if ($uploadOk == 1){
+	
+$sql1 = "SELECT assignment_id FROM submission WHERE assignment_id = '$filesubmit_id'";
 
-$sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_id`, `sub_file`, `comments`, `sub_date`) VALUES (NULL, '$userid', '$topic_id', '$assignment', '$sub_path', '$comment', current_timestamp())";  
+$results = mysqli_query($conn, $sql1);
+
+if (mysqli_num_rows($results) > 0) {
+	
+	//$sub_id = mysqli_insert_id($conn);
+
+$sql = "UPDATE `submission` SET `user_id` = '$userid', `topic_id` = '$topic_id', `comments` = '$comment', `sub_date` = current_timestamp() WHERE `assignment_id` = '$filesubmit_id'";
+	
+}else{
+
+$sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_id`, `sub_file`, `comments`, `sub_date`) VALUES (NULL, '$userid', '$topic_id', '$filesubmit_id', '$sub_path', '$comment', current_timestamp())";
+
+}
+
+
 
     if (mysqli_query($conn, $sql)) {
 
-      $_SESSION["success"][] = "Assignment submitted successfully";
+      $success[] = "Assignment submitted successfully.";
 
     } else {
 
@@ -616,12 +587,12 @@ $sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_i
   <section class="border bg-shadow">
     
          <div class="col-md-8 offset-md-2 py-4">
-        <form method="post" action="details.php?eid=<?php echo $enroll_id; ?>&cid=<?php echo $course_id; ?>&tid=<?php echo $topic_id; ?>" enctype="multipart/form-data">
+        <form method="post" action="details.php?eid=<?php echo $enroll_id; ?>&cid=<?php echo $course_id; ?>&tid=<?php echo $topic_id.'#!tab0=5' ?>" enctype="multipart/form-data">
 
 
           <div class="form-group">
-        <label for="assignment" class="h1">Select Assignment:</label>
-        <select class="form-control" id="assignment" name="assignment">
+        <label for="filesubmit_id" class="h1">Select Assignment:</label>
+        <select class="form-control" id="assignment" name="filesubmit_id">
 
           <?php 
 
@@ -631,10 +602,10 @@ $sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_i
             if (mysqli_num_rows($result) > 0) {
                 // output data of each row
                 while($row = mysqli_fetch_assoc($result)) {
-                  $assignment_id =$row['assignment_id'];
+                  $filesubmit_id =$row['assignment_id'];
                   $assign_title = $row['assignment_title'];
             ?>
-          <option value="<?php echo $assignment_id;  ?>"><?php echo $assign_title; ?></option>
+          <option value="<?php echo $filesubmit_id;  ?>"><?php echo $assign_title; ?></option>
           <?php
            }
             } else {
@@ -657,28 +628,50 @@ $sql = "INSERT INTO `submission` (`sub_id`, `user_id`, `topic_id`, `assignment_i
       </div>
 
       <div cass="text-center">
-              <input type="submit" name="submission" class="btn btn-warning btn-block" value="Submit">
+              <input type="submit" name="submission" id="check" class="btn btn-warning btn-block" value="Submit">
               </div>
 
           </form>
-
-          <script>
-        /* $(function(){
-            $("input[type = 'submit']").click(function(){
-               var $fileUpload = $("input[type='file']");
-               if (parseInt($fileUpload.get(0).files.length) > 1){
-                  alert("You are only allowed to upload a maximum of (1) file");
-               }
-            });
-         });  */
-      </script>
         
         
     </div>
   </section>
   </li>
 </ul>
+  <div>
+  <?php
+
+if(!empty($errors)){
+
+        foreach ($errors as $error_msg)
+
+        {
+            echo  '<div class="alert alert-danger alert-dismissible mt-1 mb-0 fade show">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong>'.$error_msg.'</div>';
+        }
+	
+    }
+
+    if(!empty($success)){
+	
+        foreach ($success as $success_msg)
+
+        { 
+		
+          echo  '<div class="alert alert-success alert-dismissible mt-1 mb-0 fade show">
+          <button type="button" class="close fade show" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong>'.$success_msg.'</div>';
+		  
+      }
+	}
+	
+	?>
+  </div>
+	
 </div>
+
+
 
 
 <script>

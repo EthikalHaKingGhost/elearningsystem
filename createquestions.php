@@ -1,9 +1,4 @@
-<?php 
-
-session_start();
-
-include 'header.php';
-
+<?php
 include 'include/connection.php';
 
 if(isset($_POST["createquestion"])){
@@ -52,7 +47,7 @@ $sql = "INSERT INTO `questions_assigned` (`qa_id`, `quiz_id`, `question_id`) VAL
  ?>
 
 <h1>Create Questions</h1>
-<form action="createquestions.php" method="post">
+<form action="dashboard.php" method="post">
 	<p>Quiz</p>
 	<p><select name="quiz_id">
 	<option>select a quiz</option>
@@ -113,6 +108,3 @@ include 'include/connection.php';
 
 
 
-
-
-<?php include 'footer.php'; ?>
