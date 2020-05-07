@@ -25,39 +25,27 @@ session_start();
 }
 
 
-	if(isset($_POST["submit"])){
-		$choice = $_POST["choice"];
+///select
+
+//display
+
+//pull
+
+
+
+$Message = "";
+print_r($_SESSION);
+
+	if(isset($_POST["next"])){
+    $question_id = $_POST["question_id"];
 		$qa_id = $_SESSION["qa_id"];
-    	$correct = "incorrect";
+    $correct = "incorrect";
 		$question_solutions = $_SESSION["question_solutions"];
-		
 
-	if($choice == $question_solutions){
-		$_SESSION["total_correct"] += 1;
-		$correct = "correct";
-
-		$icon = 'yes';
-
-		}else {
-
-			$icon = 'no';
-		}
-
-		include 'include/connection.php';
-
-		$sql = "INSERT INTO `responses` (`response_id`, `qa_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$attempt_id', '$choice', '$correct');";
-
-		if (mysqli_query($conn, $sql)) {
-
-		} else {
-		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-}
+  $_SESSION["question_number"] += 1;
+$question_number = $_SESSION["question_number"]; 
 
 //to change from one quiz to the next with LIMIT
-$Message = "";
-if(isset($_POST["next"])){
 
 	if (empty($_POST["choice"])){
 		
@@ -67,12 +55,52 @@ if(isset($_POST["next"])){
 
 	}else{
 
-$_SESSION["question_number"] += 1;
-$question_number = $_SESSION["question_number"]; 
+    $choice = $_POST["choice"];
+
+if($choice == $question_solutions){
+
+    $_SESSION["total_correct"] += 1;
+    
+    $correct = "correct";
+
+    echo "correct";
+
+    }else {
+
+      echo "wrong";
+    }
+
+
+//check to see if an attempt is already made and update the last attempt else insert
+
+    include 'include/connection.php';
+
+$ans = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id' AND qa_id = '$qa_id'";
+
+  $query = mysqli_query($conn, $ans);
+
+if (mysqli_num_rows($query) > 0) {
+
+  $update = "UPDATE responses SET `responses`.`response` = '$choice' WHERE `responses`.`attempt_id` = '$attempt_id' AND `responses`.`correct` = '$correct' AND `responses`.`question_id` = '$question_id'";
+
+   $query = mysqli_query($conn, $update);
+
+    }else{
+
+    $update = "INSERT INTO `responses` (`response_id`, `qa_id`, `question_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$question_id', '$attempt_id', '$choice', '$correct');";
+
+    if (mysqli_query($conn, $update)) {
+
+    } else {
+        echo "Error: " . $update . "<br>" . mysqli_error($conn);
+}
+
+}
 
 }
 
 }
+
 
 if(isset($_POST["previous"])){
 
@@ -134,7 +162,6 @@ exit();
 }
 
 
-
 include'include/connection.php';
 
 $sql = "SELECT * FROM questions_assigned, questions
@@ -147,12 +174,15 @@ if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
       $_SESSION["qa_id"] = $row["qa_id"];
+      $_SESSION["question_id"] = $row["question_id"];
+      $question_id = $row["question_id"];
       $question = $row["question"];
       $option1 = $row["option1"];
       $option2 = $row["option2"];
       $option3 = $row["option3"];
       $option4 = $row["option4"];
       $_SESSION["question_solutions"] = $row["question_solutions"];
+
 
 	} 
 
@@ -163,13 +193,9 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 
-
-
-
 include 'header.php'; ?>
-
+<link rel="stylesheet" type="text/css" href="Webspeaker/src/jquery.webSpeaker.css">
  <script src="Webspeaker/src/jquery.webSpeaker.js"></script>
-
 
 
 <div class="banner" style="background-image:url('images/3.jpg'); background-size:no-repeat; background-position: center; background-size: cover;">
@@ -178,25 +204,39 @@ include 'header.php'; ?>
 
 <?php echo $Message ?>
 
-<div class="container-fluid bg-dark">
+<div class="container-fluid">
 
-<div class="col-md-6 offset-md-3 py-5">
+<div class="col-md-8 offset-md-2 py-5 bg-light">
 
-<div class="card border-0 rounded-0">
+<div class="bg-white p-3 rounded">
 
-<div class="card-header border-0 rounded-0" style="background-image:url('images/ma.jpg')">
 	<span id="text" class="h4"> <?php echo " $question ";?> </span>
 </div>
 
 <form action="quiz.php" method="post">
 
-<div class="text-center font-weight-bold">
+<div class="font-weight-bold">
 
 <div class="row choices bg-light">
+
+<?php
+
+include 'include/connection.php';
+/*
+    $ans = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id'";
+
+  $query = mysqli_query($conn, $ans);
+
+if (mysqli_num_rows($query) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($query)) {
+*/
+?>
+
         <label>
           <input type="radio" name="choice"  value="<?php echo $option1;?>" class="card-input-element"/>
-            <div class="card-input py-2 m-3 bg-shadow">
-              <div class="answer"><?php echo $option1; ?></div>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4"><?php echo $option1; ?></div>
             </div>
         </label>
       </div>
@@ -204,8 +244,8 @@ include 'header.php'; ?>
       <div class="row choices bg-light">
         <label>
           <input type="radio" name="choice"  value="<?php echo $option2;?>" class="card-input-element"/>
-            <div class="card-input py-2 m-3 bg-shadow">
-              <div class="answer"><?php echo $option2; ?></div>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4"><?php echo $option2; ?></div>
             </div>
         </label>
       </div>
@@ -213,8 +253,8 @@ include 'header.php'; ?>
       <div class="row choices bg-light">
         <label>
           <input type="radio"  name="choice"  value="<?php echo $option3;?>" class="card-input-element"/>
-            <div class="card-input py-2 m-3 bg-shadow">
-              <div class="answer"><?php echo $option3; ?></div>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4"><?php echo $option3; ?></div>
             </div>
         </label>
       </div>
@@ -222,20 +262,24 @@ include 'header.php'; ?>
       <div class="row choices bg-light">
         <label>
           <input type="radio" name="choice"  value="<?php echo $option4;?>" class="card-input-element"/>
-            <div class="card-input py-2 m-3 bg-shadow">
-              <div class="answer"><?php echo $option4; ?></div>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4"><?php echo $option4; ?></div>
             </div>
         </label>
       </div>
      </div>
+<?php
+/*
+}
+}
+*/
+?>
 
-
-		<div class="card-footer bg-warning border-0 rounded-0" style="background-image:url('images/ma.jpg')">
 			<input class="btn btn-danger rounded-0" type="submit" title="<?php echo $titleprev ?>" name="previous" value="<?php echo "$labelprev" ?>">
+      <input type="hidden" name="question_id" value="<?php echo $question_id ?>">
 				<input class="btn btn-success rounded-0" type="submit" title="<?php echo $titlenext ?>" name="next" value="<?php echo "$Labelnext" ?>">
 				<?php echo $icon ?>
 				<span class="font-italic my-auto float-right"><?php echo  "Question $question_number of $total_questions"; ?></span>
-
 
 		</div>
 
@@ -249,22 +293,15 @@ include 'header.php'; ?>
 
     $('#text').webSpeaker();
 
-</script>
-
-<script type="text/javascript">
+//empty session variables
   var prompt=true;
 
     $(document).ready(function() {
-
-        $('input:not(:button,:submit),radio').change(function () {
-          window.onbeforeunload = function () {
-            if (prompt == true) 
-              return "Are you sure you want to leave the quiz?";
-            }
-          });
+          
 //http://truelogic.org/wordpress/2012/07/20/how-to-prevent-a-user-leaving-a-page-with-unsaved-data/
         $('input:submit').click(function(e) {
-        	unset($_SESSION["topic_id"]);
+      if ($('input:submit').val() = 'cancel'){
+      unset($_SESSION["topic_id"]);
 			unset($_SESSION["quiz_id"]);
 			unset($_SESSION["attempt_id"]);
 			unset($_SESSION["total_questions"]);
@@ -274,6 +311,7 @@ include 'header.php'; ?>
 			unset($_SESSION["question_solutions"]);
 			unset($_SESSION["total_correct"]);
           prompt = false;
+        }
           });
       });
 

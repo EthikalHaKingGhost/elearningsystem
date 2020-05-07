@@ -80,6 +80,10 @@ $_SESSION["attempt_id"] = $attempt_id;
 $_SESSION["total_questions"] = $total_questions;
 $_SESSION["question_number"] = 1;
 $_SESSION["total_correct"] = 0;
+
+
+
+
 header("location: quiz.php");
 
 

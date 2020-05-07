@@ -16,14 +16,14 @@ if(isset($_SESSION["attempt_id"])){
 
 	    echo "Record updated successfully";
 
-	    /*unset($_SESSION["enroll_id"]);
+	    unset($_SESSION["enroll_id"]);
 		unset($_SESSION["course_id"]);
 		unset($_SESSION["topic_id"]);
 		unset($_SESSION["quiz_id"]);
 		unset($_SESSION["attempt_id"]);
 		unset($_SESSION["total_questions"]);
 		unset($_SESSION["question_number"]);
-		unset($_SESSION["total_correct"]);*/
+		unset($_SESSION["total_correct"]);
 
 	} else {
 

@@ -54,7 +54,7 @@ $sqlquery = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_details`
 
 		} else {
 
-		    echo "sql";
+		    echo "upload error";
 		}
     }
 
@@ -76,7 +76,7 @@ $sqlquery = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_details`
         </div>
         <div class="col-md-9 mb-4">
             <div class="form-group">
-            	<select type="select" title="Select a topic from a course" class="form-control form-control-sm" data-toggle="dropdown" name="topic_id" required>  
+            	<select title="Select a topic from a course" class="form-control form-control-sm" name="topic_id" required>  
            
            <?php 
 
@@ -145,7 +145,7 @@ $sqlquery = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_details`
         </div>
         <div class="col-md-9 mb-4">
             <div class="form-group">
-            	<select type="select" title="Select the type of lesson being uploaded" class="form-control form-control-sm" data-toggle="dropdown" name="lesson_type"> 
+            	<select type="select" title="Select the type of lesson being uploaded" class="form-control form-control-sm" name="lesson_type"> 
 			<option value="Audio">Audio</option>
 			<option value="Video">Video</option>
 			<option value="Presentation">Presentation</option>
@@ -165,7 +165,7 @@ $sqlquery = "INSERT INTO `lessons` (`lesson_id`, `lesson_name`, `lesson_details`
         </div>
         <div class="col-md-9 mb-4">
             <div class="form-group">
-            	<select type="select" title="Students will be able to download or view the content or have the option of both" class="form-control form-control-sm" data-toggle="dropdown" name="content" id="content" required>  
+            	<select type="select" title="Students will be able to download or view the content or have the option of both" class="form-control form-control-sm" name="content" id="content" required>  
 			<option value="download">Download Only</option>
 	        <option value="webbased">Web based</option>
 	        <option value="both" selected>Download + Web Based</option>

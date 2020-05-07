@@ -19,6 +19,7 @@ include 'header.php'; ?>
 <div class="container-fluid" style="background-image: url('images/blur-background12.jpg');  background-size: cover; background-size: no-repeat; ">
 
 
+
 <div class="row text-center">
 
 <?php
@@ -48,7 +49,7 @@ include 'include/connection.php';
         <div class="col-md-3 mt-4 ">
         <div class="bg-shadow bg-light">
         <div class="card border-0">
-        <img class="card-img-top rounded-0" src="<?php echo "images/$course_img"; ?>" alt="Card image cap">
+        <img class="card-img-top rounded-0" src="<?php echo "$course_img"; ?>" alt="Card image cap">
         <div class="h6 font-weight-bold text-uppercase" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
             <?php echo $course_title; ?></div> 
         </div>

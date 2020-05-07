@@ -9,6 +9,10 @@ if (isset($_POST["submission"])) {
 
 $target_dir = "lessons/";
 
+}elseif (isset($_POST['create-course'])){
+
+$target_dir = "images/";
+
 }else{
 
 $target_dir = "uploads/";
@@ -32,7 +36,6 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 && $imageFileType != "xltx"&& $imageFileType != "xlsx" && $imageFileType != "xlms" 
 && $imageFileType != "zip" && $imageFileType != "rar"){
 
-$errors = array();
 
 $errors[] = "File type is not allowed, please match the file type or contact administration.";
 
@@ -60,6 +63,14 @@ if (!empty($_POST['submission'])){
 	$target_file = $target_dir .$user."[".date_format($date,'m-d-Y')."][".$filesubmit_id."]." . $imageFileType;
 
 	$sub_path = $target_file;
+
+}
+
+if (!empty($_POST['create-course'])){
+
+    $target_file = $target_dir .$course_title."[".date_format($date,'m-d-Y')."]." . $imageFileType;
+
+    $course_img = $target_file;
 
 }
 
@@ -93,13 +104,10 @@ if ($uploadOk == 0) {
 
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 
-    	$success = array();
-
-    	$success[] = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-
+    	
         echo '<div class="alert alert-info alert-dismissible mt-2 mb-1">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>OOPS! </strong>The file ' .basename( $_FILES["fileToUpload"]["name"]). ' has been uploaded.
+            <strong>Message! </strong>The file ' .basename( $_FILES["fileToUpload"]["name"]). ' has been uploaded.
             </div>';
 
     } else {

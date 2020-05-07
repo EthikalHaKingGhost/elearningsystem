@@ -1,3 +1,5 @@
+
+
 <?php  
 
 
@@ -12,11 +14,14 @@ if(isset($_POST["create-topic"])){
     $topic_description = $_POST["topic_description"];
 
    	$sql = "SELECT topic_title FROM topics WHERE topic_title = '$topic_title'";
+   	
 				$query = mysqli_query($conn, $sql);
+
 				if($query){
+
 					if (mysqli_num_rows($query) > 0) {
 
-						header('location: dashboard.php?error=topic');
+						echo "topic already exists";
 
 	}else{
 
@@ -24,7 +29,7 @@ $sql = "INSERT INTO `topics` (`topic_id`, `topic_title`, `topic_description`) VA
 
 if (mysqli_query($conn, $sql)) {
 
-header('location: dashboard.php?success=topic');
+echo "topic created sucessfully";
 
         } else {
 
@@ -38,7 +43,7 @@ header('location: dashboard.php?success=topic');
 
 ?>
 
-<form action="createcourses.php" method="post">
+<form action="dashboard.php" method="post">
 
 <div class="container bg-light mt-2 p-3 rounded-lg">
 
@@ -75,7 +80,11 @@ header('location: dashboard.php?success=topic');
 </div>
 </div>
 </form>
-<hr>
+</div>
+
+
+
+<div class="container bg-light mt-2 p-3 rounded-lg">
 
 <!----assign the topic ---------->
 	<?php 
@@ -129,7 +138,7 @@ header('location: dashboard.php?success=topic');
         </div>
         <div class="col-md-9 mb-4">
             <div class="form-group">
-            	<select type="select" title="Assign a topic to a course by selecting the course and the topic below. Each topic assigned to a course is visible." class="form-control form-control-sm" data-toggle="dropdown" name="course_id" required>  
+            	<select title="Assign a topic to a course by selecting the course and the topic below. Each topic assigned to a course is visible." class="form-control form-control-sm"  name="course_id" required>  
            <option disabled selected><strong>Select from courses available:</strong></option>
            			<?php 
 
@@ -155,8 +164,15 @@ header('location: dashboard.php?success=topic');
 						}
 
 						} else {
-						    echo "There is nothing to show";
-					  }
+
+							?>
+
+							<option>No Courses Avalaible</option>
+
+						<?php
+
+
+						  }
 
 				?>
             	</select> 
@@ -170,7 +186,7 @@ header('location: dashboard.php?success=topic');
         </div>
         <div class="col-md-9 mb-4">
             <div class="form-group">
-            	<select type="select" class="form-control form-control-sm" data-toggle="dropdown" name="topic_id" required>  
+            	<select type="select" class="form-control form-control-sm"  name="topic_id" required>  
            <option disabled selected><strong>Select from topics available:</strong></option>
      
                 	<?php 
@@ -214,7 +230,9 @@ header('location: dashboard.php?success=topic');
 <input type="submit" name="assign_topic" class="btn btn-primary" value="Assign Topic">            
 </div>
 </div>
+
 </form>
+</div>
 
 
 

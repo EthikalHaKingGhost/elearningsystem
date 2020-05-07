@@ -106,7 +106,7 @@ exit();
 
 }else{
 
-//sign user in prevent sq hack
+//sign user in prevent sql hack
       $sql = "INSERT INTO users (uid_username, email, password) VALUES(?, ?, ?)";
       $stmt = mysqli_stmt_init($conn);
       if (!mysqli_stmt_prepare($stmt, $sql)) {
