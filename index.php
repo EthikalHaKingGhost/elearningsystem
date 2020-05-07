@@ -60,7 +60,7 @@ include 'include/connection.php';
 
 //code to show recent courses added
 
-        $sql = "SELECT * FROM Courses ORDER BY `Courses`.`date_created` ASC LIMIT 3";
+        $sql = "SELECT * FROM Courses ORDER BY `Courses`.`date_created` DESC LIMIT 3";
         $result = mysqli_query($conn, $sql);
         
         if (mysqli_num_rows($result) > 0) {
@@ -94,7 +94,7 @@ include 'include/connection.php';
 
 <div class="row p-0 m-0">    
  <div class="col-md-3 m-0 p-0">
-   <img class="card-img-top e" src="<?php echo "images/$course_img"; ?>" alt="Image">
+   <img class="card-img-top e" src="<?php echo "$course_img"; ?>" alt="Image">
  </div> 
   
   <div class="col-md-7 rounded-0 my-auto">
