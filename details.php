@@ -145,9 +145,7 @@ include 'header.php'; ?>
                         <span class="font-weight-bold small text-uppercase">Assignments</span></a>
 
 
-                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-submissions-tab" data-toggle="pill" href="#v-pills-submissions" role="tab" aria-controls="v-pills-submissions" aria-selected="false">
-                        <i class="fas fa-check mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Submissions</span></a>
+                   
                     </div>
             </div>
 
@@ -157,7 +155,7 @@ include 'header.php'; ?>
                 <div class="tab-content" id="v-pills-tabContent">
                     
 <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-lesson" role="tabpanel" aria-labelledby="v-pills-lesson-tab">
-      <h4 class="font-italic mb-4 text-center">Lessons</h4>
+      <h4 class="font-italic mb-4 text-center">Lessons and Tutorials</h4>
           <div class="font-italic border">
 
 <input class="form-control border-0" type="text" id="myInput" placeholder="Search for lesson..."> 
@@ -192,7 +190,7 @@ if (mysqli_num_rows($result) > 0) {
         $lesson_type = $row["lesson_type"];
         $lesson_source = $row["lesson_source"];
         $link= "lessons.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&lid=$lesson_id";
-        $contenttype = $row["content"];
+        $content = $row["content"];
         $buttonlabel = "";
 
 
@@ -225,21 +223,21 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-        if ($contenttype = "download"){
+        if ($content == "download"){
 
              $download = '<a href="'.$link.'">
                               <img src="images/download.png" height="30" width="90">
                           </a>';
 
-        } elseif ($contenttype = "Webbased") {
+        } elseif ($content == "webbased") {
 
     
-          $download = '<a class="btn btn-success" href="'.$link.'">Launch</a>"';
+          $download = '<a class="btn btn-success" href="'.$link.'">Launch</a>';
 
 
-        } elseif ($contenttype = "both") {
+        } elseif ($content == "both") {
 
-          $download = '<a class="btn btn-dark" href="'.$link.'">View</a>"';
+          $download = '<a class="btn btn-success" href="'.$link.'">Launch</a>';
 
         }
 
@@ -256,7 +254,7 @@ if (mysqli_num_rows($result) > 0) {
       <td><?php echo $lesson_name; ?></td>
       <td class="text-center"><?php echo $lesson_type; ?></td>
       <td class="text-center"><?php echo $bytes; ?></td>
-      <td class="text-center"><?php echo $download ?></td>   
+      <td class="text-center"><?php echo $download; ?></td>   
     </tr>
  
 <?php 
@@ -341,20 +339,23 @@ if (mysqli_num_rows($result) > 0) {
             $bytes1 = '0 bytes';
         }
 
-
         if ($contenttype = "download"){
 
              $download = '<a href="'.$link.'">
                               <img src="images/download.png" height="30" width="90">
                           </a>';
 
-        } elseif ($contenttype = "Webbased") {
+        }
+
+        if ($contenttype = "webbased") {
 
     
           $download = '<a class="btn btn-success" href="'.$link.'">Launch</a>"';
 
 
-        } elseif ($contenttype = "both") {
+        }
+
+        if ($contenttype = "both") {
 
           $download = '<a class="btn btn-dark" href="'.$link.'">View</a>"';
 
@@ -362,6 +363,7 @@ if (mysqli_num_rows($result) > 0) {
 
 
 ?>
+
 
 
 
@@ -427,10 +429,8 @@ if (mysqli_num_rows($result) > 0) {
             $quiz_title = $row["quiz_title"];
             $total_questions = $row["total_questions"];
             $link= "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
-            $display = " ";
             $button = "";
 
-echo $limit;
     ?> 
 
    
@@ -475,9 +475,9 @@ $link = "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&error=limit";
 
 $submit = "btn btn-outline-danger text-dark";
 
-$button = "Unavailable";
+$button = "N/A";
 
-echo "N/A";
+echo $limit."/".$limit;
 
 }
 
