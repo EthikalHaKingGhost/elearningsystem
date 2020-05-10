@@ -79,12 +79,12 @@ session_start();
 include 'header.php'; ?>
 
 
-<div class="banner">
+<div class="banner" style="background-image: url(images/2.jpg);">
     
 </div>
 
 
-<div class="container p-3 my-3 bg-dark text-white">
+<div class="container p-3 my-3 bg-light">
     <div class="card-header pb-3"><h1>Enrollment</h1></div>
   
 <form action="<?php echo $page; ?>" method="post">
@@ -107,7 +107,7 @@ include 'header.php'; ?>
 
               ?>
     
-<h3 class="pb-5">Thank you for choosing our <?php echo $course_title; ?>  Course please Click next to enroll into this course</h3>
+<h3 class="pb-5">Thank you for choosing our <b><?php echo $course_title; ?></b> Course please Click next to enroll into this course</h3>
 
 <a class="btn btn-danger btn-lg" href="courses.php">Cancel</a>
 

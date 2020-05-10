@@ -47,6 +47,23 @@ if(isset($_GET["qid"])){
     exit();
 }
 
+
+
+    //clear previous values
+    unset($_SESSION["enroll_id"]); 
+    unset($_SESSION["course_id"]);
+    unset($_SESSION["topic_id"]);
+    unset($_SESSION["quiz_id"]);
+    unset($_SESSION["attempt_id"]);
+    unset($_SESSION["total_questions"]);
+    unset($_SESSION["question_number"]);
+    unset($_SESSION["total_correct"]);
+    unset($_SESSION["qa_id"]);
+    unset($_SESSION["question_solutions"]);
+    unset($_SESSION["total_correct"]);
+
+
+
 include 'include/connection.php';
 
 $sql = "SELECT * FROM `quizzes` WHERE quizzes.quiz_id = $quiz_id";

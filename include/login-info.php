@@ -48,8 +48,10 @@ if(empty($mailuid) || empty($password)){
 
 			session_start();
 
+			$_SESSION["user_type"] = $row["user"];
 			$_SESSION["user_id"] =$row["user_id"];
 			$_SESSION["username"] =$row["uid_username"];
+			
 
 		header("location: ../index.php?login=success");
 		

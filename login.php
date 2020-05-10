@@ -46,6 +46,7 @@ if (isset($_POST["login"]))
 
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["username"] = $row["uid_username"];
+                $_SESSION["user_type"] = $row["user"];
                 $_SESSION["email"] = $row["email"];
                 $username = $_SESSION["username"];
 

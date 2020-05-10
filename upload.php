@@ -52,7 +52,7 @@ $date = date_create();
 
 if (!empty($_POST['book_title'])){
 
-	$target_file = $target_dir .$book_title."[".date_format($date,'m-d-Y')."]." . $imageFileType;
+	$target_file = $target_dir .$book_title .round(microtime(true))."." . $imageFileType;
 
 	$book_path = $target_file;
 
@@ -60,34 +60,28 @@ if (!empty($_POST['book_title'])){
 
 if (!empty($_POST['submission'])){
 
-	$target_file = $target_dir .$user."[".date_format($date,'m-d-Y')."][".$filesubmit_id."]." . $imageFileType;
+	$target_file = $target_dir .$user."_".round(microtime(true))."[".$filesubmit_id."]." . $imageFileType;
 
 	$sub_path = $target_file;
 
 }
 
-if (!empty($_POST['create-course'])){
+$target_file = $target_dir .round(microtime(true))."." . $imageFileType;
 
-    $target_file = $target_dir .$course_title."[".date_format($date,'m-d-Y')."]." . $imageFileType;
+if (isset($_POST['create-course'])){ $course_img = $target_file;}
 
-    $course_img = $target_file;
+if(isset($_POST["createlessons"])){$lesson_source = $target_file;}
 
+if(isset($_POST["uploadimage"])) {$user_image = $target_file;}
+
+if(isset($_POST["add_assignment"])){
+
+$target_file = $target_dir .$assignment.'_'.round(microtime(true))."." . $imageFileType;
+
+    $assignmentfile = $target_file;
 }
 
-if(isset($_POST["createlessons"])){
 
-    $target_file = $target_dir .$lesson_name."[".date_format($date,'m-d-Y')."]." . $imageFileType;
-
-    $lesson_source = $target_file;
-}
-
-
-if(isset($_POST["uploadimage"])) {
-
-    $target_file = $target_dir .date_format($date,'m-d-Y')."." . $imageFileType;
-
-    $user_image = $target_file;
-}
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {

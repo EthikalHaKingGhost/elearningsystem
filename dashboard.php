@@ -13,6 +13,7 @@ if(isset($_SESSION["user_id"])){
 }
 
 require 'header.php'; ?>
+
 <link rel="stylesheet" href="plugins/tabs/jquery.atAccordionOrTabs.min.css">
 <script src="plugins/tabs/jquery.bbq.min.js" type="text/javascript"></script>
 <script src="plugins/tabs/jquery.atAccordionOrTabs.min.js" type="text/javascript"></script>
@@ -20,17 +21,7 @@ require 'header.php'; ?>
 
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "elearningschool";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include 'include/connection.php';
 
  $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
 
@@ -88,7 +79,7 @@ if (!$conn) {
 
             }else{
 
-                echo "error no info to display";
+                $_SESSION["alerts-danger"] = "error no info to display";
 
             }
 
@@ -128,19 +119,15 @@ $update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$
 
       $activity_qry = mysqli_query($conn, $activity);
 
+    $_SESSION["alerts-success"] = "Image uploaded Updated Successfully";
 
 echo "<meta http-equiv='refresh' content='3'>";
 
 if (mysqli_query($conn, $update)) {
 
-    echo '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong> Updated Successfully.
-            </div>';
-
 } else {
 
-    echo "Error updating record: " . $conn->error;
+    $_SESSION["alerts-danger"] = "Error updating your image please see admin.";
 }
 
 }
@@ -159,27 +146,19 @@ if ($_FILES['fileToUpload']['error'] == 0){
 
 }else{
 
-echo '<div class="alert alert-danger alert-dismissible mt-2 mb-1">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong> error uploading file or no file selected.
-            </div>';
+$_SESSION["alerts-danger"] = "error uploading file or no file selected.";
+
 }
 
 if ($uploadOk == 1){
 
         $sql = "UPDATE `users` SET `user_image` = '$user_image' WHERE `users`.`user_id` = '$user_id';";
 
-
-        $fullname = $first_name." ".$last_name;
-
-        $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '$user_id', '$fullname', '$user_image', '$user_id', 'updateprofilepic', current_timestamp());";
-
-      $activity_qry = mysqli_query($conn, $activity);
-
-
         echo "<meta http-equiv='refresh' content='3'>";
 
         $queryresult = mysqli_query($conn, $sql);
+
+        $_SESSION["alerts-success"] = "User image changed Successfully";
 
     }
 
@@ -189,15 +168,12 @@ if(isset($_POST["removeimg"])) {
 
     $sqlupdate = "UPDATE `users` SET `user_image` = 'images/placeholder.png' WHERE `users`.`user_id` = '$user_id';";
 
+$_SESSION["alerts_info"] = "Your profile image was removed.";
 
     echo "<meta http-equiv='refresh' content='2'>";
 
     if (mysqli_query($conn, $sqlupdate)) {
 
-    echo '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong> Updated Successfully.
-            </div>';
 
     }
 
@@ -274,33 +250,33 @@ if(isset($_POST["removeimg"])) {
 			<ul class="tabs-example">
   <li class=""><a>Courses</a>
     <section>
-      <?php require 'createcourses.php'; ?>
+      <?php include 'include/createcourses.php'; ?>
     </section>
   </li>
   <li><a>Topics</a>
     <section>
-         <?php require 'createtopics.php'; ?>
+         <?php include 'include/createtopics.php'; ?>
     </section>
   </li>
   <li><a>Lessons</a>
     <section>
-   <?php require 'createlessons.php'; ?>
+   <?php include 'include/createlessons.php'; ?>
      </section>
   </li>
   <li><a>Quizzes</a>
     <section>
-         <?php require 'createquizzes.php'; ?>
-         <?php require 'createquestions.php'; ?>
+         <?php include 'include/createquizzes.php'; ?>
+         <?php include 'include/createquestions.php'; ?>
     </section>
   </li>
   <li><a>Assignments</a>
     <section>
-         <?php require 'createassignment.php'; ?>
+         <?php include 'include/createassignment.php'; ?>
     </section>
   </li>
   <li><a>Library</a>
     <section>
-         <?php require 'library.php'; ?>
+         <?php include 'include/library.php'; ?>
     </section>
   </li>
 </ul>
@@ -311,6 +287,51 @@ if(isset($_POST["removeimg"])) {
     </div>
 </form>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+
+<script type="text/javascript">
+    
+$("#datepicker").datepicker({
+    format: "yyyy",
+    viewMode: "years", 
+    minViewMode: "years"
+});
+
+//Add Jquery to disable and enable fields(disable add new)
+
+    var inpt1 = document.getElementById("exist");
+inpt1.oninput= function () {
+  document.getElementById("addnew0").disabled = this.value != "";
+    document.getElementById("addnew").disabled = this.value != "";
+    document.getElementById("addnew1").disabled = this.value != "";
+    document.getElementById("datepicker").disabled = this.value != "";
+    document.getElementById("imageupload").disabled = this.value != "";
+  document.getElementById("addnew3").setAttribute("disabled", "disabled");
+
+   if( !$(this).val() ) {
+
+    document.getElementById("addnew3").removeAttribute("disabled");
+
+   }
+
+};
+
+//enable add new
+
+    var inpt2 = document.getElementById("addnew0");
+inpt2.oninput= function () {
+     document.getElementById("exist").setAttribute("disabled", "disabled");
+
+   if( !$(this).val() ) {
+
+    document.getElementById("exist").removeAttribute("disabled");
+
+   }
+};
+
+</script>
 
 <script src="Trumbowyg-master/dist/trumbowyg.min.js"></script>
 <script src="Trumbowyg-master/dist/plugins/colors/trumbowyg.colors.min.js"></script>

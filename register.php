@@ -69,7 +69,6 @@ body{
     <a class="card-links" href="#">
       <div class="btn btn-outline-dark bg-light mb-4 mt-4 ml-5 mr-5">
         <img style="width:25px;" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt='F'>
-
       </i> Login via Facebook</a>
     </div>
 

@@ -23,8 +23,6 @@
 
 <body>
 
-<?php include "include/alerts.php"; ?>
-
 <div class="header-nav bg-light sticky-top">
   <div class="container-fluid">
     <div class="row">
@@ -53,10 +51,20 @@ if (isset($_SESSION["user_id"]))
 {
     $username = $_SESSION["username"];
     $user_id = $_SESSION["user_id"];
-?>
+    $user_type = $_SESSION["user_type"];
+
+  if ($_SESSION["$user_type"] = "Admin"){
+    ?>
       <li class="nav-item ml-2">
-        <a class="nav-link" href="dashboard.php">Dashboard</a>
+        <a class="nav-link" href="dashboard.php">Administration</a>
       </li>
+    <?php
+  }
+
+?>
+
+
+      
     </ul>
       <ul class="navbar-nav ml-auto nav-flex-icons mr-4">
         <li class="nav-item avatar dropdown">
@@ -116,3 +124,5 @@ else
     </div>
   </div>
   </div>
+
+<?php include "include/alerts.php"; ?>

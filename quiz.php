@@ -38,7 +38,7 @@ print_r($_SESSION);
 
 	if(isset($_POST["next"])){
     $question_id = $_POST["question_id"];
-		$qa_id = $_SESSION["qa_id"];
+		$qa_id = $_SESSION["qa_id"]; //2
     $correct = "incorrect";
 		$question_solutions = $_SESSION["question_solutions"];
 
@@ -57,6 +57,9 @@ $question_number = $_SESSION["question_number"];
 
     $choice = $_POST["choice"];
 
+
+
+
 if($choice == $question_solutions){
 
     $_SESSION["total_correct"] += 1;
@@ -67,7 +70,17 @@ if($choice == $question_solutions){
 
     }else {
 
+
+
+
+
+      if($_SESSION["total_correct"] > 0){
+        $_SESSION["total_correct"] -= 1;
+      }
+
       echo "wrong";
+
+
     }
 
 
@@ -76,17 +89,21 @@ if($choice == $question_solutions){
     include 'include/connection.php';
 
 $ans = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id' AND qa_id = '$qa_id'";
+echo '<h1>checking for previous response to current question</h1>';
+echo $ans . "<Br>";
 
   $query = mysqli_query($conn, $ans);
 
 if (mysqli_num_rows($query) > 0) {
+  echo '<h1>Going to update</h1>';
+  $update = "UPDATE responses SET `responses`.`response` = '$choice', correct='$correct' WHERE `responses`.`attempt_id` = '$attempt_id' AND `responses`.`qa_id` = '$qa_id'";
 
-  $update = "UPDATE responses SET `responses`.`response` = '$choice' WHERE `responses`.`attempt_id` = '$attempt_id' AND `responses`.`correct` = '$correct' AND `responses`.`question_id` = '$question_id'";
+  echo $update . "<br>";
 
    $query = mysqli_query($conn, $update);
 
     }else{
-
+      echo '<h1>Going to insert</h1>';
     $update = "INSERT INTO `responses` (`response_id`, `qa_id`, `question_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$question_id', '$attempt_id', '$choice', '$correct');";
 
     if (mysqli_query($conn, $update)) {
@@ -98,6 +115,9 @@ if (mysqli_num_rows($query) > 0) {
 }
 
 }
+
+
+    //reload page
 
 }
 
@@ -162,11 +182,19 @@ exit();
 }
 
 
+
+
+
+
+//load question here
+echo '<h1>Load question here</h1>';
 include'include/connection.php';
 
 $sql = "SELECT * FROM questions_assigned, questions
 	WHERE questions_assigned.question_id = questions.question_id 
 	AND questions_assigned.quiz_id = {$_SESSION["quiz_id"]} LIMIT $question_number";
+
+  echo $sql . "<Br>";
 
 $result = mysqli_query($conn, $sql);
 
@@ -182,6 +210,8 @@ if (mysqli_num_rows($result) > 0) {
       $option3 = $row["option3"];
       $option4 = $row["option4"];
       $_SESSION["question_solutions"] = $row["question_solutions"];
+      $question_type = $row["question_type"];
+
 
 
 	} 
@@ -191,6 +221,25 @@ if (mysqli_num_rows($result) > 0) {
 	//do nothing
 
 }
+
+echo '<h1>Check for a previous response to highlight choice</h1>';
+$qa_id = $_SESSION["qa_id"];
+$response = "";
+include "include/connection.php";
+$sql = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id' AND qa_id = '$qa_id'";
+echo $sql . "<br>";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while($row = mysqli_fetch_assoc($result)) {
+      $response = $row["response"];
+  }
+} else {
+  echo "0 results";
+}
+
+
 
 
 include 'header.php'; ?>
@@ -215,26 +264,24 @@ include 'header.php'; ?>
 
 <form action="quiz.php" method="post">
 
+
+
+
+
+
+
+
+      <?php 
+
+
+        if($question_type == "multiple choice"){
+
+          ?>
+      
 <div class="font-weight-bold">
-
 <div class="row choices bg-light">
-
-<?php
-
-include 'include/connection.php';
-/*
-    $ans = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id'";
-
-  $query = mysqli_query($conn, $ans);
-
-if (mysqli_num_rows($query) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($query)) {
-*/
-?>
-
         <label>
-          <input type="radio" name="choice"  value="<?php echo $option1;?>" class="card-input-element"/>
+          <input <?php  if($response == $option1){ echo "checked"; }  ?> type="radio" name="choice"  value="<?php echo $option1;?>" class="card-input-element"/>
             <div class="card-input py-2 m-3 rounded border">
               <div class="answer mx-4"><?php echo $option1; ?></div>
             </div>
@@ -243,7 +290,7 @@ if (mysqli_num_rows($query) > 0) {
 
       <div class="row choices bg-light">
         <label>
-          <input type="radio" name="choice"  value="<?php echo $option2;?>" class="card-input-element"/>
+          <input <?php  if($response == $option2){ echo "checked"; }  ?> type="radio" name="choice"  value="<?php echo $option2;?>" class="card-input-element"/>
             <div class="card-input py-2 m-3 rounded border">
               <div class="answer mx-4"><?php echo $option2; ?></div>
             </div>
@@ -252,7 +299,7 @@ if (mysqli_num_rows($query) > 0) {
 
       <div class="row choices bg-light">
         <label>
-          <input type="radio"  name="choice"  value="<?php echo $option3;?>" class="card-input-element"/>
+          <input <?php  if($response == $option3){ echo "checked"; }  ?>  type="radio"  name="choice"  value="<?php echo $option3;?>" class="card-input-element"/>
             <div class="card-input py-2 m-3 rounded border">
               <div class="answer mx-4"><?php echo $option3; ?></div>
             </div>
@@ -261,19 +308,48 @@ if (mysqli_num_rows($query) > 0) {
 
       <div class="row choices bg-light">
         <label>
-          <input type="radio" name="choice"  value="<?php echo $option4;?>" class="card-input-element"/>
+          <input <?php  if($response == $option4){ echo "checked"; }  ?> type="radio" name="choice"  value="<?php echo $option4;?>" class="card-input-element"/>
             <div class="card-input py-2 m-3 rounded border">
               <div class="answer mx-4"><?php echo $option4; ?></div>
             </div>
         </label>
       </div>
      </div>
-<?php
-/*
-}
-}
-*/
-?>
+
+
+          <?php
+
+        }else if($question_type == "true or false"){
+          ?>
+          <!-- TRUE OR FALSE -->
+   
+<div class="font-weight-bold">
+<div class="row choices bg-light">
+        <label>
+          <input <?php  if($response == $option1){ echo "checked"; }  ?> type="radio" name="choice"  value="<?php echo $option1;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4">True</div>
+            </div>
+        </label>
+      </div>
+
+      <div class="row choices bg-light">
+        <label>
+          <input <?php  if($response == $option2){ echo "checked"; }  ?> type="radio" name="choice"  value="<?php echo $option2;?>" class="card-input-element"/>
+            <div class="card-input py-2 m-3 rounded border">
+              <div class="answer mx-4">False</div>
+            </div>
+        </label>
+      </div>
+    </div>
+
+
+        <?php
+        }
+
+        ?>
+
+
 
 			<input class="btn btn-danger rounded-0" type="submit" title="<?php echo $titleprev ?>" name="previous" value="<?php echo "$labelprev" ?>">
       <input type="hidden" name="question_id" value="<?php echo $question_id ?>">

@@ -1,4 +1,8 @@
  <?php
+       
+
+//Alerts ussing heading
+
         if (isset($_GET["error"])) {
 
           if ($_GET["error"] == "wronginfo") {
@@ -27,8 +31,7 @@ echo
 
         }else if ($_GET["error"] == "topic") {
 
-echo
-            '<div class="alert alert-warning m-0 rounded-lg text-center alert-dismissible" name="alert">
+echo '<div class="alert alert-warning m-0 rounded-lg text-center alert-dismissible" name="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Message!</strong>This Topic already exsist</div>';
 
@@ -38,11 +41,6 @@ echo
       }
 
 
- ?>
-
-
-
-<?php
   
         if (isset($_GET["info"])) {
 
@@ -105,20 +103,6 @@ if (isset($_GET["signup"])) {
 
     }
 
-    if (isset($_GET["error"])) {
-
-          if ($_GET["error"] == "limit") {
-
-         echo  '<div class="alert alert-danger m-0 rounded-lg text-center alert-dismissible" name="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>OOPS! </strong> You have reached the maximum number of attempts, please check administration</div>';
-
-        }else{
-
-
-        }
-    }
-
 
   if (isset($_GET["error"])) {
 
@@ -135,14 +119,8 @@ if (isset($_GET["signup"])) {
 
     }
 
-?>
 
-
-
-<!------successful password reset --------->
-
-   <?php
-        if (isset($_GET["newpwd"])) {
+if (isset($_GET["newpwd"])) {
 
           if ($_GET["newpwd"] == "pwdupdated") {
 
@@ -155,12 +133,6 @@ echo
 
       }
 
- ?>
-
-
-
-
- <?php
         if (isset($_GET["error"])) {
 
           if ($_GET["error"] == "wrongpwd") {
@@ -178,4 +150,61 @@ echo
 
       }
 
-  ?>
+//Alerts ussing session
+
+if(isset($_SESSION["alerts_info"])){
+  
+        $alerts_info = $_SESSION["alerts_info"];
+
+        echo '<div class="alert alert-info alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Message! </strong>'.$alerts_info.'</div>';
+
+          unset($_SESSION["alerts_info"]);
+
+      }
+
+
+
+if(isset($_SESSION["alerts_success"])){
+        $alerts_success = $_SESSION["alerts_success"];
+
+
+      echo  '<div class="alert alert-success alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success! </strong>'.$alerts_success.'</div>';
+
+          unset($_SESSION["alerts_success"]);
+
+      }
+
+
+
+
+if(isset($_SESSION["alerts_danger"])){
+        $alerts_success = $_SESSION["alerts_danger"];
+
+   echo
+
+        '<div class="alert alert-danger alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alert! </strong>' .$alerts_danger. '
+        </div>';
+
+          unset($_SESSION["alerts_danger"]);
+
+      }
+
+
+
+if(isset($_SESSION["alerts_warning"])){
+        $alerts_success = $_SESSION["alerts_warning"];
+
+       echo '<div class="alert alert-info alert-dismissible" name="alerts">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Warning! </strong>'.$alerts_warning.'</div>';
+
+          unset($_SESSION["alerts_warning"]);
+
+      }
+?>

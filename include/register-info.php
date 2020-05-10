@@ -1,23 +1,6 @@
   
 <?php 
 
-if(isset($_SESSION["alerts_info"])){
-        $alerts_info = $_SESSION["alerts_info"];
-
-        ?>
-
-        <div class="alert alert-info alert-dismissible" name="alerts">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Message!</strong><?php echo $alerts_info; ?>
-        </div>
-        
-        <?php
-
-          unset($_SESSION["alerts_info"]);
-
-      }
-
-
 
 if(isset($_POST["register"])){
 
