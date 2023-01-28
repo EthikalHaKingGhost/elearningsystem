@@ -2,7 +2,7 @@
 
 
 <?php 
-
+$page_title = "About us";
 include 'header.php'; ?>
 
 
@@ -13,7 +13,7 @@ include 'header.php'; ?>
 }
 
 .parallax {
-  background-image: url("./images/ma.jpg");
+  background-image: url("./images/3.jpg");
   
     opacity: 0.9;
     filter: brightness(50%);
@@ -44,13 +44,12 @@ include 'header.php'; ?>
 
 
 
-<div class="banner">
-  
+<div class="banner" style="background-image: url(images/1.jpg);">
 
 </div>
 
 <div class=" card-header text-center pt-4">
-  <i class="fas fa-address-card"></i><h1> About Us</h1>
+  <h1><i class="fas fa-address-card"></i> About Us</h1>
   <p><em>Learn anything</em></p>
   
 </div>
@@ -65,7 +64,7 @@ include 'header.php'; ?>
    
       <div class="row">
       <div class="col-md-6 section">  
-      <img src="./images/ma.jpg" alt="photo" class="responsive"/>
+      <img src="./images/login-cover.jpeg" alt="photo" class="responsive"/>
       </div>
 
     <div class="col-md-6 section">
@@ -76,12 +75,22 @@ include 'header.php'; ?>
     </div>
   </div>
 </div>
+
+<div class="container"><br/>
+
+<div class="parallax"></div>
+  <div class="jumbotron mb-0 rounded-0">
+  <h2>Free Courses</h2>
+  <p>We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
 </div>
+<div class="parallax"></div>
 </div>
 
 
-<!-- Container element -->
-<div class="parallax"></div></div>
+
+
 
 
 <?php include 'footer.php'; ?>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<title>jQuery MKH Player Plugin Demo</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="src/css/mkhplayer.default.css"/>
+    <style>
+    body { background-color:#fafafa;}
+    .container { margin:150px auto;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>jQuery MKH Player Plugin Demo</h2>
+		<h3>Audio Player</h3>
+		<audio id="music3" preload="metadata">
+			<source src="media/interlude.mp3">
+		</audio>
+		<h3>Video Player</h3>
+		<video id='video1' preload="metadata" width="100%">
+			<source src="media/small.mp4">
+		</video>
+  <script src="https://code.jquery.com/jquery-3.2.0.slim.min.js"></script>
+  <script type="text/javascript" src="src/js/jquery.mkhplayer.js"></script>
+  <script type="text/javascript">
+			$(document).ready(function(){
+				$('audio').mkhPlayer();
+				$('video').mkhPlayer();
+			});
+		</script>
+</div>
+</body>
+</html>

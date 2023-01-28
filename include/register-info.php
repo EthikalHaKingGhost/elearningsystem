@@ -22,8 +22,6 @@ $password = $_POST["pwd"];
 $password_repeat = $_POST["pwd-repeat"];           
 
 
-
-
   if (empty($username) || empty($useremail) || empty($password) || empty($password_repeat) ){
     header("location: ../register.php?error=emptyfields&uid=".$username."&mail=".$useremail);
 

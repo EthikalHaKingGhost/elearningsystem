@@ -51,6 +51,12 @@ if(empty($mailuid) || empty($password)){
 			$_SESSION["user_type"] = $row["user"];
 			$_SESSION["user_id"] =$row["user_id"];
 			$_SESSION["username"] =$row["uid_username"];
+
+		require 'connection.php';
+
+			$sql = "UPDATE `users` SET `last_login` =  CURRENT_TIMESTAMP() WHERE `users`.`user_id` = '{$row["user_id"]}'";
+
+			$query = mysqli_query($conn, $sql);
 			
 
 		header("location: ../index.php?login=success");

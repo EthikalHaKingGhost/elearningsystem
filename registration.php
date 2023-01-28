@@ -52,7 +52,7 @@ include "include/connection.php";
 
 }
 
-
+$page_title = "Login/Register";
 include "header.php"; ?>
 <link rel="stylesheet" href="pwdstrength/src/password.css">
 <script src="pwdstrength/src/password.js"></script>

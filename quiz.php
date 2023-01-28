@@ -1,4 +1,5 @@
 <?php  
+
 session_start();
 
 	if(isset($_SESSION["user_id"])){
@@ -25,16 +26,7 @@ session_start();
 }
 
 
-///select
 
-//display
-
-//pull
-
-
-
-$Message = "";
-print_r($_SESSION);
 
 	if(isset($_POST["next"])){
     $question_id = $_POST["question_id"];
@@ -42,31 +34,22 @@ print_r($_SESSION);
     $correct = "incorrect";
 		$question_solutions = $_SESSION["question_solutions"];
 
-  $_SESSION["question_number"] += 1;
-$question_number = $_SESSION["question_number"]; 
-
-//to change from one quiz to the next with LIMIT
-
-	if (empty($_POST["choice"])){
-		
-		$Message = '<div class="alert alert-info m-0 rounded-lg text-center alert-dismissible" name="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>You Got This!</strong> Select an answer by right clicking the option.</div>';
+if (empty($_POST["choice"])){
+    
+    $_SESSION["alerts-danger"] = "Select an answer by right clicking the option";
 
 	}else{
 
+  $_SESSION["question_number"] += 1;
+$question_number = $_SESSION["question_number"]; 
+
     $choice = $_POST["choice"];
-
-
-
 
 if($choice == $question_solutions){
 
     $_SESSION["total_correct"] += 1;
     
     $correct = "correct";
-
-    echo "correct";
 
     }else {
 
@@ -78,9 +61,6 @@ if($choice == $question_solutions){
         $_SESSION["total_correct"] -= 1;
       }
 
-      echo "wrong";
-
-
     }
 
 
@@ -89,21 +69,16 @@ if($choice == $question_solutions){
     include 'include/connection.php';
 
 $ans = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id' AND qa_id = '$qa_id'";
-echo '<h1>checking for previous response to current question</h1>';
-echo $ans . "<Br>";
 
   $query = mysqli_query($conn, $ans);
 
 if (mysqli_num_rows($query) > 0) {
-  echo '<h1>Going to update</h1>';
   $update = "UPDATE responses SET `responses`.`response` = '$choice', correct='$correct' WHERE `responses`.`attempt_id` = '$attempt_id' AND `responses`.`qa_id` = '$qa_id'";
-
-  echo $update . "<br>";
 
    $query = mysqli_query($conn, $update);
 
     }else{
-      echo '<h1>Going to insert</h1>';
+    
     $update = "INSERT INTO `responses` (`response_id`, `qa_id`, `question_id`, `attempt_id`, `response`, `correct`) VALUES (NULL, '$qa_id', '$question_id', '$attempt_id', '$choice', '$correct');";
 
     if (mysqli_query($conn, $update)) {
@@ -115,9 +90,6 @@ if (mysqli_num_rows($query) > 0) {
 }
 
 }
-
-
-    //reload page
 
 }
 
@@ -187,14 +159,11 @@ exit();
 
 
 //load question here
-echo '<h1>Load question here</h1>';
 include'include/connection.php';
 
 $sql = "SELECT * FROM questions_assigned, questions
 	WHERE questions_assigned.question_id = questions.question_id 
 	AND questions_assigned.quiz_id = {$_SESSION["quiz_id"]} LIMIT $question_number";
-
-  echo $sql . "<Br>";
 
 $result = mysqli_query($conn, $sql);
 
@@ -222,25 +191,27 @@ if (mysqli_num_rows($result) > 0) {
 
 }
 
-echo '<h1>Check for a previous response to highlight choice</h1>';
 $qa_id = $_SESSION["qa_id"];
 $response = "";
 include "include/connection.php";
 $sql = "SELECT * FROM `responses` WHERE attempt_id = '$attempt_id' AND qa_id = '$qa_id'";
-echo $sql . "<br>";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
   while($row = mysqli_fetch_assoc($result)) {
+
       $response = $row["response"];
   }
+
 } else {
-  echo "0 results";
+
+  $_SESSION["alerts-warning"] = "There are no quizzes available <a onclick='history.go(-1)'>Go back</a>";
+
 }
 
 
-
+$page_title = "Quiz";
 
 include 'header.php'; ?>
 <link rel="stylesheet" type="text/css" href="Webspeaker/src/jquery.webSpeaker.css">
@@ -250,8 +221,6 @@ include 'header.php'; ?>
 <div class="banner" style="background-image:url('images/3.jpg'); background-size:no-repeat; background-position: center; background-size: cover;">
 	
 </div>
-
-<?php echo $Message ?>
 
 <div class="container-fluid">
 
@@ -265,14 +234,7 @@ include 'header.php'; ?>
 <form action="quiz.php" method="post">
 
 
-
-
-
-
-
-
       <?php 
-
 
         if($question_type == "multiple choice"){
 
@@ -348,8 +310,6 @@ include 'header.php'; ?>
         }
 
         ?>
-
-
 
 			<input class="btn btn-danger rounded-0" type="submit" title="<?php echo $titleprev ?>" name="previous" value="<?php echo "$labelprev" ?>">
       <input type="hidden" name="question_id" value="<?php echo $question_id ?>">

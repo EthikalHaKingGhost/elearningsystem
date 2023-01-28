@@ -1,0 +1,217 @@
+  .bg-shadow{
+  	box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
+  	width:auto;
+  	height: auto;
+  	border:none;
+  }
+
+html body{
+  padding:0;
+  margin:0;
+}
+
+.avatar{
+  cursor: pointer;
+}
+
+.navbar a{
+  color: #34495e !important;
+  font-family: 'Raleway', sans-serif;
+  font-size:15px;
+  font-weight:800;
+  }
+
+  .navbar-brand {
+    font-size:18px !important;
+  }
+
+body,p,h1,h2,h3,h4,h5,h6 {
+  font-family: Georgia, Times, "Times New Roman", serif;
+
+}
+
+ .banner{
+height:200px;
+ width:100%;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  filter: brightness(90%);
+}
+
+#topofpage {
+    overflow: hidden;
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background-color: transparent;
+    color: #e84118;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    border-radius: 50px 50px;
+    z-index:10;
+}
+
+#topofpage:hover {
+    background-color:transparent;
+    color: #e84118;
+    border-radius: 50px 50px;
+}
+
+
+.parallax {
+  background-image: url("./images/ma.jpg");
+
+  opacity: 0.9;
+    filter: brightness(50%);
+    height: 300px;
+
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-position: center;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.paragraph{
+  margin: 20px;
+  padding: 20px;
+  background-color: #555;
+  color: white;
+}
+
+/* Radio buttons for question answers */
+
+.choices label {
+    width: 100%;
+}
+.card-input-element{
+    display: none;
+}
+.card-input{
+    background-color: white;
+}
+.card-input:hover {
+    cursor: pointer;
+    border: solid 1px #2ecc71;
+}
+
+
+.card-input-element:checked + .card-input {
+     box-shadow: 0px 0px 1px 1px #2ecc71;
+     border: solid 1px #2ecc71;
+ }
+
+
+#mydiv {
+  position: absolute;
+  z-index: 3;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#mydivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 2;
+  background-color: #012;
+  color: #fff;
+}
+
+.embed-responsive{
+  height: 480px;
+  width:800px;
+}
+
+
+.ul-lessons {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.lessons a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.lessons a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.lessons a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+
+.files{  position:relative;}
+.files:after { pointer-events: none;
+
+    position: absolute;
+    top: 20px;
+    bottom: 50px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 50px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+    position: absolute;
+    top: 160px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 50px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+
+
+}
+
+.table-responsive {
+    max-height:400px;
+    
+}

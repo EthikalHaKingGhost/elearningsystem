@@ -10,6 +10,8 @@ if(isset($_SESSION["username"])){
 
 }
 
+$page_title = "Home";
+
 include 'header.php'; ?>
 
 <div class="banner" style='background-image: url("images/1.jpg")';>

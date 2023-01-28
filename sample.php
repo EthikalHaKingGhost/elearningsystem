@@ -44,36 +44,6 @@ if(isset($_GET["lid"])){
 
 	$lesson_id = $_GET["lid"];
 
-	include 'include/connection.php';
-
-	$check = "SELECT * FROM lessons_taken WHERE lesson_id = '$lesson_id' AND user_id = '$user_id' AND status = 'incomplete'";
-
-         $checkqry = mysqli_query( $conn, $check );
-                //if no records exist
-                if(mysqli_num_rows($checkqry) > 0){
-
-                while($row = mysqli_fetch_assoc($checkqry)) {
-
-    	 				$status = $row["status"];
-                	}
-
-                if ($status == "complete"){
-
-                	$sql = "UPDATE `lessons_taken` SET `status` = 'incomplete' WHERE `lessons_taken`.`lesson_id` = '$lesson_id'";
-
-                	$result = mysqli_query($conn, $sql);
-
-                }
-                	
-                $_SESSION["alerts_info"] = "Please click complete to complete the lesson";
-
-                }else{
-
-				$sql = "INSERT INTO `lessons_taken` (`lessontaken_id`, `lesson_id`, `lesson_time`, `user_id`, `status`) VALUES (NULL, '$lesson_id', NOW(), '$user_id', 'incomplete');";
-
-				$result = mysqli_query($conn, $sql);
-			}
-
 }else{
 
   header("Location: index.php");
@@ -81,12 +51,12 @@ if(isset($_GET["lid"])){
 die();
 
 }
+
 
 
 if(isset($_GET["tid"])){
 
-	$topic_id = $_GET["tid"];
-
+		$topic_id = $_GET["tid"];
 }else{
 
   header("Location: index.php");
@@ -95,47 +65,82 @@ die();
 
 }
 
-?>
 
-<?php require 'header.php'; ?>
+
+if(isset($_POST["gotolesson"])){
+
+include 'include/connection.php';
+
+	$sql1 = "SELECT * FROM lessons_taken WHERE lesson_id = '$lesson_id' AND user_id = '$user_id' AND status = 'incomplete'";
+
+         $result1 = mysqli_query($conn, $sql1);
+                //if no records exist
+                if(mysqli_num_rows($result1) > 0){
+
+
+                }else{
+
+        $time = date("Y-m-d h:i:s", time());
+
+		$sql3 = "INSERT INTO `lessons_taken` (`lessontaken_id`, `lesson_id`, `topic_id`, `lesson_time`, `user_id`) VALUES (NULL, '$lesson_id' ,'$topic_id', '$time' , '$user_id')";
+
+		$result3 = mysqli_query($conn, $sql3);
+
+                }
+
+}
+
+ require 'header.php'; ?>
+
 <link rel="stylesheet" type="text/css" href="plugins/video_player/src/css/mkhplayer.default.css"/>
 
 
-
 <?php
-
-//delete the lesson enroll after completion
 
 if (isset($_POST["completed"])) {
 
 include 'include/connection.php';
 
-		$sql = "UPDATE `lessons_taken` SET `status` = 'complete' WHERE `lessons_taken`.`lesson_id` = '$lesson_id'";
+//search for last saved 
+	$querysql = "SELECT * FROM lessons_taken WHERE lesson_id = '$lesson_id' AND user_id = '$user_id'";
 
-		$result = mysqli_query($conn, $sql);
+         $results = mysqli_query( $conn, $querysql );
+                //if no records exist
+                if(mysqli_num_rows($results) > 0){
 
-echo $sql;
-}
+                	while($row = mysqli_fetch_assoc($results)) {
 
-//save the notes to the database
+                		$lessontaken_id = $row["lessontaken_id"];
+                		$status = $row["status"];
+                	}
 
-if (isset($_POST["savenotes"])) {
+               if($status == "incomplete"){
 
-	 $savednotes = $_POST["commentBox"];
+               	$time = date("Y-m-d h:i:s", time());
+
+				$sql = "UPDATE `lessons_taken` SET `status` = 'complete', `time_end` = '$time' WHERE `lessons_taken`.`lesson_id` = '$lesson_id' AND user_id = '$user_id';";
+
+					$update = mysqli_query($conn, $sql);
+
+				header("Location: lessoncompleted.php");
+
+				exit();
+
+					}else{
+
+						$sql3 = "INSERT INTO `lessons_taken` (`lessontaken_id`, `lesson_id`, `user_id`, `status`) VALUES (NULL, '$lesson_id', '$user_id', 'incomplete');";
+
+						$result3 = mysqli_query($conn, $sql3);
+
+						$_SESSION["alerts_success"] =  "The lesson is completed successfuly";
+
+					}
+		}
+
+	}
 
 
 include 'include/connection.php';
-
-		$sql = "";
-
-		$result = mysqli_query($conn, $sql);
-
-		
-}
-
-include 'include/connection.php';
-
-$lesson_id = 41;
 
 $sql = "SELECT * FROM lessons WHERE lessons.lesson_id = $lesson_id";
 $result = mysqli_query($conn, $sql);
@@ -151,6 +156,7 @@ if (mysqli_num_rows($result) > 0) {
          $lesson_details = $row["lesson_details"];
          $link = "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id";
          $page = "sample.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&&lid=$lesson_id";
+         $downloadlink = "download.php?tid=$topic_id&lid=$lesson_id";
 }
 
 } else {
@@ -164,17 +170,59 @@ if (mysqli_num_rows($result) > 0) {
 	<h1 class="text-center pt-5 text-light"> <?php echo $lesson_name; ?> </h1>
 </div>
 
-<div class="row m-0 p-5">
-	<div class="col-md-7 border">
+<div class="text-center">
+<div class="container bg-light py-5">
+
 		<div class="text-center h2"><?php echo $lesson_type; ?></div>
-<div class="container">
-	<div class="text-justify">
+
+	<div class="text-justify py-3">
 		<?php echo $lesson_details; ?>
 	</div>
-		<audio id="music3" preload="metadata">
+
+<div class="card p-5" style="background-image: url(images/ma.jpg);">
+
+
+<div class="col-md-6 offset-md-3">
+		<audio id="music3" preload="metadata" >
 			<source src="<?php echo $lesson_source; ?>">
 		</audio>
+
+<div class="card-footer">
+
+<?php
+
+ require("mp3file.class.php");
+
+$mp3file = new MP3File($lesson_source);//http://www.npr.org/rss/podcast.php?id=510282
+$duration1 = $mp3file->getDurationEstimate();//(faster) for CBR only
+$duration2 = $mp3file->getDuration();//(slower) for VBR (or CBR)
+echo "This audio duration is $duration1 seconds"."\n";
+?>
+</div>
+</div>	
+</div>
+
+
+
+	<div class="row p-3">
+
+ 	<a href="<?php echo $link ?>" class="mr-2"><button class="btn btn-danger">Exit</button></a>
+
+ 	<form action="<?php echo $page ?>" method="post">
+
+ 	<div class="float-right">	
+ 	<button type="submit" name="completed" class="btn btn-success">Complete</button>
+
+ 	<a class="btn btn-warning" href="<?php echo $downloadlink; ?>">Download <i class="fas fa-download"></i></a>
+ 	</div>
+</div>
+
+
+</form>
+</div>
+</div>
 	
+
   <script src="https://code.jquery.com/jquery-3.2.0.slim.min.js"></script>
   <script type="text/javascript" src="plugins/video_player/src/js/jquery.mkhplayer.js"></script>
   <script type="text/javascript">
@@ -183,26 +231,5 @@ if (mysqli_num_rows($result) > 0) {
 				$('video').mkhPlayer();
 			});
 		</script>
-</div>
-
-
-<div class="pt-5 row">
- 	<a href="<?php echo $link ?>" class="mr-2"><button class="btn btn-danger">Back</button></a>
-	<form action="<?php echo $page ?>" method="post">
- 	<input type="submit" value="Complete" name="completed" class="btn btn-success"></div>
-	</form>
-</div>
-
-<form action="<?php echo $page ?>" method="post">
-<div class="col-md-5 border">
-			<div class="text-center h2">Notes <input type="submit" class="btn btn-secondary btn-sm" name="savenotes" value="save"></div>
-			<div class="form-group">
-				<textarea class="form-control bg-light" id="commentBox" name="commentBox" value="<?php echo $notes ?>" rows="20"></textarea>
-				<p class="text-success" id="status" ></p>
-			</div>
-		<div class="form-status-holder"></div>
-	</div>
-</div>
-</form>
 
 <?php require 'footer.php'; ?>

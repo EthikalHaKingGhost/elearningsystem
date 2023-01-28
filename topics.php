@@ -35,6 +35,7 @@ if(isset($_GET["eid"])){
     exit();
 }
 
+$page_title = "Topics";
 
 include 'header.php'; ?>
 
@@ -45,31 +46,38 @@ include 'header.php'; ?>
 
 include 'include/connection.php';
 
- $sql = "SELECT * FROM courses, topics, topics_assigned WHERE courses.course_id = topics_assigned.course_id AND topics.topic_id = topics_assigned.topic_id AND courses.course_id = '$course_id'";
+ $sqlcourse = "SELECT * FROM courses WHERE course_id = '$course_id'";
 
-        $result = mysqli_query($conn, $sql);
-        
-        if (mysqli_num_rows($result) > 0) {
-            // output data of each row
-            while($row = mysqli_fetch_assoc($result)) {
+        $results = mysqli_query($conn, $sqlcourse);
 
-            $course_title = $row["course_title"];
+        $row = mysqli_fetch_assoc($results);
 
-    }
-}
+            $coursetitle = $row["course_title"];
 
 ?>
 
-<div class="container p-3 my-3">
+<div class="container-fluid my-3">
 <form action="<?php echo $page; ?>" method="post">
-<div class="row p-2 bg-dark text-white"><h1><?php echo $course_title. " Topics"; ?></h1></div>     
-<div class="row bg-light p-3">
+<div class="display-4 text-center pb-3"><?php echo "[" .$coursetitle. "] Topics"; ?></div>    
+<div class="container p-5">
+
+<table class="table table-bordered font-italic">
+<thead>
+    <tr>
+        <th class="w-25">Topic</th>
+        <th class="w-50">Description</th>
+        <th class="w-25 text-center">Action</th>
+    </tr>
+</thead>
+<tbody>
      <?php include 'include/connection.php'; 
 
-   $sql = "SELECT * FROM topics_assigned, courses, topics
+   $sql = "SELECT * FROM enrollment, topics_assigned, courses, topics
                                      WHERE topics_assigned.course_id = courses.course_id
                                      AND topics_assigned.topic_id =topics.topic_id
-                                     AND topics_assigned.course_id = $course_id";
+                                     AND enrollment.course_id = courses.course_id
+                                     AND topics_assigned.course_id = $course_id
+                                     AND enrollment.user_id = $user_id";
 
                 $result = mysqli_query($conn, $sql);
 
@@ -79,7 +87,7 @@ include 'include/connection.php';
                             
                             $topic_id = $row["topic_id"];
                             $topic_title = $row["topic_title"];
-                            $link= "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id";
+                            $link = "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id";
                             $topic_description = $row["topic_description"];
 
                             $max = 150; // or 200, or whatever
@@ -97,32 +105,27 @@ include 'include/connection.php';
                             ?>
                        
                     
-                            <div class="col-md-12" style="padding: 0px 200px 0px 200px;">
-                                <a href="<?php echo $link ?>" class="text-decoration-none btn btn-block btn-outline-dark my-1">
-                                <div class="card-content">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4 my-auto">
-                                        <h5><?php echo $topic_title?></h5>
-                                        </div>
-                                        <div class="col-md-8 text-left border-left">
-                                        <em><?php echo $description ?></em> 
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
+                           <tr>
+                               <td class="font-weight-bold h5"><?php echo $topic_title ?></td>
+                               <td><?php echo $description ?></td>
+                               <td class="text-center">
+                                <a href="<?php echo  $link ?>"><button type="button" class="btn btn-success">
+                                   View
+                                </button></a>
+                               </td>
+                           </tr>
 
                             <?php
                 
                                 }
                             } else {
-                               echo "No courses Available please return to courses page <a href='courses.php'> Courses Page</a>";
+
+                               echo "<h4> No courses Available please return to courses page  <a href='courses.php'>  Courses Page </a></h4>";
                             }
-                                
-    
+                            
                             ?>
+</tbody>
+</table>
  </div>
  </form>
  </div>

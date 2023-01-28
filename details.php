@@ -9,7 +9,6 @@ if (isset($_SESSION["user_id"]))
 
     $userid = $_SESSION["user_id"];
     $user = $_SESSION["username"];
-
 }
 else
 {
@@ -19,9 +18,12 @@ else
     exit();
 }
 
+
+
 if (isset($_GET["eid"]))
 {
     $enroll_id = $_GET["eid"];
+
 }
 else
 {
@@ -30,6 +32,8 @@ else
 
     exit();
 }
+
+
 
 if (isset($_GET["cid"]))
 {
@@ -48,16 +52,19 @@ if (isset($_GET["tid"]))
 
 {
     $topic_id = $_GET["tid"];
+
+    $link = "details.php?eid=$enroll_id&cid=$course_id&tid=$topic_id";
+
 }
-
 else
-
 {
 
     $_SESSION["alerts_info"] = "No topics selected, enroll id missing";
 
     exit();
 }
+
+
 
 include 'include/connection.php';
 
@@ -78,6 +85,7 @@ if (mysqli_num_rows($result) > 0)
 
     }
 }
+$page_title = "Topic Details";
 
 include 'header.php'; ?>
 
@@ -128,6 +136,32 @@ include 'header.php'; ?>
 
 </style>
 
+
+<?php
+include 'include/connection.php';
+ $lesson = "SELECT lesson_id FROM lessons WHERE topic_id = '$topic_id'";
+   if ($result = mysqli_query($conn, $lesson)) {
+      // Return the number of rows in result set
+      $lessoncount = mysqli_num_rows($result);
+      mysqli_free_result($result);
+  }
+
+ $quiz = "SELECT quiz_id FROM quizzes WHERE topic_id = '$topic_id' ";
+   if ($result = mysqli_query($conn, $quiz)) {
+      // Return the number of rows in result set
+      $quizcount = mysqli_num_rows($result);
+      mysqli_free_result($result);
+  }
+
+   $asm = "SELECT assignment_id FROM assignments WHERE topic_id = '$topic_id'";
+   if ($result = mysqli_query($conn, $asm)) {
+      // Return the number of rows in result set
+      $asmcount = mysqli_num_rows($result);
+      mysqli_free_result($result);
+  }
+
+  ?> 
+
 <!--https://bootstrapious.com/p/bootstrap-vertical-tabs--->
 
 <section class="py-5 header">
@@ -138,7 +172,8 @@ include 'header.php'; ?>
                 <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link mb-3 p-3 shadow active" id="v-pills-lesson-tab" data-toggle="pill" href="#v-pills-lesson" role="tab" aria-controls="v-pills-lesson" aria-selected="true">
                         <i class="fas fa-file-video mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase" onclick="">Lessons</span></a>
+                        <span class="font-weight-bold small text-uppercase" onclick="">Lessons <span class="badge badge-warning p-1"><?php echo $lessoncount; ?></span>  
+                        </span></a>
 
                     <a class="nav-link mb-3 p-3 shadow" id="v-pills-library-tab" data-toggle="pill" href="#v-pills-library" role="tab" aria-controls="v-pills-library" aria-selected="false">
                         <i class="fas fa-book mr-2"></i>
@@ -146,32 +181,35 @@ include 'header.php'; ?>
 
                     <a class="nav-link mb-3 p-3 shadow" id="v-pills-quizzes-tab" data-toggle="pill" href="#v-pills-quizzes" role="tab" aria-controls="v-pills-quizzes" aria-selected="false">
                         <i class="fas fa-question-circle mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Quizzes</span></a>
+                        <span class="font-weight-bold small text-uppercase">Quizzes <span class="badge badge-warning p-1"><?php echo $quizcount; ?></span> </span></a>
 
 
-             <?php include 'include/connection.php';
+<?php 
 
-$sql = "SELECT * FROM assignments WHERE topic_id = '$topic_id'";
+include 'include/connection.php';
+
+$sql = "SELECT * FROM assignments WHERE topic_id = '$topic_id' AND course_id = $course_id";
+
 $queryresult = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($queryresult) > 0)
 {
 
 ?>
-                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-assignments-tab" data-toggle="pill" href="#v-pills-assignments" role="tab" aria-controls="v-pills-assignments" aria-selected="false">
-                        <i class="fas fa-pencil-ruler mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Assignments</span></a>
+    <a class="nav-link mb-3 p-3 shadow" id="v-pills-assignments-tab" data-toggle="pill" href="#v-pills-assignments" role="tab" aria-controls="v-pills-assignments" aria-selected="false">
+        <i class="fas fa-pencil-ruler mr-2"></i>
+    <span class="font-weight-bold small text-uppercase">Assignments</span></a>
 
-              <?php
+<?php
 }
 ?>
-                    </div>
-            </div>
+</div>
+</div>
 
 
-            <div class="col-md-9">
-                <!-- Tabs content -->
-                <div class="tab-content" id="v-pills-tabContent">
+<div class="col-md-9">
+    <!-- Tabs content -->
+    <div class="tab-content" id="v-pills-tabContent">
                     
 <div class="tab-pane fade shadow rounded bg-white show active p-2" id="v-pills-lesson" role="tabpanel" aria-labelledby="v-pills-lesson-tab">
       <h4 class="font-italic mb-4 text-center">Lessons and Tutorials</h4>
@@ -179,19 +217,23 @@ if (mysqli_num_rows($queryresult) > 0)
 
 <input class="form-control border-0" type="text" id="myInput" placeholder="Search for lesson..."> 
   <div class="table-responsive">
-<table class="table">
+<table class="table text-center small">
   <thead class="thead-light">
     <tr>
-      <th class="text-center">ID</th>
-      <th class="text-center">Lesson</th>
-      <th class="text-center">Lesson Type</th>
-      <th class="text-center">File Size</th>
-      <th class="text-center">Action</th>
+      <th>ID</th>
+      <th>Lesson</th>
+      <th>Lesson Type</th>
+      <th>File Size</th>
+      <th>Duration</th>
+      <th>Action</th>
+      <th>Completed</th>
     </tr>
   </thead>
 <tbody id="myTable">
 
- <?php
+<?php
+
+
 include 'include/connection.php';
 
 $sql = "SELECT * FROM lessons WHERE lessons.topic_id = $topic_id";
@@ -204,13 +246,15 @@ if (mysqli_num_rows($result) > 0)
     while ($row = mysqli_fetch_assoc($result))
     {
         $lesson_id = $row["lesson_id"];
+        $duration = $row["duration"];
+        $downloads = $row["downloads"];
         $bytes = $row['file_size'];
         $lesson_name = $row["lesson_name"];
         $lesson_type = $row["lesson_type"];
         $lesson_source = $row["lesson_source"];
-        $link = "lessons.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&lid=$lesson_id";
-        $content = $row["content"];
-        $buttonlabel = "";
+        $contenttype = $row["content"];
+        $lessonlink = "download.php?tid=$topic_id&lid=$lesson_id#v-pills-lesson";
+        $lessonweb= "sample.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&lid=$lesson_id";
 
         //change file size name according to size, Snippet from PHP Share: http://www.phpshare.org
         if ($bytes >= 1073741824)
@@ -238,38 +282,92 @@ if (mysqli_num_rows($result) > 0)
             $bytes = '0 bytes';
         }
 
-        if ($content == "download")
-        {
+$times = $duration;
+$seconds = strtotime("1970-01-01 $times UTC");
 
-            $download = '<a href="' . $link . '"><img src="images/download.png" height="30" width="90"></a>';
+$time = $seconds; // time duration in seconds
 
-        }
-        elseif ($content == "webbased")
-        {
+if($time < 60 ){
 
-            $download = '<a class="btn btn-success" href="' . $link . '">Launch</a>';
+      $check = round($time);
+        $newduration = $check . " second(s)";
 
-        }
-        elseif ($content == "both")
-        {
+    }elseif($time < 3600){
+        //posted within one hour
+        $check = round($time/60);
+        $newduration = $check . " minute(s)";
+    }
+    elseif($time < 86400){
+        //posted within one day
+         $check = round($time/3600);
+        $newduration = $check . " hour(s)";
+    }                                
+                            
+?>
 
-            $download = '<a class="btn btn-success" href="' . $link . '">Launch</a>';
+    <tr> 
+      <td ><?php echo $lesson_id ?></td>
+      <td><?php echo $lesson_name; ?></td>
+      <td ><?php echo $lesson_type; ?></td>
+      <td ><?php echo $bytes; ?></td>
+      <td><?php echo $newduration; ?></td>
 
+      <?php
+
+       if ($contenttype == "download"){
+      ?>
+
+      <form action="<?php echo $lessonlink; ?>" id="submitform" method="post">
+        <input type="hidden" name="idforlesson" value="<?php echo $lesson_id ?>">
+     <td > <button type="submit" name="gotolesson"  class="btn btn-warning btn-sm"><i class="fas fa-download"></i></button></td>
+      </form>
+      
+      <?php
+
+
+        }elseif ($contenttype == "webbased"){
+            
+          ?>
+
+    <form action="<?php echo $lessonweb; ?>" id="submitform" method="post">
+        <input type="hidden" name="idforlesson" value="<?php echo $lesson_id ?>">
+     <td> <button type="submit" name="gotolesson"  class="btn btn-success btn-sm"><i class="fas fa-paper-plane"></i></button></td>
+      </form>
+
+        <?php
+
+        }else{
+
+          echo '<td></td>'; 
         }
 
 ?>
 
-<!---begin $time_spent when Launch button is clicked----->
-      <!---default $completion = incomplete ---->
-      <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
-      <!---the completion shows complete after the button completed is clicked in the lesson, if complete button is activated after crtain time..complete is linked to another table---->
+<td>
+  <?php
 
-    <tr> 
-      <td class="text-center"><?php echo $lesson_id ?></td>
-      <td><?php echo $lesson_name; ?></td>
-      <td class="text-center"><?php echo $lesson_type; ?></td>
-      <td class="text-center"><?php echo $bytes; ?></td>
-      <td class="text-center"><?php echo $download; ?></td>   
+  $sql1 = "SELECT * FROM lessons_taken WHERE lessons_taken.lesson_id = $lesson_id AND status = 'complete'";
+
+$result1 = mysqli_query($conn, $sql1);
+
+if (mysqli_num_rows($result1) > 0)
+{
+
+   echo  '<i class="fas fa-check-circle fa-2x text-success"></i>';
+
+}else if( $downloads < 1 && mysqli_num_rows($result1) < 1){
+
+    echo '<i class="fas fa-times-circle fa-2x text-danger"></i>';
+}
+
+ if( $downloads > 0 && mysqli_num_rows($result1) < 1){
+
+    echo  '<i class="fas fa-check-circle fa-2x text-success"></i>';
+}
+
+
+?>
+</td>
     </tr>
  
 <?php
@@ -291,14 +389,14 @@ if (mysqli_num_rows($result) > 0)
 
 <input class="form-control border-0" type="text" id="myInput2" placeholder="Search for Book..."> 
 <div class="table-responsive">
-<table class="table">
+<table class="table text_center small">
   <thead class="thead-light">
     <tr>
-      <th class="text-center">ID</th>
-      <th class="text-center">Book</th>
-      <th class="text-center">Book Details</th>
-      <th class="text-center">File Size</th>
-      <th class="text-center">Action</th>
+      <th >ID</th>
+      <th >Book</th>
+      <th >Book Details</th>
+      <th >File Size</th>
+      <th >Action</th>
     </tr>
   </thead>
 <tbody id="myTable2">
@@ -323,8 +421,9 @@ if (mysqli_num_rows($result) > 0)
         $author = $row["author"];
         $year_publish = $row["year_publish"];
         $access = $row["access"];
-        $link = "";
-        $buttonlabel = "";
+        $booklink = "download.php?tid=$topic_id&bid=$book_id#v-pills-library";
+        $bookweb = "libraryviewer.php?tid=$topic_id&bid=$book_id";
+
 
         //change file size name according to size, Snippet from PHP Share: http://www.phpshare.org
         if ($bytes1 >= 1073741824)
@@ -352,45 +451,42 @@ if (mysqli_num_rows($result) > 0)
             $bytes1 = '0 bytes';
         }
 
-        if ($contenttype = "download")
-        {
+?>
 
-            $download = '<a href="' . $link . '">
-                              <img src="images/download.png" height="30" width="90">
-                          </a>';
+    <tr> 
+      <td><?php echo $book_id ?></td>
+      <td><?php echo $book_title; ?></td>
+      <td><?php echo $book_details . " (" . $author . ", " . $year_publish . ")" ?></td>
+      <td><?php echo $bytes1; ?></td>
+       
 
-        }
+      <?php
+       if ($contenttype == "download"){
+      ?>
 
-        if ($contenttype = "webbased")
-        {
+      <form action="<?php echo $booklink; ?>" id="submitform" method="post">
+        <input type="hidden" name="idforlesson" value="<?php echo $lesson_id ?>">
+     <td > <button type="submit" name="gotolesson"  class="btn btn-warning btn-sm"><i class="fas fa-download"> </i></button></td>
+      </form>
+      
+      <?php
 
-            $download = '<a class="btn btn-success" href="' . $link . '">Launch</a>';
 
-        }
+        }elseif ($contenttype == "webbased"){
+            
+          ?>
 
-        if ($contenttype = "both")
-        {
+    <form action="<?php echo $bookweb; ?>" id="submitform" method="post">
+        <input type="hidden" name="idforlesson" value="<?php echo $lesson_id ?>">
+     <td> <button type="submit" name="gotolesson"  class="btn btn-success btn-sm"><i class="fas fa-paper-plane"> </i></button></td>
+      </form>
 
-            $download = '<a class="btn btn-dark" href="' . $link . '">View</a>';
+        <?php
 
         }
 
 ?>
 
-
-
-
-<!---begin $time_spent when Launch button is clicked----->
-      <!---default $completion = incomplete ---->
-      <!----if $time_spent = 2000s then $completion = complete, echo complete button ---->
-      <!---the completion shows complete after the button completed is clicked in the lesson, if complete button is activated after crtain time..complete is linked to another table---->
-
-    <tr> 
-      <td class="text-center "><?php echo $book_id ?></td>
-      <td class="w-25"><?php echo $book_title; ?></td>
-      <td class="w-50"><?php echo $book_details . " (" . $author . ", " . $year_publish . ")" ?></td>
-      <td class="text-center w-25"><?php echo $bytes1; ?></td>
-      <td class="text-center"><?php echo $download; ?></td>   
     </tr>
  
 <?php
@@ -412,14 +508,14 @@ if (mysqli_num_rows($result) > 0)
 <div class="font-italic border">
     <input class="form-control border-0" type="text" id="myInput3" placeholder="Search for quiz..."> 
   <div class="table-responsive">
-  <table class="table">
+  <table class="table text-center small">
   <thead class="thead-light">
     <tr>
-      <th class="text-center">Quiz#</th>
-      <th class="text-center w-25">Quiz Title</th>
-      <th class="text-center w-50">Questions</th>
-      <th class="text-center">Attempts</th>
-      <th class="text-center w-25">Action</th>
+      <th >Quiz#</th>
+      <th class="w-25">Quiz Title</th>
+      <th class="w-50">Questions</th>
+      <th>Attempts</th>
+      <th clas="w-25">Action</th>
     </tr>
   </thead>
   <tbody id="myTable3">
@@ -441,17 +537,18 @@ if (mysqli_num_rows($result) > 0)
         $limit = $row["total_attempts"];
         $quiz_title = $row["quiz_title"];
         $total_questions = $row["total_questions"];
-        $link = "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
-        $button = "";
+        $linkstart = "start_quiz.php?eid=$enroll_id&cid=$course_id&tid=$topic_id&qid=$quiz_id";
+        $button3 = "";
+
 
 if ($total_questions > 0) {
 
 ?> 
     <tr>
-      <td class="text-center"><?php echo $quiz_id; ?></td>
-      <td class="text-center"><?php echo $quiz_title; ?></td>
-      <td class="text-center"><?php echo $total_questions; ?></td>
-       <td class="text-center">
+      <td><?php echo $quiz_id; ?></td>
+      <td><?php echo $quiz_title; ?></td>
+      <td><?php echo $total_questions; ?></td>
+       <td >
         <?php
 
         $count = "SELECT * FROM quizzes_attempted WHERE user_id = '$userid' AND quiz_id= '$quiz_id'";
@@ -467,7 +564,7 @@ if ($total_questions > 0) {
             if ($limit == 0)
             {
 
-                $button = "Launch";
+                $button3 = "Launch";
                 $submit = "btn btn-success";
 
                 echo "unlimited";
@@ -477,9 +574,8 @@ if ($total_questions > 0) {
             if ($capture < $limit)
             {
 
-                $button = "Retry";
+                $button3 = "Retry";
                 $submit = "btn btn-info";
-
                 echo $capture . "/" . $limit;
 
             }
@@ -487,28 +583,17 @@ if ($total_questions > 0) {
             elseif ($capture = $limit)
             {
 
-          if (isset($_POST["submitbtn"])){
-              
-              $_SESSION["alerts-danger"] = "You have reached the maximum number of attempts";            }
+              $_SESSION["alerts-danger"] = "You have reached the maximum number of attempts";
 
                 $submit = "btn btn-outline-danger text-dark";
-
-                $button = "N/A";
-
+                $button3 = "X";
                 echo $limit . "/" . $limit;
-
             }
-
         }
-
 ?>
 
          </td>
-
-      <td class="text-center"><input class="<?php echo $submit; ?>" type="submit" name="submitbtn" value="<?php echo "$button"; ?>">
-
-      </td>
-
+      <td ><a href="<?php echo $linkstart ?>" class="<?php echo $submit; ?>" ><?php echo "$button3"; ?></a></td>
     </tr>
 
 <?php
@@ -537,6 +622,7 @@ if ($total_questions > 0) {
 
 </style>
 
+
 <div class="tab-pane fade shadow rounded bg-white p-2" id="v-pills-assignments" role="tabpanel" aria-labelledby="v-pills-assignments-tab">
       <section class=" ">
     <div class="container">
@@ -560,13 +646,14 @@ if ($total_questions > 0) {
 <input class="form-control border-0" id="myInput4" type="text" placeholder="Search for assignment..."> 
 
 <div class="table-responsive">
-<table class="table">
+<table class="table text-center small">
   <thead class="thead-light">
     <tr>
-      <th class="text-center w-25">Assignment</th>
-      <th class="text-center w-50">Description</th>
-      <th class="text-center w-25">File Size</th>
-      <th class="text-center">Action</th>
+      <th class="w-25">Assignment</th>
+      <th class="w-50">Description</th>
+      <th class="w-25">Due Date</th>
+      <th class="w-25">File Size</th>
+      <th>Action</th>
     </tr>
   </thead>
 <tbody id="myTable4">
@@ -588,8 +675,10 @@ if (mysqli_num_rows($result) > 0)
         $assignment_title = $row["assignment_title"];
         $assignment_details = $row["assignment_details"];
         $assignment_path = $row["assignment_path"];
-        $link = "";
-        $buttonlabel = "";
+        $duedate = $row["due_date"];
+        $timestamp = strtotime($duedate);
+        $assignmentlink = "download.php?tid=$topic_id&id=$assignment_id#v-pills-assignments";
+        
 
         //change file size name according to size, Snippet from PHP Share: http://www.phpshare.org
         if ($bytes1 >= 1073741824)
@@ -620,14 +709,16 @@ if (mysqli_num_rows($result) > 0)
 ?>
 
     <tr> 
-      <td class="text-center"><?php echo $assignment_title . "[" . $assignment_id . "]"; ?></td>
-      <td class="w-50"><?php echo $assignment_details; ?>  blah blah blah blah blah blah blah blah blah blah blah blah</td>
+      <td><?php echo $assignment_title . "[" . $assignment_id . "]"; ?></td>
+      <td class="w-50"><?php echo $assignment_details; ?></td>
+      <td><?php echo date('dS M Y, H:i:s a',$timestamp); ?></td>
       <td class="w-25 text-center px-5"><?php echo $bytes1; ?></td>
-      <td class="text-center"><a href="<?php echo "$link"; ?>" class="text-decoration-none">
-    <img src="images/download.png" height="50" width="120"> 
-   </a></td>   
+      <form action="<?php echo $assignmentlink; ?>" id="submitform" method="post">
+      <td> <input type="submit" class="btn btn-warning" name="gotolibrary" value="Download"></td>
+      </form>  
     </tr>
     <?php
+
     }
 
 ?>
@@ -659,7 +750,7 @@ if (mysqli_num_rows($result) == 0)
 
                               
                          <?php
-
+        
 if (isset($_POST["submission"]))
 {
     include 'include/connection.php';
@@ -714,7 +805,7 @@ if (isset($_POST["submission"]))
 ?>
 
   <div class="font-italic text-muted">
-        <form method="post" action="details.php?eid=<?php echo $enroll_id; ?>&cid=<?php echo $course_id; ?>&tid=<?php echo $topic_id ?>#!tab0=5" enctype="multipart/form-data">
+        <form method="post" id="submitform" action="details.php?eid=<?php echo $enroll_id; ?>&cid=<?php echo $course_id; ?>&tid=<?php echo $topic_id ?>" enctype="multipart/form-data">
 
 <div class="row pl-4 pr-4 text-justify">
         <div class="col-md-3 pr-0 mt-2">
@@ -777,7 +868,7 @@ else
 
   <div class="row pl-4 pr-4 text-justify">
         <div class="col-md-3 pr-0 mt-2">
-           <strong>Comments:</strong>
+           <strong>Notes:</strong>
         </div>
         <div class="col-md-9 mb-4">
           <div id="trumbowyg" name="trumbowyg" class="trumbowyg bg-white" required></div>   
@@ -796,8 +887,8 @@ else
              </p>         
                   </div>
                   <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
-                       <div class="pt-3"></div>
-                        <p>
+                  <div class="pt-3"></div>
+            <p>
 
     <div id="accordion">
   <div class="card">
@@ -813,7 +904,7 @@ else
 
 $score="";
 
-$sqlstmt = "SELECT * FROM assignments, submission WHERE assignments.assignment_id = submission.assignment_id AND submission.topic_id = '$topic_id' AND submission.user_id = '$userid'";
+$sqlstmt = "SELECT * FROM assignments, submission WHERE assignments.assignment_id = submission.assignment_id AND submission.topic_id = '$topic_id' AND submission.user_id = '$userid' AND assignments.course_id = $course_id";
 
 $resultqry = mysqli_query($conn, $sqlstmt);
 
@@ -843,15 +934,15 @@ if (mysqli_num_rows($resultqry) > 0)
     <div id="collapseOne" class="collapse show border border-bottom" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body m-0 p-1">
        <div class="row p-0">
-         <div class="col-md-3">
+         <div class="col-md-4">
           <div class="h6"><?php echo $assignment ?></div>
          </div>
-         <div class="col-md-2 h6">Submited
+         <div class="col-md-4 h6">Submited
            <div class="figure-caption">
             <?php echo $subdate ?>
             </div>
          </div>
-         <div class="col-md-1 h6">Total
+         <div class="col-md-4 h6">Total
            <div class="figure-caption"><?php 
 
            if ($total !== "empty"){
@@ -864,9 +955,6 @@ if (mysqli_num_rows($resultqry) > 0)
           }
             
             ?></div>        
-         </div>
-         <div class="col-md-6 h6">Comment
-         <div class="figure-caption text-center"><?php echo $comments ?></div> 
          </div>
        </div>
       </div>
@@ -963,5 +1051,7 @@ $(document).ready(function(){
     });
   });
 });
+
+           
 
 </script>

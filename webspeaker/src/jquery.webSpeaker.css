@@ -1,0 +1,11 @@
+
+.webSpeaker-button {
+  padding: 5px 5px 5px 5px;
+  font-size: 20px;
+  border: 0;
+  background: white;
+  margin-left: 5px;
+}
+
+.webSpeaker-button:hover { 
+box-shadow: 0px 0px 1px 1px blue; }

@@ -10,10 +10,24 @@ session_start();
 
 }
 
+if (isset($_GET["unregister"])) {
+    
+    $id = $_GET["unregister"];
+
+    include ('include/connection.php');
+
+    $unreg = " DELETE FROM `enrollment` WHERE `enrollment`.`course_id` = '$id' AND  `enrollment`.`user_id` = '$user_id'";
+
+   if (mysqli_query($conn, $unreg)) {
+        
+        $_SESSION["alerts_info"] = "You have unregistered from course ID: $id All work completed will be saved incase you change your mind, Thank you for choosing us.";
+
+    }
+
+}
+
 
 $page_title = "Courses";
-
- print_r($_SESSION);  
 
 
 include 'header.php'; ?>
@@ -35,29 +49,6 @@ include 'header.php'; ?>
 <div class="row text-center">
 
 <?php
-
-
-if (isset($_POST["delete_course"])) {
-    
-    $delete_id = $_POST["delete_course"];
-
-    $sql = "DELETE FROM `courses` WHERE course_id = $delete_id";
-
-    $sql ="DELETE FROM `enrollment` WHERE course_id = $delete_id";
-
-   $sql = "DELETE FROM `topics_assigned` WHERE course_id = $delete_id";
-
-        if (mysqli_query($conn, $sql)) {
-          echo "Record deleted successfully";
-
-        } else {
-          echo "Error deleting record: " . mysqli_error($conn);
-        }
-
-        echo $sql;
-   
-        }
-
 
 include 'include/connection.php'; 
 
@@ -94,33 +85,11 @@ include 'include/connection.php';
         <div class="bg-shadow bg-light">
         <div class="card border-0">
         <img class="card-img-top rounded-0" src="<?php echo "$course_img"; ?>" alt="Card image cap" style="width:auto; height:250px;">
-<?php
-
-if (isset($_SESSION["user"])) {
-
-        if($_SESSION["user"] == "Admin"){
-
-            ?>
         <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
-        <form action="courses.php" method="post">
-        <button class="p-2 btn btn-danger" type="submit" name="delete_course" value="<?php echo $course_id; ?>">remove <i class="fas fa-trash"></i></button> 
-        </form>
-
-        </div> 
-       
-            <?php
-
-                }else{
-
-
-
-                }
-
-        }
-  ?>      
+          <div class="font-weight-bold text-uppercase bg-shadow text-light h5 bg-secondary p-2 "><?php echo $course_title; ?></div>
         </div>
+
           <div class="card-body">
-            <div><?php echo $course_title; ?></div>
             <p class="card-text text-justify">
                 <?php echo $description; ?>
                 </p>
@@ -137,24 +106,28 @@ if (isset($_SESSION["user"])) {
 
             ?>
 
-            <a href="<?php echo $link; ?>" class="btn btn-primary btn-block">Continue...</a>
+            <a href="<?php echo $link; ?>" title="click to go to details page" class="btn btn-primary">Continue...</a>
+            <a href="courses.php?unregister=<?php echo $row["course_id"]; ?>" title="click to unregister from course" class="text-secondary pl-2 small">unregister</a>
 
             <?php
 
         }else{
-?>
-            <a href="<?php echo $link; ?>" class="btn btn-success btn-block">Enroll</a>
-<?php
+
+            ?>
+            <a href="<?php echo $link; ?>" class="btn btn-success btn-block">Register</a>
+             <?php
+             
         }
 
         }else{
 
-          echo  '<a href="register.php?info=login" class="btn btn-success btn-block">Enroll</a>';    
+          echo  '<a href="register.php?info=login" class="btn btn-success btn-block">Login to Register</a>';    
         }
             ?>
           </div>
         </div>
         </div>
+    </div>
        
         <?php 
 
@@ -169,7 +142,7 @@ if (isset($_SESSION["user"])) {
     ?>
   </div>
  </div>
-
+</div>
 <?php include 'footer.php'; ?>
 
 

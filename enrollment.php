@@ -75,6 +75,7 @@ session_start();
             }
 
 
+$page_title = "Enrollment";
 
 include 'header.php'; ?>
 
@@ -84,12 +85,8 @@ include 'header.php'; ?>
 </div>
 
 
-<div class="container p-3 my-3 bg-light">
-    <div class="card-header pb-3"><h1>Enrollment</h1></div>
-  
-<form action="<?php echo $page; ?>" method="post">
-
-     <?php include 'include/connection.php'; 
+     <?php 
+include 'include/connection.php'; 
 
                 $sql = "SELECT * FROM courses WHERE course_id = $course_id";
                 $result = mysqli_query($conn, $sql);
@@ -100,22 +97,70 @@ include 'header.php'; ?>
                             //enoll id from database
                          
                             $course_title =$row["course_title"];
-                
-    
+
                        }
                    }
 
-              ?>
+
+
+         $sql = "SELECT * FROM enrollment WHERE user_id = '$user_id' AND completion = 'incomplete'";
+
+                $result = mysqli_query($conn, $sql);
+
+                if($result){
+
+                if (mysqli_num_rows($result) == 2) {
+
+
+                            ?>
+
+                    <div class="container p-3 my-3 bg-light">
+
+                    <div class="card">
+                        <div class="card-header pb-3 text-center">
+                          <h1>Enrollment</h1>
+                        </div>
+                        
+                    <h3 class="p-5">You are only allowed to ebroll in two courses at a time, please complete any outstanding courses to continue.</h3>
+
+                    <div class="text-center p-3">
+                       <a class="btn btn-primary" title="go back to course page" href="courses.php">Go Back</a>
+                    </div>
+                    </div>
+              </div>  
+                        
+                      <?php
+
+
+                        }else{
+
+                          ?>
+
+<div class="container p-3 my-3 bg-light">
+    <div class="card-header text-center"><h1>Enrollment</h1></div>
+  
+<form action="<?php echo $page; ?>" method="post">
     
-<h3 class="pb-5">Thank you for choosing our <b><?php echo $course_title; ?></b> Course please Click next to enroll into this course</h3>
+<h3 class="p-5">Thank you for choosing our <b><?php echo $course_title; ?></b> Course please Click next to enroll into this course</h3>
 
-<a class="btn btn-danger btn-lg" href="courses.php">Cancel</a>
+<div class="p-3">
 
-<input class= "btn btn-success btn-lg" type=submit value="Next" name="enroll">
+<a class="btn btn-danger" href="courses.php">Cancel</a>
 
+<input class= "btn btn-success" type=submit value="Next" name="enroll">
+
+</div>
 </form>
 
 </div>
+
+<?php
+
+    }
+
+  }
+
+?>
 
 
 
